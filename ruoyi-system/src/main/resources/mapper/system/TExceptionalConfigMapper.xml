@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TExceptionalConfigMapper">
+    
+    <resultMap type="TExceptionalConfig" id="TExceptionalConfigResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="bookCurrency"    column="book_currency"    />
+        <result property="exceptionalImg"    column="exceptional_img"    />
+    </resultMap>
+
+    <sql id="selectTExceptionalConfigVo">
+        select id, create_time, update_time, book_currency, exceptional_img from t_exceptional_config
+    </sql>
+
+    <select id="selectTExceptionalConfigList" parameterType="TExceptionalConfig" resultMap="TExceptionalConfigResult">
+        <include refid="selectTExceptionalConfigVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectTExceptionalConfigById" parameterType="Long" resultMap="TExceptionalConfigResult">
+        <include refid="selectTExceptionalConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTExceptionalConfig" parameterType="TExceptionalConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into t_exceptional_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="bookCurrency != null  and bookCurrency != ''">book_currency,</if>
+            <if test="exceptionalImg != null  and exceptionalImg != ''">exceptional_img,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="bookCurrency != null  and bookCurrency != ''">#{bookCurrency},</if>
+            <if test="exceptionalImg != null  and exceptionalImg != ''">#{exceptionalImg},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTExceptionalConfig" parameterType="TExceptionalConfig">
+        update t_exceptional_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="bookCurrency != null  and bookCurrency != ''">book_currency = #{bookCurrency},</if>
+            <if test="exceptionalImg != null  and exceptionalImg != ''">exceptional_img = #{exceptionalImg},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTExceptionalConfigById" parameterType="Long">
+        delete from t_exceptional_config where id = #{id}
+    </delete>
+
+    <delete id="deleteTExceptionalConfigByIds" parameterType="String">
+        delete from t_exceptional_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

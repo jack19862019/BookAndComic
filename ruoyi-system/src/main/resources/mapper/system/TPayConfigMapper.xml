@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TPayConfigMapper">
+    
+    <resultMap type="TPayConfig" id="TPayConfigResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="companyKey"    column="company_key"    />
+        <result property="companyNo"    column="company_no"    />
+        <result property="payCompanyName"    column="pay_company_name"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectTPayConfigVo">
+        select id, create_time, update_time, company_key, company_no, pay_company_name, status from t_pay_config
+    </sql>
+
+    <select id="selectTPayConfigList" parameterType="TPayConfig" resultMap="TPayConfigResult">
+        <include refid="selectTPayConfigVo"/>
+        <where>  
+            <if test="companyKey != null  and companyKey != ''"> and company_key = #{companyKey}</if>
+            <if test="companyNo != null  and companyNo != ''"> and company_no = #{companyNo}</if>
+            <if test="payCompanyName != null  and payCompanyName != ''"> and pay_company_name like concat('%', #{payCompanyName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTPayConfigById" parameterType="Long" resultMap="TPayConfigResult">
+        <include refid="selectTPayConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTPayConfig" parameterType="TPayConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into t_pay_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="companyKey != null  and companyKey != ''">company_key,</if>
+            <if test="companyNo != null  and companyNo != ''">company_no,</if>
+            <if test="payCompanyName != null  and payCompanyName != ''">pay_company_name,</if>
+            <if test="status != null ">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="companyKey != null  and companyKey != ''">#{companyKey},</if>
+            <if test="companyNo != null  and companyNo != ''">#{companyNo},</if>
+            <if test="payCompanyName != null  and payCompanyName != ''">#{payCompanyName},</if>
+            <if test="status != null ">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTPayConfig" parameterType="TPayConfig">
+        update t_pay_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="companyKey != null  and companyKey != ''">company_key = #{companyKey},</if>
+            <if test="companyNo != null  and companyNo != ''">company_no = #{companyNo},</if>
+            <if test="payCompanyName != null  and payCompanyName != ''">pay_company_name = #{payCompanyName},</if>
+            <if test="status != null ">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTPayConfigById" parameterType="Long">
+        delete from t_pay_config where id = #{id}
+    </delete>
+
+    <delete id="deleteTPayConfigByIds" parameterType="String">
+        delete from t_pay_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

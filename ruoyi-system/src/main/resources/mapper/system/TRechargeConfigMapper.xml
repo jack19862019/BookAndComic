@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TRechargeConfigMapper">
+    
+    <resultMap type="TRechargeConfig" id="TRechargeConfigResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="givingNum"    column="giving_num"    />
+        <result property="rechargeNum"    column="recharge_num"    />
+    </resultMap>
+
+    <sql id="selectTRechargeConfigVo">
+        select id, create_time, update_time, giving_num, recharge_num from t_recharge_config
+    </sql>
+
+    <select id="selectTRechargeConfigList" parameterType="TRechargeConfig" resultMap="TRechargeConfigResult">
+        <include refid="selectTRechargeConfigVo"/>
+        <where>  
+            <if test="givingNum != null "> and giving_num = #{givingNum}</if>
+            <if test="rechargeNum != null "> and recharge_num = #{rechargeNum}</if>
+        </where>
+    </select>
+    
+    <select id="selectTRechargeConfigById" parameterType="Long" resultMap="TRechargeConfigResult">
+        <include refid="selectTRechargeConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTRechargeConfig" parameterType="TRechargeConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into t_recharge_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="givingNum != null ">giving_num,</if>
+            <if test="rechargeNum != null ">recharge_num,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="givingNum != null ">#{givingNum},</if>
+            <if test="rechargeNum != null ">#{rechargeNum},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRechargeConfig" parameterType="TRechargeConfig">
+        update t_recharge_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="givingNum != null ">giving_num = #{givingNum},</if>
+            <if test="rechargeNum != null ">recharge_num = #{rechargeNum},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTRechargeConfigById" parameterType="Long">
+        delete from t_recharge_config where id = #{id}
+    </delete>
+
+    <delete id="deleteTRechargeConfigByIds" parameterType="String">
+        delete from t_recharge_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

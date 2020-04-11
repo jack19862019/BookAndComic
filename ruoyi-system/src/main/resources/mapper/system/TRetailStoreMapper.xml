@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TRetailStoreMapper">
+    
+    <resultMap type="TRetailStore" id="TRetailStoreResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="divided"    column="divided"    />
+        <result property="levelOne"    column="level_one"    />
+        <result property="levelOneScale"    column="level_one_scale"    />
+        <result property="levelThree"    column="level_three"    />
+        <result property="levelThreeScale"    column="level_three_scale"    />
+        <result property="levelTwo"    column="level_two"    />
+        <result property="levelTwoScale"    column="level_two_scale"    />
+        <result property="retailStoreName"    column="retail_store_name"    />
+    </resultMap>
+
+    <sql id="selectTRetailStoreVo">
+        select id, create_time, update_time, divided, level_one, level_one_scale, level_three, level_three_scale, level_two, level_two_scale, retail_store_name from t_retail_store
+    </sql>
+
+    <select id="selectTRetailStoreList" parameterType="TRetailStore" resultMap="TRetailStoreResult">
+        <include refid="selectTRetailStoreVo"/>
+        <where>  
+            <if test="divided != null "> and divided = #{divided}</if>
+            <if test="levelOne != null  and levelOne != ''"> and level_one = #{levelOne}</if>
+            <if test="levelOneScale != null "> and level_one_scale = #{levelOneScale}</if>
+            <if test="levelThree != null  and levelThree != ''"> and level_three = #{levelThree}</if>
+            <if test="levelThreeScale != null "> and level_three_scale = #{levelThreeScale}</if>
+            <if test="levelTwo != null  and levelTwo != ''"> and level_two = #{levelTwo}</if>
+            <if test="levelTwoScale != null "> and level_two_scale = #{levelTwoScale}</if>
+            <if test="retailStoreName != null  and retailStoreName != ''"> and retail_store_name like concat('%', #{retailStoreName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTRetailStoreById" parameterType="Long" resultMap="TRetailStoreResult">
+        <include refid="selectTRetailStoreVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTRetailStore" parameterType="TRetailStore" useGeneratedKeys="true" keyProperty="id">
+        insert into t_retail_store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="divided != null ">divided,</if>
+            <if test="levelOne != null  and levelOne != ''">level_one,</if>
+            <if test="levelOneScale != null ">level_one_scale,</if>
+            <if test="levelThree != null  and levelThree != ''">level_three,</if>
+            <if test="levelThreeScale != null ">level_three_scale,</if>
+            <if test="levelTwo != null  and levelTwo != ''">level_two,</if>
+            <if test="levelTwoScale != null ">level_two_scale,</if>
+            <if test="retailStoreName != null  and retailStoreName != ''">retail_store_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="divided != null ">#{divided},</if>
+            <if test="levelOne != null  and levelOne != ''">#{levelOne},</if>
+            <if test="levelOneScale != null ">#{levelOneScale},</if>
+            <if test="levelThree != null  and levelThree != ''">#{levelThree},</if>
+            <if test="levelThreeScale != null ">#{levelThreeScale},</if>
+            <if test="levelTwo != null  and levelTwo != ''">#{levelTwo},</if>
+            <if test="levelTwoScale != null ">#{levelTwoScale},</if>
+            <if test="retailStoreName != null  and retailStoreName != ''">#{retailStoreName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTRetailStore" parameterType="TRetailStore">
+        update t_retail_store
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="divided != null ">divided = #{divided},</if>
+            <if test="levelOne != null  and levelOne != ''">level_one = #{levelOne},</if>
+            <if test="levelOneScale != null ">level_one_scale = #{levelOneScale},</if>
+            <if test="levelThree != null  and levelThree != ''">level_three = #{levelThree},</if>
+            <if test="levelThreeScale != null ">level_three_scale = #{levelThreeScale},</if>
+            <if test="levelTwo != null  and levelTwo != ''">level_two = #{levelTwo},</if>
+            <if test="levelTwoScale != null ">level_two_scale = #{levelTwoScale},</if>
+            <if test="retailStoreName != null  and retailStoreName != ''">retail_store_name = #{retailStoreName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTRetailStoreById" parameterType="Long">
+        delete from t_retail_store where id = #{id}
+    </delete>
+
+    <delete id="deleteTRetailStoreByIds" parameterType="String">
+        delete from t_retail_store where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

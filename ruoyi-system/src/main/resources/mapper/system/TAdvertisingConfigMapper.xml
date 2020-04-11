@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TAdvertisingConfigMapper">
+    
+    <resultMap type="TAdvertisingConfig" id="TAdvertisingConfigResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="advertisingImg"    column="advertising_img"    />
+        <result property="advertisingUrl"    column="advertising_url"    />
+        <result property="bid"    column="bid"    />
+        <result property="isOpen"    column="is_open"    />
+        <result property="showChapter"    column="show_chapter"    />
+        <result property="showMultiple"    column="show_multiple"    />
+    </resultMap>
+
+    <sql id="selectTAdvertisingConfigVo">
+        select id, create_time, update_time, advertising_img, advertising_url, bid, is_open, show_chapter, show_multiple from t_advertising_config
+    </sql>
+
+    <select id="selectTAdvertisingConfigList" parameterType="TAdvertisingConfig" resultMap="TAdvertisingConfigResult">
+        <include refid="selectTAdvertisingConfigVo"/>
+        <where>  
+            <if test="advertisingUrl != null  and advertisingUrl != ''"> and advertising_url = #{advertisingUrl}</if>
+            <if test="bid != null "> and bid = #{bid}</if>
+            <if test="isOpen != null "> and is_open = #{isOpen}</if>
+            <if test="showChapter != null  and showChapter != ''"> and show_chapter = #{showChapter}</if>
+            <if test="showMultiple != null "> and show_multiple = #{showMultiple}</if>
+        </where>
+    </select>
+    
+    <select id="selectTAdvertisingConfigById" parameterType="Long" resultMap="TAdvertisingConfigResult">
+        <include refid="selectTAdvertisingConfigVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTAdvertisingConfig" parameterType="TAdvertisingConfig" useGeneratedKeys="true" keyProperty="id">
+        insert into t_advertising_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="advertisingImg != null  and advertisingImg != ''">advertising_img,</if>
+            <if test="advertisingUrl != null  and advertisingUrl != ''">advertising_url,</if>
+            <if test="bid != null ">bid,</if>
+            <if test="isOpen != null ">is_open,</if>
+            <if test="showChapter != null  and showChapter != ''">show_chapter,</if>
+            <if test="showMultiple != null ">show_multiple,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="advertisingImg != null  and advertisingImg != ''">#{advertisingImg},</if>
+            <if test="advertisingUrl != null  and advertisingUrl != ''">#{advertisingUrl},</if>
+            <if test="bid != null ">#{bid},</if>
+            <if test="isOpen != null ">#{isOpen},</if>
+            <if test="showChapter != null  and showChapter != ''">#{showChapter},</if>
+            <if test="showMultiple != null ">#{showMultiple},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAdvertisingConfig" parameterType="TAdvertisingConfig">
+        update t_advertising_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="advertisingImg != null  and advertisingImg != ''">advertising_img = #{advertisingImg},</if>
+            <if test="advertisingUrl != null  and advertisingUrl != ''">advertising_url = #{advertisingUrl},</if>
+            <if test="bid != null ">bid = #{bid},</if>
+            <if test="isOpen != null ">is_open = #{isOpen},</if>
+            <if test="showChapter != null  and showChapter != ''">show_chapter = #{showChapter},</if>
+            <if test="showMultiple != null ">show_multiple = #{showMultiple},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTAdvertisingConfigById" parameterType="Long">
+        delete from t_advertising_config where id = #{id}
+    </delete>
+
+    <delete id="deleteTAdvertisingConfigByIds" parameterType="String">
+        delete from t_advertising_config where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

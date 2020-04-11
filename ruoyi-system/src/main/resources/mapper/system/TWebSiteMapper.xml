@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.site.mapper.TWebSiteMapper">
+    
+    <resultMap type="TWebSite" id="TWebSiteResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="customerQq"    column="customer_qq"    />
+        <result property="customerWx"    column="customer_wx"    />
+        <result property="dayShareGifts"    column="day_share_gifts"    />
+        <result property="mhDeduct"    column="mh_deduct"    />
+        <result property="platformQrCode"    column="platform_qr_code"    />
+        <result property="proportion"    column="proportion"    />
+        <result property="signToGive"    column="sign_to_give"    />
+        <result property="siteName"    column="site_name"    />
+        <result property="vipYear"    column="vip_year"    />
+        <result property="xsDeduct"    column="xs_deduct"    />
+    </resultMap>
+
+    <sql id="selectTWebSiteVo">
+        select id, create_time, update_time, customer_qq, customer_wx, day_share_gifts, mh_deduct, platform_qr_code, proportion, sign_to_give, site_name, vip_year, xs_deduct from t_web_site
+    </sql>
+
+    <select id="selectTWebSiteList" parameterType="TWebSite" resultMap="TWebSiteResult">
+        <include refid="selectTWebSiteVo"/>
+        <where>  
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="siteName != null  and siteName != ''"> and site_name like concat('%', #{siteName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTWebSiteById" parameterType="Long" resultMap="TWebSiteResult">
+        <include refid="selectTWebSiteVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTWebSite" parameterType="TWebSite" useGeneratedKeys="true" keyProperty="id">
+        insert into t_web_site
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="customerQq != null  and customerQq != ''">customer_qq,</if>
+            <if test="customerWx != null  and customerWx != ''">customer_wx,</if>
+            <if test="dayShareGifts != null ">day_share_gifts,</if>
+            <if test="mhDeduct != null ">mh_deduct,</if>
+            <if test="platformQrCode != null  and platformQrCode != ''">platform_qr_code,</if>
+            <if test="proportion != null ">proportion,</if>
+            <if test="signToGive != null ">sign_to_give,</if>
+            <if test="siteName != null  and siteName != ''">site_name,</if>
+            <if test="vipYear != null ">vip_year,</if>
+            <if test="xsDeduct != null ">xs_deduct,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="customerQq != null  and customerQq != ''">#{customerQq},</if>
+            <if test="customerWx != null  and customerWx != ''">#{customerWx},</if>
+            <if test="dayShareGifts != null ">#{dayShareGifts},</if>
+            <if test="mhDeduct != null ">#{mhDeduct},</if>
+            <if test="platformQrCode != null  and platformQrCode != ''">#{platformQrCode},</if>
+            <if test="proportion != null ">#{proportion},</if>
+            <if test="signToGive != null ">#{signToGive},</if>
+            <if test="siteName != null  and siteName != ''">#{siteName},</if>
+            <if test="vipYear != null ">#{vipYear},</if>
+            <if test="xsDeduct != null ">#{xsDeduct},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTWebSite" parameterType="TWebSite">
+        update t_web_site
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="customerQq != null  and customerQq != ''">customer_qq = #{customerQq},</if>
+            <if test="customerWx != null  and customerWx != ''">customer_wx = #{customerWx},</if>
+            <if test="dayShareGifts != null ">day_share_gifts = #{dayShareGifts},</if>
+            <if test="mhDeduct != null ">mh_deduct = #{mhDeduct},</if>
+            <if test="platformQrCode != null  and platformQrCode != ''">platform_qr_code = #{platformQrCode},</if>
+            <if test="proportion != null ">proportion = #{proportion},</if>
+            <if test="signToGive != null ">sign_to_give = #{signToGive},</if>
+            <if test="siteName != null  and siteName != ''">site_name = #{siteName},</if>
+            <if test="vipYear != null ">vip_year = #{vipYear},</if>
+            <if test="xsDeduct != null ">xs_deduct = #{xsDeduct},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTWebSiteById" parameterType="Long">
+        delete from t_web_site where id = #{id}
+    </delete>
+
+    <delete id="deleteTWebSiteByIds" parameterType="String">
+        delete from t_web_site where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
