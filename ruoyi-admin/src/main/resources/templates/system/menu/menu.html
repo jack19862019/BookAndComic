@@ -27,7 +27,7 @@
 					</div>
 				</form>
 			</div>
-                
+
             <div class="btn-group-sm" id="toolbar" role="group">
 		        <a class="btn btn-success" onclick="$.operate.add(0)" shiro:hasPermission="system:menu:add">
                     <i class="fa fa-plus"></i> 新增
@@ -44,7 +44,7 @@
 	        </div>
 	    </div>
 	</div>
-	
+
 	<th:block th:include="include :: footer" />
 	<script th:inline="javascript">
 		var addFlag = [[${@permission.hasPermi('system:menu:add')}]];
@@ -58,7 +58,7 @@
 		        code: "menuId",
 		        parentCode: "parentId",
 		        uniqueId: "menuId",
-		        expandAll: false,
+		        expandAll: true,
 		        expandFirst: false,
 		        url: prefix + "/list",
 		        createUrl: prefix + "/add/{id}",
@@ -66,7 +66,7 @@
 		        removeUrl: prefix + "/remove/{id}",
 		        modalName: "菜单",
 		        columns: [{
-                    field: 'selectItem', 
+                    field: 'selectItem',
                     radio: true
                  },
                  {
