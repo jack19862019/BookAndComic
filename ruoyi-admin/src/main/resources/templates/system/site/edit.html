@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改站点配置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-site-edit" th:object="${tWebSite}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">站点名称：</label>
+                <div class="col-sm-8">
+                    <input name="siteName" th:field="*{siteName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">客服QQ：</label>
+                <div class="col-sm-8">
+                    <input name="customerQq" th:field="*{customerQq}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">客服微信：</label>
+                <div class="col-sm-8">
+                    <input name="customerWx" th:field="*{customerWx}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">VIP包年价格：</label>
+                <div class="col-sm-8">
+                    <input name="vipYear" th:field="*{vipYear}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">充值比例：</label>
+                <div class="col-sm-8">
+                    <input name="proportion" th:field="*{proportion}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">漫画默认扣除章节费用：</label>
+                <div class="col-sm-8">
+                    <input name="mhDeduct" th:field="*{mhDeduct}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">小说默认扣除章节费用：</label>
+                <div class="col-sm-8">
+                    <input name="xsDeduct" th:field="*{xsDeduct}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">分享赠送：</label>
+                <div class="col-sm-8">
+                    <input name="dayShareGifts" th:field="*{dayShareGifts}" class="form-control" type="text">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">签到送币：</label>
+                <div class="col-sm-8">
+                    <input name="signToGive" th:field="*{signToGive}" class="form-control" type="text">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">平台二维码：</label>
+                <div class="file-loading col-sm-8">
+                    <input class="file" name="platformQrCode" th:field="*{platformQrCode}" type="file" multiple data-min-file-count="1" data-theme="fas">
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "system/site";
+        $("#form-site-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-site-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

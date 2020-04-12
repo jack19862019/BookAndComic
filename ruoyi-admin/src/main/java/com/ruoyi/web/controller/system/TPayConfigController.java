@@ -1,4 +1,4 @@
-package com.ruoyi.web.controller.system.site;
+package com.ruoyi.web.controller.system;
 
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
@@ -23,23 +23,23 @@ import java.util.List;
  * @date 2020-04-11
  */
 @Controller
-@RequestMapping("/pay/config")
+@RequestMapping("/system/tConfig")
 public class TPayConfigController extends BaseController {
-    private String prefix = "pay/config";
+    private String prefix = "system/tConfig";
 
     @Autowired
     private ITPayConfigService tPayConfigService;
 
-    @RequiresPermissions("pay:config:view")
+    @RequiresPermissions("system:tConfig:view")
     @GetMapping()
     public String config() {
-        return prefix + "/config";
+        return prefix + "/tConfig";
     }
 
     /**
      * 查询第三方支付配置列表
      */
-    @RequiresPermissions("pay:config:list")
+    @RequiresPermissions("system:tConfig:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(TPayConfig tPayConfig) {
@@ -51,14 +51,14 @@ public class TPayConfigController extends BaseController {
     /**
      * 导出第三方支付配置列表
      */
-    @RequiresPermissions("pay:config:export")
+    @RequiresPermissions("system:tConfig:export")
     @Log(title = "第三方支付配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(TPayConfig tPayConfig) {
         List<TPayConfig> list = tPayConfigService.selectTPayConfigList(tPayConfig);
         ExcelUtil<TPayConfig> util = new ExcelUtil<TPayConfig>(TPayConfig.class);
-        return util.exportExcel(list, "config");
+        return util.exportExcel(list, "tConfig");
     }
 
     /**
@@ -72,7 +72,7 @@ public class TPayConfigController extends BaseController {
     /**
      * 新增保存第三方支付配置
      */
-    @RequiresPermissions("pay:config:add")
+    @RequiresPermissions("system:tConfig:add")
     @Log(title = "第三方支付配置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -93,7 +93,7 @@ public class TPayConfigController extends BaseController {
     /**
      * 修改保存第三方支付配置
      */
-    @RequiresPermissions("pay:config:edit")
+    @RequiresPermissions("system:tConfig:edit")
     @Log(title = "第三方支付配置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -104,7 +104,7 @@ public class TPayConfigController extends BaseController {
     /**
      * 删除第三方支付配置
      */
-    @RequiresPermissions("pay:config:remove")
+    @RequiresPermissions("system:tConfig:remove")
     @Log(title = "第三方支付配置", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody

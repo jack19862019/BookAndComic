@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.site.mapper.TWebSiteMapper">
+<mapper namespace="com.ruoyi.system.mapper.TWebSiteMapper">
     
     <resultMap type="TWebSite" id="TWebSiteResult">
         <result property="id"    column="id"    />

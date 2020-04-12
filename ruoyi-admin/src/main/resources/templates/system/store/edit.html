@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改分销配置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-store-edit" th:object="${tRetailStore}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">分成模式：</label>
+                <div class="col-sm-8">
+                    <select name="divided" class="form-control m-b">
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">一级分销名称：</label>
+                <div class="col-sm-8">
+                    <input name="levelOne" th:field="*{levelOne}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">一级分销比例：</label>
+                <div class="col-sm-8">
+                    <input name="levelOneScale" th:field="*{levelOneScale}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">三级分销名称：</label>
+                <div class="col-sm-8">
+                    <input name="levelThree" th:field="*{levelThree}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">三级分销比例：</label>
+                <div class="col-sm-8">
+                    <input name="levelThreeScale" th:field="*{levelThreeScale}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">二级分销名称：</label>
+                <div class="col-sm-8">
+                    <input name="levelTwo" th:field="*{levelTwo}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">二级分销比例：</label>
+                <div class="col-sm-8">
+                    <input name="levelTwoScale" th:field="*{levelTwoScale}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">分销名称：</label>
+                <div class="col-sm-8">
+                    <input name="retailStoreName" th:field="*{retailStoreName}" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript">
+        var prefix = ctx + "system/store";
+        $("#form-store-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-store-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>
