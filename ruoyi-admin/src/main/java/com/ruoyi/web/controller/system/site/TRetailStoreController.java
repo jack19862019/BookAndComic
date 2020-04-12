@@ -29,12 +29,12 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/retail/store")
 public class TRetailStoreController extends BaseController
 {
-    private String prefix = "system/store";
+    private String prefix = "retail/store";
 
     @Autowired
     private ITRetailStoreService tRetailStoreService;
 
-    @RequiresPermissions("system:store:view")
+    @RequiresPermissions("retail:store:view")
     @GetMapping()
     public String store()
     {
@@ -44,7 +44,7 @@ public class TRetailStoreController extends BaseController
     /**
      * 查询分销配置列表
      */
-    @RequiresPermissions("system:store:list")
+    @RequiresPermissions("retail:store:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(TRetailStore tRetailStore)
@@ -57,7 +57,7 @@ public class TRetailStoreController extends BaseController
     /**
      * 导出分销配置列表
      */
-    @RequiresPermissions("system:store:export")
+    @RequiresPermissions("retail:store:export")
     @Log(title = "分销配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -80,7 +80,7 @@ public class TRetailStoreController extends BaseController
     /**
      * 新增保存分销配置
      */
-    @RequiresPermissions("system:store:add")
+    @RequiresPermissions("retail:store:add")
     @Log(title = "分销配置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -103,7 +103,7 @@ public class TRetailStoreController extends BaseController
     /**
      * 修改保存分销配置
      */
-    @RequiresPermissions("system:store:edit")
+    @RequiresPermissions("retail:store:edit")
     @Log(title = "分销配置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -115,7 +115,7 @@ public class TRetailStoreController extends BaseController
     /**
      * 删除分销配置
      */
-    @RequiresPermissions("system:store:remove")
+    @RequiresPermissions("retail:store:remove")
     @Log(title = "分销配置", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody
