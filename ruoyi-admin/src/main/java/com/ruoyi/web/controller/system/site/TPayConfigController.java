@@ -1,23 +1,20 @@
 package com.ruoyi.web.controller.system.site;
 
-import java.util.List;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.system.domain.site.TPayConfig;
+import com.ruoyi.system.service.site.ITPayConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.system.domain.site.TPayConfig;
-import com.ruoyi.system.service.site.ITPayConfigService;
-import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 第三方支付配置Controller
@@ -27,8 +24,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  */
 @Controller
 @RequestMapping("/pay/config")
-public class TPayConfigController extends BaseController
-{
+public class TPayConfigController extends BaseController {
     private String prefix = "pay/config";
 
     @Autowired
@@ -36,8 +32,7 @@ public class TPayConfigController extends BaseController
 
     @RequiresPermissions("pay:config:view")
     @GetMapping()
-    public String config()
-    {
+    public String config() {
         return prefix + "/config";
     }
 
@@ -47,8 +42,7 @@ public class TPayConfigController extends BaseController
     @RequiresPermissions("pay:config:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(TPayConfig tPayConfig)
-    {
+    public TableDataInfo list(TPayConfig tPayConfig) {
         startPage();
         List<TPayConfig> list = tPayConfigService.selectTPayConfigList(tPayConfig);
         return getDataTable(list);
@@ -61,8 +55,7 @@ public class TPayConfigController extends BaseController
     @Log(title = "第三方支付配置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(TPayConfig tPayConfig)
-    {
+    public AjaxResult export(TPayConfig tPayConfig) {
         List<TPayConfig> list = tPayConfigService.selectTPayConfigList(tPayConfig);
         ExcelUtil<TPayConfig> util = new ExcelUtil<TPayConfig>(TPayConfig.class);
         return util.exportExcel(list, "config");
@@ -72,8 +65,7 @@ public class TPayConfigController extends BaseController
      * 新增第三方支付配置
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +76,7 @@ public class TPayConfigController extends BaseController
     @Log(title = "第三方支付配置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(TPayConfig tPayConfig)
-    {
+    public AjaxResult addSave(TPayConfig tPayConfig) {
         return toAjax(tPayConfigService.insertTPayConfig(tPayConfig));
     }
 
@@ -93,8 +84,7 @@ public class TPayConfigController extends BaseController
      * 修改第三方支付配置
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         TPayConfig tPayConfig = tPayConfigService.selectTPayConfigById(id);
         mmap.put("tPayConfig", tPayConfig);
         return prefix + "/edit";
@@ -107,8 +97,7 @@ public class TPayConfigController extends BaseController
     @Log(title = "第三方支付配置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(TPayConfig tPayConfig)
-    {
+    public AjaxResult editSave(TPayConfig tPayConfig) {
         return toAjax(tPayConfigService.updateTPayConfig(tPayConfig));
     }
 
@@ -117,10 +106,9 @@ public class TPayConfigController extends BaseController
      */
     @RequiresPermissions("pay:config:remove")
     @Log(title = "第三方支付配置", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(tPayConfigService.deleteTPayConfigByIds(ids));
     }
 }
