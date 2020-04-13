@@ -1,13 +1,17 @@
 package com.ruoyi.system.service.site.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.site.TWebSite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.TRetailStoreMapper;
 import com.ruoyi.system.domain.site.TRetailStore;
 import com.ruoyi.system.service.site.ITRetailStoreService;
 import com.ruoyi.common.core.text.Convert;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 分销配置Service业务层处理
@@ -54,6 +58,10 @@ public class TRetailStoreServiceImpl implements ITRetailStoreService
     @Override
     public int insertTRetailStore(TRetailStore tRetailStore)
     {
+        List<TRetailStore> tRetailStores = tRetailStoreMapper.selectTRetailStoreList(null);
+        if (!CollectionUtils.isEmpty(tRetailStores)){
+            throw new BusinessException("分销配置已经存在，不允许新增第二条！");
+        }
         tRetailStore.setCreateTime(DateUtils.getNowDate());
         return tRetailStoreMapper.insertTRetailStore(tRetailStore);
     }

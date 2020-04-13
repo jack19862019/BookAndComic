@@ -56,20 +56,6 @@ public class TRetailStoreController extends BaseController
     }
 
     /**
-     * 导出分销配置列表
-     */
-    @RequiresPermissions("system:store:export")
-    @Log(title = "分销配置", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(TRetailStore tRetailStore)
-    {
-        List<TRetailStore> list = tRetailStoreService.selectTRetailStoreList(tRetailStore);
-        ExcelUtil<TRetailStore> util = new ExcelUtil<TRetailStore>(TRetailStore.class);
-        return util.exportExcel(list, "store");
-    }
-
-    /**
      * 新增分销配置
      */
     @GetMapping("/add")
