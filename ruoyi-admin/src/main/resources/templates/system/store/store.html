@@ -12,7 +12,7 @@
                         <ul>
                             <li>
                                 <label>分成模式：</label>
-                                <select name="divided" th:with="type=${@dict.getType('')}">
+                                <select name="divided" th:with="type=${@dict.getType('sys_store_type')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                                 </select>
@@ -65,6 +65,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:store:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:store:remove')}]];
+        var types = [[${@dict.getType('sys_store_type')}]];
         var prefix = ctx + "system/store";
 
         $(function() {
@@ -86,11 +87,14 @@
                 {
                     field: 'createTime', 
                     title: '创建时间'
-                },
-                {
-                    field: 'divided', 
-                    title: '分成模式'
-                },
+                }, {
+                        field: 'divided',
+                        title: '分成模式',
+                        align: 'center',
+                        formatter: function(value, row, index) {
+                            return $.table.selectDictLabel(types, value);
+                        }
+                    },
                 {
                     field: 'levelOne', 
                     title: '一级分销名称'

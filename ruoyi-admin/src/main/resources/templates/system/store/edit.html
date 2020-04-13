@@ -10,10 +10,11 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">分成模式：</label>
                 <div class="col-sm-8">
-                    <select name="divided" class="form-control m-b">
-                        <option value="">所有</option>
-                    </select>
-                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                    <div class="input-group">
+                        <select name="divided" class="form-control m-b" th:with="type=${@dict.getType('sys_store_type')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{divided}"></option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="form-group">    
