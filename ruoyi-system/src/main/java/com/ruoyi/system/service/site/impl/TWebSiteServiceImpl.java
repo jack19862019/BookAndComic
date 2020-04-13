@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.site.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import com.ruoyi.system.mapper.TWebSiteMapper;
 import com.ruoyi.system.domain.site.TWebSite;
 import com.ruoyi.system.service.site.ITWebSiteService;
 import com.ruoyi.common.core.text.Convert;
+import org.springframework.util.CollectionUtils;
 
 /**
  * 站点配置Service业务层处理
@@ -54,6 +57,10 @@ public class TWebSiteServiceImpl implements ITWebSiteService
     @Override
     public int insertTWebSite(TWebSite tWebSite)
     {
+        List<TWebSite> tWebSites = tWebSiteMapper.selectTWebSiteList(null);
+        if (!CollectionUtils.isEmpty(tWebSites)){
+            throw new BusinessException("站点配置已经存在，不允许新增第二条！");
+        }
         tWebSite.setCreateTime(DateUtils.getNowDate());
         return tWebSiteMapper.insertTWebSite(tWebSite);
     }

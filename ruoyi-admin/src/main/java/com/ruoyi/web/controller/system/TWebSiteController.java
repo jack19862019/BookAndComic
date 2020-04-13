@@ -55,20 +55,6 @@ public class TWebSiteController extends BaseController
     }
 
     /**
-     * 导出站点配置列表
-     */
-    @RequiresPermissions("system:site:export")
-    @Log(title = "站点配置", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(TWebSite tWebSite)
-    {
-        List<TWebSite> list = tWebSiteService.selectTWebSiteList(tWebSite);
-        ExcelUtil<TWebSite> util = new ExcelUtil<TWebSite>(TWebSite.class);
-        return util.exportExcel(list, "site");
-    }
-
-    /**
      * 新增站点配置
      */
     @GetMapping("/add")
