@@ -58,4 +58,11 @@ public interface TRetailStoreMapper
      * @return 结果
      */
     public int deleteTRetailStoreByIds(String[] ids);
+
+    /**
+     * 统计所有条数
+     * @return
+     */
+    int countList();
+
 }

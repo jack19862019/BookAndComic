@@ -57,8 +57,8 @@ public class TWebSiteServiceImpl implements ITWebSiteService
     @Override
     public int insertTWebSite(TWebSite tWebSite)
     {
-        List<TWebSite> tWebSites = tWebSiteMapper.selectTWebSiteList(null);
-        if (!CollectionUtils.isEmpty(tWebSites)){
+        int countNum = tWebSiteMapper.countList();
+        if (countNum>0){
             throw new BusinessException("站点配置已经存在，不允许新增第二条！");
         }
         tWebSite.setCreateTime(DateUtils.getNowDate());

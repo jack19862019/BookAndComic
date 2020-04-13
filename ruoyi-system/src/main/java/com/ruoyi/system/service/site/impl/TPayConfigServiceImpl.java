@@ -55,6 +55,11 @@ public class TPayConfigServiceImpl implements ITPayConfigService
     public int insertTPayConfig(TPayConfig tPayConfig)
     {
         tPayConfig.setCreateTime(DateUtils.getNowDate());
+        List<TPayConfig> tPayConfigs = tPayConfigMapper.selectTPayConfigList(new TPayConfig());
+        for (TPayConfig tPay : tPayConfigs){
+            tPay.setStatus(1);//之前的支付配置都变成禁用
+            tPayConfigMapper.updateTPayConfig(tPayConfig);
+        }
         return tPayConfigMapper.insertTPayConfig(tPayConfig);
     }
 
@@ -67,6 +72,14 @@ public class TPayConfigServiceImpl implements ITPayConfigService
     @Override
     public int updateTPayConfig(TPayConfig tPayConfig)
     {
+        if (tPayConfig.getStatus()==1){
+            //如果变成启用，其它的就必须变成禁用
+            List<TPayConfig> tPayConfigs = tPayConfigMapper.selectTPayConfigList(new TPayConfig());
+            for (TPayConfig tPay : tPayConfigs){
+                tPay.setStatus(1);//之前的支付配置都变成禁用
+                tPayConfigMapper.updateTPayConfig(tPayConfig);
+            }
+        }
         tPayConfig.setUpdateTime(DateUtils.getNowDate());
         return tPayConfigMapper.updateTPayConfig(tPayConfig);
     }

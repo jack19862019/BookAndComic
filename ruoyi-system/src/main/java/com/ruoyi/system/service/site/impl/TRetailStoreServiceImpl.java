@@ -58,8 +58,8 @@ public class TRetailStoreServiceImpl implements ITRetailStoreService
     @Override
     public int insertTRetailStore(TRetailStore tRetailStore)
     {
-        List<TRetailStore> tRetailStores = tRetailStoreMapper.selectTRetailStoreList(null);
-        if (!CollectionUtils.isEmpty(tRetailStores)){
+        int countNum = tRetailStoreMapper.countList();
+        if (countNum>0){
             throw new BusinessException("分销配置已经存在，不允许新增第二条！");
         }
         tRetailStore.setCreateTime(DateUtils.getNowDate());

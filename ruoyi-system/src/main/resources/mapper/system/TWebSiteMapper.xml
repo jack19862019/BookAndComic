@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TWebSiteMapper">
-    
+
     <resultMap type="TWebSite" id="TWebSiteResult">
         <result property="id"    column="id"    />
         <result property="createTime"    column="create_time"    />
@@ -26,17 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTWebSiteList" parameterType="TWebSite" resultMap="TWebSiteResult">
         <include refid="selectTWebSiteVo"/>
-        <where>  
+        <where>
             <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
             <if test="siteName != null  and siteName != ''"> and site_name like concat('%', #{siteName}, '%')</if>
         </where>
     </select>
-    
+
+    <select id="countList" resultType="java.lang.Integer">
+        select count(1) from t_web_site;
+    </select>
+
     <select id="selectTWebSiteById" parameterType="Long" resultMap="TWebSiteResult">
         <include refid="selectTWebSiteVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTWebSite" parameterType="TWebSite" useGeneratedKeys="true" keyProperty="id">
         insert into t_web_site
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -93,10 +97,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTWebSiteByIds" parameterType="String">
-        delete from t_web_site where id in 
+        delete from t_web_site where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>

@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TRetailStoreMapper">
-    
+
     <resultMap type="TRetailStore" id="TRetailStoreResult">
         <result property="id"    column="id"    />
         <result property="createTime"    column="create_time"    />
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTRetailStoreList" parameterType="TRetailStore" resultMap="TRetailStoreResult">
         <include refid="selectTRetailStoreVo"/>
-        <where>  
+        <where>
             <if test="divided != null "> and divided = #{divided}</if>
             <if test="levelOne != null  and levelOne != ''"> and level_one = #{levelOne}</if>
             <if test="levelOneScale != null "> and level_one_scale = #{levelOneScale}</if>
@@ -35,12 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="retailStoreName != null  and retailStoreName != ''"> and retail_store_name like concat('%', #{retailStoreName}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectTRetailStoreById" parameterType="Long" resultMap="TRetailStoreResult">
         <include refid="selectTRetailStoreVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTRetailStore" parameterType="TRetailStore" useGeneratedKeys="true" keyProperty="id">
         insert into t_retail_store
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -91,10 +91,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTRetailStoreByIds" parameterType="String">
-        delete from t_retail_store where id in 
+        delete from t_retail_store where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
+    <select id="countList" resultType="java.lang.Integer">
+        select count(1) from t_retail_store;
+    </select>
+
 </mapper>

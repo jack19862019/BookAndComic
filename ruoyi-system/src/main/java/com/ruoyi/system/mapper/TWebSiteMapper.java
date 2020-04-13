@@ -58,4 +58,11 @@ public interface TWebSiteMapper
      * @return 结果
      */
     public int deleteTWebSiteByIds(String[] ids);
+
+    /**
+     * 统计总数
+     * @return
+     */
+    public int countList();
+
 }

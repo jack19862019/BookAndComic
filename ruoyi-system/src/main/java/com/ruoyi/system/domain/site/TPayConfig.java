@@ -32,7 +32,7 @@ public class TPayConfig extends BaseEntity
 
     /** 启用状态 */
     @Excel(name = "启用状态")
-    private Integer status;
+    private Integer status = 0;
 
     public void setId(Long id)
     {
