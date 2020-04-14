@@ -55,20 +55,6 @@ public class TRechargeConfigController extends BaseController
     }
 
     /**
-     * 导出充值赠送配置列表
-     */
-    @RequiresPermissions("system:change:export")
-    @Log(title = "充值赠送配置", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(TRechargeConfig tRechargeConfig)
-    {
-        List<TRechargeConfig> list = tRechargeConfigService.selectTRechargeConfigList(tRechargeConfig);
-        ExcelUtil<TRechargeConfig> util = new ExcelUtil<TRechargeConfig>(TRechargeConfig.class);
-        return util.exportExcel(list, "change");
-    }
-
-    /**
      * 新增充值赠送配置
      */
     @GetMapping("/add")
