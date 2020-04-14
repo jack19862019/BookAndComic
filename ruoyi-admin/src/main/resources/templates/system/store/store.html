@@ -85,16 +85,9 @@
                     visible: false
                 },
                 {
-                    field: 'createTime', 
-                    title: '创建时间'
-                }, {
-                        field: 'divided',
-                        title: '分成模式',
-                        align: 'center',
-                        formatter: function(value, row, index) {
-                            return $.table.selectDictLabel(types, value);
-                        }
-                    },
+                    field: 'retailStoreName',
+                    title: '分销名称'
+                },
                 {
                     field: 'levelOne', 
                     title: '一级分销名称'
@@ -120,9 +113,17 @@
                     title: '二级分销比例'
                 },
                 {
-                    field: 'retailStoreName', 
-                    title: '分销名称'
+                    field: 'divided',
+                    title: '分成模式',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(types, value);
+                    }
                 },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                 },
                 {
                     title: '操作',
                     align: 'center',

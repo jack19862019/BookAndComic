@@ -101,4 +101,9 @@ public class TWebSiteServiceImpl implements ITWebSiteService
     {
         return tWebSiteMapper.deleteTWebSiteById(id);
     }
+
+    @Override
+    public int countList() {
+        return tWebSiteMapper.countList();
+    }
 }

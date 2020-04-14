@@ -39,9 +39,9 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:site:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:site:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
+<!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:site:export">-->
+<!--                    <i class="fa fa-download"></i> 导出-->
+<!--                </a>-->
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -53,8 +53,10 @@
         var editFlag = [[${@permission.hasPermi('system:site:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:site:remove')}]];
         var prefix = ctx + "system/site";
-
         $(function() {
+            querySiteList();
+        });
+        function querySiteList() {
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
@@ -70,10 +72,7 @@
                     title: '编号',
                     visible: false
                 },
-                {
-                    field: 'createTime', 
-                    title: '创建时间'
-                },
+
                 {
                     field: 'customerQq', 
                     title: '客服QQ'
@@ -103,6 +102,10 @@
                     title: 'VIP包年价格'
                 },
                 {
+                    field: 'createTime',
+                    title: '创建时间'
+                },
+                {
                     title: '操作',
                     align: 'center',
                     formatter: function(value, row, index) {
@@ -114,7 +117,7 @@
                 }]
             };
             $.table.init(options);
-        });
+        };
     </script>
 </body>
 </html>

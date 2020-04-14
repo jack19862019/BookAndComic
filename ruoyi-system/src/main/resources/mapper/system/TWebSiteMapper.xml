@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="countList" resultType="java.lang.Integer">
-        select count(1) from t_web_site;
+        select count(1) from t_web_site
     </select>
 
     <select id="selectTWebSiteById" parameterType="Long" resultMap="TWebSiteResult">
