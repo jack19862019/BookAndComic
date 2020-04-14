@@ -1,6 +1,11 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.domain.site.TAdvertisingConfig;
+import com.ruoyi.system.service.site.ITAdvertisingConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.system.domain.site.TAdvertisingConfig;
-import com.ruoyi.system.service.site.ITAdvertisingConfigService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
@@ -23,13 +26,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 广告配置Controller
  *
  * @author ruoyi
- * @date 2020-04-11
+ * @date 2020-04-14
  */
 @Controller
 @RequestMapping("/advertising/config")
 public class TAdvertisingConfigController extends BaseController
 {
-    private String prefix = "advertising/config";
+    private String prefix = "advertising";
 
     @Autowired
     private ITAdvertisingConfigService tAdvertisingConfigService;
@@ -55,17 +58,12 @@ public class TAdvertisingConfigController extends BaseController
     }
 
     /**
-     * 导出广告配置列表
+     * 图片上传
      */
-    @RequiresPermissions("advertising:config:export")
-    @Log(title = "广告配置", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(TAdvertisingConfig tAdvertisingConfig)
+    @GetMapping("/img")
+    public String avatar()
     {
-        List<TAdvertisingConfig> list = tAdvertisingConfigService.selectTAdvertisingConfigList(tAdvertisingConfig);
-        ExcelUtil<TAdvertisingConfig> util = new ExcelUtil<TAdvertisingConfig>(TAdvertisingConfig.class);
-        return util.exportExcel(list, "config");
+        return prefix + "/profile/advertisingImg";
     }
 
     /**
