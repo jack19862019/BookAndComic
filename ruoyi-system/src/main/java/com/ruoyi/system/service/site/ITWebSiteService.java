@@ -58,10 +58,4 @@ public interface ITWebSiteService
      * @return 结果
      */
     public int deleteTWebSiteById(Long id);
-
-    /**
-     * 统计总数
-     * @return
-     */
-    public int countList();
 }
