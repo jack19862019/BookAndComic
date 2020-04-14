@@ -5,42 +5,42 @@
 </head>
 <body class="gray-bg">
      <div class="container-div">
-        <div class="row">
-            <div class="col-sm-12 search-collapse">
-                <form id="formId">
-                    <div class="select-list">
-                        <ul>
-                            <li>
-                                <label>分成模式：</label>
-                                <select name="divided" th:with="type=${@dict.getType('sys_store_type')}">
-                                    <option value="">所有</option>
-                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                                </select>
-                            </li>
-                            <li>
-                                <label>一级分销名称：</label>
-                                <input type="text" name="levelOne"/>
-                            </li>
-                            <li>
-                                <label>二级分销名称：</label>
-                                <input type="text" name="levelTwo"/>
-                            </li>
-                            <li>
-                                <label>三级分销名称：</label>
-                                <input type="text" name="levelThree"/>
-                            </li>
-                            <li>
-                                <label>分销名称：</label>
-                                <input type="text" name="retailStoreName"/>
-                            </li>
-                            <li>
-                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
+<!--        <div class="row">-->
+<!--            <div class="col-sm-12 search-collapse">-->
+<!--                <form id="formId">-->
+<!--                    <div class="select-list">-->
+<!--                        <ul>-->
+<!--                            <li>-->
+<!--                                <label>分成模式：</label>-->
+<!--                                <select name="divided" th:with="type=${@dict.getType('sys_store_type')}">-->
+<!--                                    <option value="">所有</option>-->
+<!--                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>-->
+<!--                                </select>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>一级分销名称：</label>-->
+<!--                                <input type="text" name="levelOne"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>二级分销名称：</label>-->
+<!--                                <input type="text" name="levelTwo"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>三级分销名称：</label>-->
+<!--                                <input type="text" name="levelThree"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>分销名称：</label>-->
+<!--                                <input type="text" name="retailStoreName"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
+<!--                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:store:add">

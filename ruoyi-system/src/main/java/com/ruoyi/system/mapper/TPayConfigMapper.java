@@ -58,4 +58,12 @@ public interface TPayConfigMapper
      * @return 结果
      */
     public int deleteTPayConfigByIds(String[] ids);
+
+    /**
+     * 启用状态修改
+     *
+     * @param tPayConfig 支付信息
+     * @return 结果
+     */
+    public int changeStatus(TPayConfig tPayConfig);
 }

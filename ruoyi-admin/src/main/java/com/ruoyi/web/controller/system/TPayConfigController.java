@@ -6,6 +6,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.site.TPayConfig;
 import com.ruoyi.system.service.site.ITPayConfigService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -110,5 +111,17 @@ public class TPayConfigController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(tPayConfigService.deleteTPayConfigByIds(ids));
+    }
+
+    /**
+     * 用户状态修改
+     */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @RequiresPermissions("system:tConfig:edit")
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public AjaxResult changeStatus(TPayConfig tPayConfig)
+    {
+        return toAjax(tPayConfigService.changeStatus(tPayConfig));
     }
 }

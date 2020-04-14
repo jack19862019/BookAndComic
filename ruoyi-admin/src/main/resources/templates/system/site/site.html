@@ -6,28 +6,28 @@
 <body class="gray-bg">
      <div class="container-div">
         <div class="row">
-            <div class="col-sm-12 search-collapse">
-                <form id="formId">
-                    <div class="select-list">
-                        <ul>
-                            <li class="select-time">
-                                <label>创建时间：</label>
-                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
-                                <span>-</span>
-                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
-                            </li>
-                            <li>
-                                <label>站点名称：</label>
-                                <input type="text" name="siteName"/>
-                            </li>
-                            <li>
-                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
+<!--            <div class="col-sm-12 search-collapse">-->
+<!--                <form id="formId">-->
+<!--                    <div class="select-list">-->
+<!--                        <ul>-->
+<!--                            <li class="select-time">-->
+<!--                                <label>创建时间：</label>-->
+<!--                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>-->
+<!--                                <span>-</span>-->
+<!--                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <label>站点名称：</label>-->
+<!--                                <input type="text" name="siteName"/>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
+<!--                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:site:add">
@@ -72,7 +72,22 @@
                     title: '编号',
                     visible: false
                 },
-
+                    {
+                        field: 'siteName',
+                        title: '站点名称'
+                    },
+                    {
+                        field: 'vipYear',
+                        title: 'VIP包年价格'
+                    },
+                    {
+                        field: 'signToGive',
+                        title: '签到送币'
+                    },
+                    {
+                        field: 'dayShareGifts',
+                        title: '分享赠送'
+                    },
                 {
                     field: 'customerQq', 
                     title: '客服QQ'
@@ -80,26 +95,6 @@
                 {
                     field: 'customerWx', 
                     title: '客服微信'
-                },
-                {
-                    field: 'dayShareGifts', 
-                    title: '分享赠送'
-                },
-                {
-                    field: 'proportion', 
-                    title: '充值比例'
-                },
-                {
-                    field: 'signToGive', 
-                    title: '签到送币'
-                },
-                {
-                    field: 'siteName', 
-                    title: '站点名称'
-                },
-                {
-                    field: 'vipYear', 
-                    title: 'VIP包年价格'
                 },
                 {
                     field: 'createTime',

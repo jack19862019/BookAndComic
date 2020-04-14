@@ -2,89 +2,103 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('新增站点配置')" />
-    <th:block th:include="include :: bootstrap-fileinput-css" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-site-add">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">站点名称：</label>
-                <div class="col-sm-8">
-                    <input name="siteName" class="form-control" type="text">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-site-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点名称：</label>
+            <div class="col-sm-8">
+                <input name="siteName" id="siteName" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">VIP包年价格：</label>
+            <div class="col-sm-8">
+                <input name="vipYear" id="vipYear" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">分享赠送：</label>
+            <div class="col-sm-8">
+                <input name="dayShareGifts" id="dayShareGifts" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">签到送币：</label>
+            <div class="col-sm-8">
+                <input name="signToGive" id="signToGive" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服QQ：</label>
+            <div class="col-sm-8">
+                <input name="customerQq" id="customerQq" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服微信：</label>
+            <div class="col-sm-8">
+                <input name="customerWx" id="customerWx" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">漫画默认扣除章节费用：</label>
+            <div class="col-sm-8">
+                <input name="mhDeduct" id="mhDeduct" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">小说默认扣除章节费用：</label>
+            <div class="col-sm-8">
+                <input name="xsDeduct" id="xsDeduct" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">充值比例：</label>
+            <div class="col-sm-8">
+                <input name="proportion" id="proportion" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">图片：</label>
+            <div class="col-sm-8" data-provides="fileinput">
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                </div>
+                <div>
+                    <span class="btn btn-white btn-file"><span class="fileinput-new">选择图片</span><span class="fileinput-exists">更改</span><input type="file"></span>
+                    <a href="#" class="btn btn-white fileinput-exists" data-dismiss="fileinput">清除</a>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">客服QQ：</label>
-                <div class="col-sm-8">
-                    <input name="customerQq" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">客服微信：</label>
-                <div class="col-sm-8">
-                    <input name="customerWx" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">VIP包年价格：</label>
-                <div class="col-sm-8">
-                    <input name="vipYear" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">充值比例：</label>
-                <div class="col-sm-8">
-                    <input name="proportion" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">漫画默认扣除章节费用：</label>
-                <div class="col-sm-8">
-                    <input name="mhDeduct" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">小说默认扣除章节费用：</label>
-                <div class="col-sm-8">
-                    <input name="xsDeduct" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">分享赠送：</label>
-                <div class="col-sm-8">
-                    <input name="dayShareGifts" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">签到送币：</label>
-                <div class="col-sm-8">
-                    <input name="signToGive" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">平台二维码：</label>
-                <div class="file-loading col-sm-8">
-                    <input class="file" name="platformQrCode" type="file" multiple data-min-file-count="1" data-theme="fas">
-                </div>
-            </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: bootstrap-fileinput-js" />
-    <script type="text/javascript">
-        $(".file-input").addClass("col-sm-8");
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: jasny-bootstrap-js" />
+<script type="text/javascript">
+    var prefix = ctx + "system/site"
+    $("#form-site-add").validate({
+        focusCleanup: true
+    });
 
-        var prefix = ctx + "system/site"
-        $("#form-site-add").validate({
-            focusCleanup: true
-        });
-
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/add", $('#form-site-add').serialize());
-            }
+    function submitHandler() {
+        var data ={
+            "siteName":$("#siteName").val(),
+            "vipYear":$("#vipYear").val(),
+            "dayShareGifts":$("#dayShareGifts").val(),
+            "signToGive":$("#signToGive").val(),
+            "customerQq":$("#customerQq").val(),
+            "customerWx":$("#customerWx").val(),
+            "mhDeduct":$("#mhDeduct").val(),
+            "xsDeduct":$("#xsDeduct").val(),
+            "proportion":$("#proportion").val(),
+            "platformQrCode":$(".thumbnail").find("img").attr("src")
         }
-
-    </script>
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", data);
+        }
+    }
+</script>
 </body>
 </html>

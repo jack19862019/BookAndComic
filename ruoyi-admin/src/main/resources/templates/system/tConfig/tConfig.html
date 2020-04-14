@@ -86,7 +86,11 @@
                 },
                 {
                     field: 'status', 
-                    title: '启用状态'
+                    title: '启用状态',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        return statusTools(row);
+                    }
                 },
                 {
                     field: 'createTime',
@@ -105,6 +109,29 @@
             };
             $.table.init(options);
         });
+
+        /* 启用状态显示 */
+        function statusTools(row) {
+            if (row.status == 1) {
+                return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enable(\'' + row.id + '\')"></i> ';
+            } else {
+                return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disable(\'' + row.id + '\')"></i> ';
+            }
+        }
+
+        /* 用户管理-停用 */
+        function disable(id) {
+            $.modal.confirm("确认要停用支付吗？", function() {
+                $.operate.post(prefix + "/changeStatus", { "id": id, "status": 1 });
+            })
+        }
+
+        /* 用户管理启用 */
+        function enable(id) {
+            $.modal.confirm("确认要启用支付吗？", function() {
+                $.operate.post(prefix + "/changeStatus", { "id": id, "status": 0 });
+            })
+        }
     </script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.site;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.site.TPayConfig;
 
 /**
@@ -58,4 +60,11 @@ public interface ITPayConfigService
      * @return 结果
      */
     public int deleteTPayConfigById(Long id);
+    /**
+     * 启用状态修改
+     *
+     * @param tPayConfig 支付信息
+     * @return 结果
+     */
+    public int changeStatus(TPayConfig tPayConfig);
 }

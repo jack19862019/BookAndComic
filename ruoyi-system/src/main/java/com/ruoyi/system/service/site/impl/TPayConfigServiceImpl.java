@@ -107,4 +107,9 @@ public class TPayConfigServiceImpl implements ITPayConfigService
     {
         return tPayConfigMapper.deleteTPayConfigById(id);
     }
+
+    @Override
+    public int changeStatus(TPayConfig tPayConfig) {
+        return tPayConfigMapper.changeStatus(tPayConfig);
+    }
 }

@@ -2,90 +2,108 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('修改站点配置')" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-site-edit" th:object="${tWebSite}">
-            <input name="id" th:field="*{id}" type="hidden">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">站点名称：</label>
-                <div class="col-sm-8">
-                    <input name="siteName" th:field="*{siteName}" class="form-control" type="text">
-                </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-site-edit" th:object="${tWebSite}">
+        <input name="id" id="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">站点名称：</label>
+            <div class="col-sm-8">
+                <input name="siteName" id="siteName" th:field="*{siteName}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">客服QQ：</label>
-                <div class="col-sm-8">
-                    <input name="customerQq" th:field="*{customerQq}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服QQ：</label>
+            <div class="col-sm-8">
+                <input name="customerQq" id="customerQq" th:field="*{customerQq}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">客服微信：</label>
-                <div class="col-sm-8">
-                    <input name="customerWx" th:field="*{customerWx}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">客服微信：</label>
+            <div class="col-sm-8">
+                <input name="customerWx" id="customerWx" th:field="*{customerWx}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">VIP包年价格：</label>
-                <div class="col-sm-8">
-                    <input name="vipYear" th:field="*{vipYear}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">VIP包年价格：</label>
+            <div class="col-sm-8">
+                <input name="vipYear" id="vipYear" th:field="*{vipYear}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">充值比例：</label>
-                <div class="col-sm-8">
-                    <input name="proportion" th:field="*{proportion}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">充值比例：</label>
+            <div class="col-sm-8">
+                <input name="proportion" id="proportion" th:field="*{proportion}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">漫画默认扣除章节费用：</label>
-                <div class="col-sm-8">
-                    <input name="mhDeduct" th:field="*{mhDeduct}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">漫画默认扣除章节费用：</label>
+            <div class="col-sm-8">
+                <input name="mhDeduct" id="mhDeduct" th:field="*{mhDeduct}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">小说默认扣除章节费用：</label>
-                <div class="col-sm-8">
-                    <input name="xsDeduct" th:field="*{xsDeduct}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">小说默认扣除章节费用：</label>
+            <div class="col-sm-8">
+                <input name="xsDeduct" id="xsDeduct" th:field="*{xsDeduct}" class="form-control" type="text">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">分享赠送：</label>
-                <div class="col-sm-8">
-                    <input name="dayShareGifts" th:field="*{dayShareGifts}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">分享赠送：</label>
+            <div class="col-sm-8">
+                <input name="dayShareGifts" id="dayShareGifts" th:field="*{dayShareGifts}" class="form-control" type="text">
             </div>
+        </div>
 
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">签到送币：</label>
-                <div class="col-sm-8">
-                    <input name="signToGive" th:field="*{signToGive}" class="form-control" type="text">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">签到送币：</label>
+            <div class="col-sm-8">
+                <input name="signToGive" id="signToGive" th:field="*{signToGive}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">平台二维码：</label>
+            <div class="col-sm-8" data-provides="fileinput">
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                    <img th:src="*{platformQrCode}">
+                </div>
+                <div>
+                    <span class="btn btn-white btn-file"><span class="fileinput-new">选择图片</span><span class="fileinput-exists">更改</span><input type="file"></span>
+                    <a href="#" class="btn btn-white fileinput-exists" data-dismiss="fileinput">清除</a>
                 </div>
             </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: jasny-bootstrap-js" />
+<script type="text/javascript">
+    var prefix = ctx + "system/site";
+    $("#form-site-edit").validate({
+        focusCleanup: true
+    });
 
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label">平台二维码：</label>
-                <div class="file-loading col-sm-8">
-                    <input class="file" name="platformQrCode" th:field="*{platformQrCode}" type="file" multiple data-min-file-count="1" data-theme="fas">
-                </div>
-            </div>
-
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <script type="text/javascript">
-        var prefix = ctx + "system/site";
-        $("#form-site-edit").validate({
-            focusCleanup: true
-        });
-
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-site-edit').serialize());
-            }
+    function submitHandler() {
+        var data ={
+            "id":$("#id").val(),
+            "siteName":$("#siteName").val(),
+            "vipYear":$("#vipYear").val(),
+            "dayShareGifts":$("#dayShareGifts").val(),
+            "signToGive":$("#signToGive").val(),
+            "customerQq":$("#customerQq").val(),
+            "customerWx":$("#customerWx").val(),
+            "mhDeduct":$("#mhDeduct").val(),
+            "xsDeduct":$("#xsDeduct").val(),
+            "proportion":$("#proportion").val(),
+            "platformQrCode":$(".thumbnail").find("img").attr("src")
         }
-    </script>
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", data);
+        }
+    }
+</script>
 </body>
 </html>
