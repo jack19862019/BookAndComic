@@ -7,6 +7,7 @@
      <div class="container-div">
         <div class="row">
 
+
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="advertising:config:add">
                     <i class="fa fa-plus"></i> 添加
@@ -30,6 +31,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('advertising:config:edit')}]];
         var removeFlag = [[${@permission.hasPermi('advertising:config:remove')}]];
+        var bidDatas = [[${@dict.getType('t_book_comic')}]];
         var isOpenDatas = [[${@dict.getType('sys_normal_disable')}]];
         var prefix = ctx + "advertising/config";
 
@@ -59,7 +61,10 @@
                 },
                 {
                     field: 'bid',
-                    title: '书/漫画'
+                    title: '书/漫画',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(bidDatas, value);
+                    }
                 },
                 {
                     field: 'isOpen',
