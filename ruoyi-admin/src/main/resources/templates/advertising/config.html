@@ -48,10 +48,17 @@
                     title: '编号',
                     visible: false
                 },
-                {
-                    field: 'advertisingImg',
-                    title: '广告图片'
-                },
+                    {
+                        field: 'advertisingImg',
+                        title: '广告图片',
+                        formatter: function(value, row, index) {
+                            if(index % 2 == 0){
+                                return $.table.imageView(row.advertisingImg);
+                            }else {
+                                return $.table.imageView(row.advertisingImg);
+                            }
+                        }
+                    },
                 {
                     field: 'advertisingUrl',
                     title: '广告链接'
