@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TUserMapper">
+
+    <resultMap type="TUser" id="TUserResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="aliAccount"    column="ali_account"    />
+        <result property="aliName"    column="ali_name"    />
+        <result property="balance"    column="balance"    />
+        <result property="bookCurrency"    column="book_currency"    />
+        <result property="isVip"    column="is_vip"    />
+        <result property="proxyId"    column="proxy_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userNo"    column="user_no"    />
+        <result property="userSource"    column="user_source"    />
+    </resultMap>
+
+    <sql id="selectTUserVo">
+        select id, create_time, update_time, ali_account, ali_name, balance, book_currency, is_vip, proxy_id, user_name, user_no, user_source from t_user
+    </sql>
+
+    <select id="selectTUserList" parameterType="TUser" resultMap="TUserResult">
+        <include refid="selectTUserVo"/>
+        <where>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="aliAccount != null  and aliAccount != ''"> and ali_account = #{aliAccount}</if>
+            <if test="aliName != null  and aliName != ''"> and ali_name like concat('%', #{aliName}, '%')</if>
+            <if test="isVip != null "> and is_vip = #{isVip}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectTUserById" parameterType="Long" resultMap="TUserResult">
+        <include refid="selectTUserVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTUser" parameterType="TUser" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="aliAccount != null  and aliAccount != ''">ali_account,</if>
+            <if test="aliName != null  and aliName != ''">ali_name,</if>
+            <if test="balance != null ">balance,</if>
+            <if test="bookCurrency != null ">book_currency,</if>
+            <if test="isVip != null ">is_vip,</if>
+            <if test="proxyId != null ">proxy_id,</if>
+            <if test="userName != null  and userName != ''">user_name,</if>
+            <if test="userNo != null  and userNo != ''">user_no,</if>
+            <if test="userSource != null ">user_source,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="aliAccount != null  and aliAccount != ''">#{aliAccount},</if>
+            <if test="aliName != null  and aliName != ''">#{aliName},</if>
+            <if test="balance != null ">#{balance},</if>
+            <if test="bookCurrency != null ">#{bookCurrency},</if>
+            <if test="isVip != null ">#{isVip},</if>
+            <if test="proxyId != null ">#{proxyId},</if>
+            <if test="userName != null  and userName != ''">#{userName},</if>
+            <if test="userNo != null  and userNo != ''">#{userNo},</if>
+            <if test="userSource != null ">#{userSource},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTUser" parameterType="TUser">
+        update t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="aliAccount != null  and aliAccount != ''">ali_account = #{aliAccount},</if>
+            <if test="aliName != null  and aliName != ''">ali_name = #{aliName},</if>
+            <if test="balance != null ">balance = #{balance},</if>
+            <if test="bookCurrency != null ">book_currency = #{bookCurrency},</if>
+            <if test="isVip != null ">is_vip = #{isVip},</if>
+            <if test="proxyId != null ">proxy_id = #{proxyId},</if>
+            <if test="userName != null  and userName != ''">user_name = #{userName},</if>
+            <if test="userNo != null  and userNo != ''">user_no = #{userNo},</if>
+            <if test="userSource != null ">user_source = #{userSource},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTUserById" parameterType="Long">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <delete id="deleteTUserByIds" parameterType="String">
+        delete from t_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
