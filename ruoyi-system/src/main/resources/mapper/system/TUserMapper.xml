@@ -102,4 +102,12 @@
         </foreach>
     </delete>
 
+    <select id="selectUserUpOneLevel" resultType="java.lang.String">
+        SELECT user_name from t_user where id = (SELECT t.parent_id from t_user_retail_level t LEFT JOIN t_user u on u.id = t.user_id where u.id = #{id})
+    </select>
+
+    <select id="selectUserUpTwoLevel" parameterType="String">
+        SELECT u.user_name from t_user_retail_level t LEFT JOIN t_user u on u.id = t.user_id where t.user_id = #{id}
+    </select>
+
 </mapper>

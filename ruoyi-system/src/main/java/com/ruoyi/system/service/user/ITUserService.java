@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.user;
 
 import com.ruoyi.system.domain.user.TUser;
+import com.ruoyi.system.domain.user.params.TUserDetail;
 
 import java.util.List;
 
@@ -21,10 +22,25 @@ public interface ITUserService
     public TUser selectTUserById(Long id);
 
     /**
+     * 查询用户上一级
+     * @param id
+     * @return
+     */
+    String selectUserUpOneLevel(Long id);
+
+    /**
+     * 查询用户上二级
+     * @param id
+     * @return
+     */
+    String selectUserUpTwoLevel(Long id);
+
+    /**
      * 查询用户基本信息列表
      *
      * @param tUser 用户基本信息
      * @return 用户基本信息集合
      */
     public List<TUser> selectTUserList(TUser tUser);
+
 }

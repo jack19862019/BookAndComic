@@ -1,6 +1,7 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.user.TUser;
+import com.ruoyi.system.domain.user.params.TUserDetail;
 
 import java.util.List;
 
@@ -59,4 +60,8 @@ public interface TUserMapper
      * @return 结果
      */
     public int deleteTUserByIds(String[] ids);
+
+    String selectUserUpOneLevel(Long id);
+
+    String selectUserUpTwoLevel(Long id);
 }

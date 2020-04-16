@@ -72,6 +72,7 @@ public class TUserController extends BaseController
     public String edit(@PathVariable("id") Long id, ModelMap mmap)
     {
         TUser tUser = tUserService.selectTUserById(id);
+
         mmap.put("tUser", tUser);
         return prefix + "/edit";
     }
