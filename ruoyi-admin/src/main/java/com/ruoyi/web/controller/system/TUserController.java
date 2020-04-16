@@ -66,27 +66,6 @@ public class TUserController extends BaseController
     }
 
     /**
-     * 新增用户基本信息
-     */
-    @GetMapping("/add")
-    public String add()
-    {
-        return prefix + "/add";
-    }
-
-    /**
-     * 新增保存用户基本信息
-     */
-    @RequiresPermissions("business:user:add")
-    @Log(title = "用户基本信息", businessType = BusinessType.INSERT)
-    @PostMapping("/add")
-    @ResponseBody
-    public AjaxResult addSave(TUser tUser)
-    {
-        return toAjax(tUserService.insertTUser(tUser));
-    }
-
-    /**
      * 修改用户基本信息
      */
     @GetMapping("/edit/{id}")
@@ -95,29 +74,5 @@ public class TUserController extends BaseController
         TUser tUser = tUserService.selectTUserById(id);
         mmap.put("tUser", tUser);
         return prefix + "/edit";
-    }
-
-    /**
-     * 修改保存用户基本信息
-     */
-    @RequiresPermissions("business:user:edit")
-    @Log(title = "用户基本信息", businessType = BusinessType.UPDATE)
-    @PostMapping("/edit")
-    @ResponseBody
-    public AjaxResult editSave(TUser tUser)
-    {
-        return toAjax(tUserService.updateTUser(tUser));
-    }
-
-    /**
-     * 删除用户基本信息
-     */
-    @RequiresPermissions("business:user:remove")
-    @Log(title = "用户基本信息", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
-    @ResponseBody
-    public AjaxResult remove(String ids)
-    {
-        return toAjax(tUserService.deleteTUserByIds(ids));
     }
 }
