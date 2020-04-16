@@ -18,6 +18,12 @@
         <result property="userNo"    column="user_no"    />
         <result property="userSource"    column="user_source"    />
         <result property="parentId"    column="parentId"    />
+
+        <result property="onFirstId"    column="onFirstId"    />
+        <result property="onSecondId"    column="onSecondId"    />
+        <result property="firstNum"    column="firstNum"    />
+        <result property="secondNum"    column="secondNum"    />
+        <result property="thirdNum"    column="thirdNum"    />
     </resultMap>
 
     <sql id="selectTUserVo">
@@ -25,8 +31,53 @@
     </sql>
 
     <select id="selectTUserList" parameterType="TUser" resultMap="TUserResult">
-        SELECT t.*,IFNULL(u.parent_id,0) as parentId from t_user t
-        LEFT JOIN t_user_retail_level u on t.id = u.user_id
+        SELECT
+        t.*, IFNULL(u.parent_id, 0) AS parentId,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id = t.id
+        )as firstNum,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id in (
+        SELECT
+        trl.user_id
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id = t.id)
+        )as secondNum,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id in
+        (SELECT
+        trl.user_id
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id in (
+        SELECT
+        trl.user_id
+        FROM
+        t_user_retail_level trl
+        WHERE
+        trl.parent_id = t.id))
+        )as thirdNum
+        FROM
+        t_user t
+        LEFT JOIN t_user_retail_level u ON t.id = u.user_id
         <where>
             <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and t.create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
             <if test="aliAccount != null  and aliAccount != ''"> and t.ali_account = #{aliAccount}</if>
@@ -39,8 +90,80 @@
     </select>
 
     <select id="selectTUserById" parameterType="Long" resultMap="TUserResult">
-        <include refid="selectTUserVo"/>
-        where id = #{id}
+        SELECT
+            t.*, IFNULL(u.parent_id, 0) AS parentId,
+            IFNULL((
+                SELECT
+                    trl.parent_id
+                FROM
+                    t_user_retail_level trl
+                WHERE
+                    trl.user_id = t.id
+            ),'无') AS onFirstId,
+            IFNULL((
+                SELECT
+                    trl.parent_id
+                FROM
+                    t_user_retail_level trl
+                WHERE
+                    trl.user_id = (
+                        SELECT
+                            trl.parent_id
+                        FROM
+                            t_user_retail_level trl
+                        WHERE
+                            trl.user_id = t.id
+                    )
+            ),'无') AS onSecondId,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    t_user_retail_level trl
+                WHERE
+                    trl.parent_id = t.id
+            ) AS firstNum,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    t_user_retail_level trl
+                WHERE
+                    trl.parent_id IN (
+                        SELECT
+                            trl.user_id
+                        FROM
+                            t_user_retail_level trl
+                        WHERE
+                            trl.parent_id = t.id
+                    )
+            ) AS secondNum,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    t_user_retail_level trl
+                WHERE
+                    trl.parent_id IN (
+                        SELECT
+                            trl.user_id
+                        FROM
+                            t_user_retail_level trl
+                        WHERE
+                            trl.parent_id IN (
+                                SELECT
+                                    trl.user_id
+                                FROM
+                                    t_user_retail_level trl
+                                WHERE
+                                    trl.parent_id = t.id
+                            )
+                    )
+            ) AS thirdNum
+        FROM
+            t_user t
+        LEFT JOIN t_user_retail_level u ON t.id = u.user_id
+        where t.id = #{id}
     </select>
 
     <insert id="insertTUser" parameterType="TUser" useGeneratedKeys="true" keyProperty="id">

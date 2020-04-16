@@ -66,6 +66,65 @@ public class TUser extends BaseEntity
         this.parentId = parentId;
     }
 
+    /** 上一级编号 */
+    @Excel(name = "上一级编号")
+    private String onFirstId;
+    public String getOnFirstId()
+    {
+        return onFirstId;
+    }
+    public void setOnFirstId(String onFirstId)
+    {
+        this.onFirstId = onFirstId;
+    }
+    /** 上二级编号 */
+    @Excel(name = "上二级编号")
+    private String onSecondId;
+    public String getOnSecondId()
+    {
+        return onSecondId;
+    }
+    public void setOnSecondId(String onSecondId)
+    {
+        this.onSecondId = onSecondId;
+    }
+
+    /** 一级下线 */
+    @Excel(name = "一级下线")
+    private String firstNum;
+    public String getFirstNum()
+    {
+        return firstNum;
+    }
+    public void setFirstNum(String firstNum)
+    {
+        this.firstNum = firstNum;
+    }
+
+    /** 二级下线 */
+    @Excel(name = "二级下线")
+    private String secondNum;
+    public String getSecondNum()
+    {
+        return secondNum;
+    }
+    public void setSecondNum(String secondNum)
+    {
+        this.secondNum = secondNum;
+    }
+
+    /** 三级下线 */
+    @Excel(name = "三级下线")
+    private String thirdNum;
+    public String getThirdNum()
+    {
+        return thirdNum;
+    }
+    public void setThirdNum(String thirdNum)
+    {
+        this.thirdNum = thirdNum;
+    }
+
     public void setId(Long id)
     {
         this.id = id;
