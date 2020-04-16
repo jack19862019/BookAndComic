@@ -54,6 +54,18 @@ public class TUser extends BaseEntity
     @Excel(name = "用户来源")
     private Long userSource;
 
+    /** 父级id */
+    @Excel(name = "父级id")
+    private String parentId;
+    public String getParentId()
+    {
+        return parentId;
+    }
+    public void setParentId(String parentId)
+    {
+        this.parentId = parentId;
+    }
+
     public void setId(Long id)
     {
         this.id = id;

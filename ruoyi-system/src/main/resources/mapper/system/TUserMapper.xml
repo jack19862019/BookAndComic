@@ -17,6 +17,7 @@
         <result property="userName"    column="user_name"    />
         <result property="userNo"    column="user_no"    />
         <result property="userSource"    column="user_source"    />
+        <result property="parentId"    column="parentId"    />
     </resultMap>
 
     <sql id="selectTUserVo">
@@ -24,13 +25,15 @@
     </sql>
 
     <select id="selectTUserList" parameterType="TUser" resultMap="TUserResult">
-        <include refid="selectTUserVo"/>
+        SELECT t.*,IFNULL(u.parent_id,0) as parentId from t_user t
+        LEFT JOIN t_user_retail_level u on t.id = u.user_id
         <where>
-            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
-            <if test="aliAccount != null  and aliAccount != ''"> and ali_account = #{aliAccount}</if>
-            <if test="aliName != null  and aliName != ''"> and ali_name like concat('%', #{aliName}, '%')</if>
-            <if test="isVip != null "> and is_vip = #{isVip}</if>
-            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and t.create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="aliAccount != null  and aliAccount != ''"> and t.ali_account = #{aliAccount}</if>
+            <if test="aliName != null  and aliName != ''"> and t.ali_name like concat('%', #{aliName}, '%')</if>
+            <if test="isVip != null "> and t.is_vip = #{isVip}</if>
+            <if test="userName != null  and userName != ''"> and t.user_name like concat('%', #{userName}, '%')</if>
+            <if test="id != null  and id != '0'"> and t.id = #{id}</if>
         </where>
         order by create_time desc
     </select>

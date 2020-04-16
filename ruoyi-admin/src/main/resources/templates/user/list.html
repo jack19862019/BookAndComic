@@ -61,9 +61,18 @@
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
             modalName: "用户基本信息",
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            detailView: true,
+            onExpandRow : function(index, row, $detail) {
+                initChildTable(index, row, $detail);
+            },
             columns: [{
                 checkbox: true
             },
+
                 {
                     field: 'id',
                     title: '编号',
@@ -128,6 +137,96 @@
         };
         $.table.init(options);
     });
+
+    initChildTable = function(index, row, $detail) {
+        var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');
+        $(childTable).bootstrapTable({
+            url: prefix + "/list",
+            method: 'post',
+            sidePagination: "server",
+            contentType: "application/x-www-form-urlencoded",
+            queryParams : {
+                id: row.parentId
+            },
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            detailView: true,
+            onExpandRow : function(index, row, $detail) {
+                initThreeTable(index, row, $detail);
+            },
+            columns: [ {
+                field: 'userName',
+                title: '用户名'
+            },
+                {
+                    field: 'userNo',
+                    title: '用户编号'
+                },
+                {
+                    field: 'aliAccount',
+                    title: '支付宝账号'
+                },
+                {
+                    field: 'aliName',
+                    title: '支付宝名称'
+                },
+                {
+                    field: 'balance',
+                    title: '余额'
+                },
+                {
+                    field: 'bookCurrency',
+                    title: '书币'
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                }]
+        });
+    };
+
+    initThreeTable = function(index, row, $detail) {
+        var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');
+        $(childTable).bootstrapTable({
+            url: prefix + "/list",
+            method: 'post',
+            sidePagination: "server",
+            contentType: "application/x-www-form-urlencoded",
+            queryParams: {
+                id: row.parentId
+            },
+            columns: [{
+                field: 'userName',
+                title: '用户名'
+            },
+                {
+                    field: 'userNo',
+                    title: '用户编号'
+                },
+                {
+                    field: 'aliAccount',
+                    title: '支付宝账号'
+                },
+                {
+                    field: 'aliName',
+                    title: '支付宝名称'
+                },
+                {
+                    field: 'balance',
+                    title: '余额'
+                },
+                {
+                    field: 'bookCurrency',
+                    title: '书币'
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                }]
+        });
+    }
 </script>
 </body>
 </html>

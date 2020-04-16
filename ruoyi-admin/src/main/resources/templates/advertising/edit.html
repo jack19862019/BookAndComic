@@ -38,7 +38,7 @@
                 <label class="col-sm-3 control-label">是否开启：</label>
                 <div class="col-sm-8">
                     <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
-                        <input type="radio" th:id="${'isOpen_' + dict.dictCode}" id="isOpen" name="isOpen" th:value="${dict.dictValue}" th:field="*{isOpen}">
+                        <input type="radio" id="isOpen" name="isOpen" th:value="${dict.dictValue}" th:field="*{isOpen}">
                         <label th:for="${'isOpen_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                     </div>
                 </div>
