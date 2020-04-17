@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TBookMapper">
-    
+
     <resultMap type="TBook" id="TBookResult">
         <result property="id"    column="id"    />
         <result property="createTime"    column="create_time"    />
@@ -24,23 +24,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTBookList" parameterType="TBook" resultMap="TBookResult">
         <include refid="selectTBookVo"/>
-        <where>  
+        <where>
             <if test="author != null  and author != ''"> and author = #{author}</if>
             <if test="category != null  and category != ''"> and category = #{category}</if>
             <if test="coverPic != null  and coverPic != ''"> and cover_pic = #{coverPic}</if>
             <if test="detailPic != null  and detailPic != ''"> and detail_pic = #{detailPic}</if>
             <if test="sort != null "> and sort = #{sort}</if>
-            <if test="status != null "> and status = #{status}</if>
+            <if test="status != null and status != ''"> and status = #{status}</if>
             <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
             <if test="title != null  and title != ''"> and title = #{title}</if>
         </where>
     </select>
-    
+
     <select id="selectTBookById" parameterType="Long" resultMap="TBookResult">
         <include refid="selectTBookVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTBook" parameterType="TBook" useGeneratedKeys="true" keyProperty="id">
         insert into t_book
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -51,10 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="coverPic != null  and coverPic != ''">cover_pic,</if>
             <if test="detailPic != null  and detailPic != ''">detail_pic,</if>
             <if test="sort != null ">sort,</if>
-            <if test="status != null ">status,</if>
+            <if test="status != null and status != ''">status,</if>
             <if test="summary != null  and summary != ''">summary,</if>
             <if test="title != null  and title != ''">title,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="createTime != null ">#{createTime},</if>
             <if test="updateTime != null ">#{updateTime},</if>
@@ -63,10 +63,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="coverPic != null  and coverPic != ''">#{coverPic},</if>
             <if test="detailPic != null  and detailPic != ''">#{detailPic},</if>
             <if test="sort != null ">#{sort},</if>
-            <if test="status != null ">#{status},</if>
+            <if test="status != null and status != ''">#{status},</if>
             <if test="summary != null  and summary != ''">#{summary},</if>
             <if test="title != null  and title != ''">#{title},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTBook" parameterType="TBook">
@@ -79,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="coverPic != null  and coverPic != ''">cover_pic = #{coverPic},</if>
             <if test="detailPic != null  and detailPic != ''">detail_pic = #{detailPic},</if>
             <if test="sort != null ">sort = #{sort},</if>
-            <if test="status != null ">status = #{status},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
             <if test="summary != null  and summary != ''">summary = #{summary},</if>
             <if test="title != null  and title != ''">title = #{title},</if>
         </trim>
@@ -91,10 +91,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTBookByIds" parameterType="String">
-        delete from t_book where id in 
+        delete from t_book where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>
