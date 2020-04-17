@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增消息管理')" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-article-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">作者：</label>
+                <div class="col-sm-8">
+                    <input name="author" id="author" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标题：</label>
+                <div class="col-sm-8">
+                    <input name="title" id="title" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">内容：</label>
+                <div class="col-sm-8">
+                    <input name="body" id="body" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">封面图片：</label>
+                <div class="col-sm-8" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                        <img name="exceptionalImg" src=""/>
+                    </div>
+                    <div>
+                        <span class="btn btn-white btn-file"><span class="fileinput-new">选择图片</span><span class="fileinput-exists">更改</span><input type="file"></span>
+                        <a href="#" class="btn btn-white fileinput-exists" data-dismiss="fileinput">清除</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">封面图是否显示在正文：</label>
+                <div class="col-sm-8">
+                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
+                        <input type="radio" id="showCover" name="showCover" th:value="${dict.dictValue}" th:checked="${dict.default}">
+                        <label th:for="${'showCover_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">排序：</label>
+                <div class="col-sm-8">
+                    <input name="sort" id="sort" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: jasny-bootstrap-js" />
+    <script type="text/javascript">
+        var prefix = ctx + "system/article"
+        $("#form-article-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            var data ={
+                "author":$("#author").val(),
+                "title":$("#title").val(),
+                "showCover":$("#showCover").val(),
+                "body":$("#body").val(),
+                "sort":$("#sort").val(),
+                "cover":$(".thumbnail").find("img").attr("src")
+            }
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", data);
+            }
+        }
+    </script>
+</body>
+</html>

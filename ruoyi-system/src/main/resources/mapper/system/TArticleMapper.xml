@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TArticleMapper">
+    
+    <resultMap type="TArticle" id="TArticleResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="author"    column="author"    />
+        <result property="body"    column="body"    />
+        <result property="cover"    column="cover"    />
+        <result property="showCover"    column="show_cover"    />
+        <result property="sort"    column="sort"    />
+        <result property="title"    column="title"    />
+    </resultMap>
+
+    <sql id="selectTArticleVo">
+        select id, create_time, update_time, author, body, cover, show_cover, sort, title from t_article
+    </sql>
+
+    <select id="selectTArticleList" parameterType="TArticle" resultMap="TArticleResult">
+        <include refid="selectTArticleVo"/>
+        <where>  
+            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="body != null  and body != ''"> and body = #{body}</if>
+            <if test="cover != null  and cover != ''"> and cover = #{cover}</if>
+            <if test="showCover != null "> and show_cover = #{showCover}</if>
+            <if test="sort != null "> and sort = #{sort}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+        </where>
+    </select>
+    
+    <select id="selectTArticleById" parameterType="Long" resultMap="TArticleResult">
+        <include refid="selectTArticleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTArticle" parameterType="TArticle" useGeneratedKeys="true" keyProperty="id">
+        insert into t_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="author != null  and author != ''">author,</if>
+            <if test="body != null  and body != ''">body,</if>
+            <if test="cover != null  and cover != ''">cover,</if>
+            <if test="showCover != null ">show_cover,</if>
+            <if test="sort != null ">sort,</if>
+            <if test="title != null  and title != ''">title,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="author != null  and author != ''">#{author},</if>
+            <if test="body != null  and body != ''">#{body},</if>
+            <if test="cover != null  and cover != ''">#{cover},</if>
+            <if test="showCover != null ">#{showCover},</if>
+            <if test="sort != null ">#{sort},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTArticle" parameterType="TArticle">
+        update t_article
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="author != null  and author != ''">author = #{author},</if>
+            <if test="body != null  and body != ''">body = #{body},</if>
+            <if test="cover != null  and cover != ''">cover = #{cover},</if>
+            <if test="showCover != null ">show_cover = #{showCover},</if>
+            <if test="sort != null ">sort = #{sort},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTArticleById" parameterType="Long">
+        delete from t_article where id = #{id}
+    </delete>
+
+    <delete id="deleteTArticleByIds" parameterType="String">
+        delete from t_article where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
