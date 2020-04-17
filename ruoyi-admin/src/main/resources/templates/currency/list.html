@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('用户书币变动记录列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li class="select-time">
+                                <label>创建时间：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
+                            </li>
+                            <li>
+                                <label>变动书币：</label>
+                                <input type="text" name="currency"/>
+                            </li>
+                            <li>
+                                <label>变动类型：</label>
+                                <select name="currencyType" th:with="type=${@dict.getType('t_currency_log')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>来源用户：</label>
+                                <input type="text" name="otherUserId"/>
+                            </li>
+                            <li>
+                                <label>用户名称：</label>
+                                <input type="text" name="userName"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="currency:log:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('currency:log:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('currency:log:remove')}]];
+        var currencyTypeDatas = [[${@dict.getType('t_currency_log')}]];
+        var prefix = ctx + "currency/log";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "用户书币变动记录",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '编号',
+                    visible: false
+                }
+                    ,
+                    {
+                        field: 'userId',
+                        title: '用户ID'
+                    },
+                    {
+                        field: 'userName',
+                        title: '用户名称'
+                    } ,
+                {
+                    field: 'currency',
+                    title: '本次变动书币'
+                },
+                {
+                    field: 'currencyType',
+                    title: '本次变动类型',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(currencyTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'otherUserId',
+                    title: '书币来源用户'
+                }
+                    ,
+                    {
+                        field: 'createTime',
+                        title: '创建时间'
+                    }
+                ]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

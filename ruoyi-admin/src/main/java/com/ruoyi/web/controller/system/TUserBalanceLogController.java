@@ -41,7 +41,6 @@ public class TUserBalanceLogController extends BaseController
     {
         return prefix + "/list";
     }
-
     /**
      * 查询用户充值，提现列表
      */
@@ -70,27 +69,6 @@ public class TUserBalanceLogController extends BaseController
     }
 
     /**
-     * 新增用户充值，提现
-     */
-    @GetMapping("/add")
-    public String add()
-    {
-        return prefix + "/add";
-    }
-
-    /**
-     * 新增保存用户充值，提现
-     */
-    @RequiresPermissions("balance:log:add")
-    @Log(title = "用户充值，提现", businessType = BusinessType.INSERT)
-    @PostMapping("/add")
-    @ResponseBody
-    public AjaxResult addSave(TUserBalanceLog tUserBalanceLog)
-    {
-        return toAjax(tUserBalanceLogService.insertTUserBalanceLog(tUserBalanceLog));
-    }
-
-    /**
      * 修改用户充值，提现
      */
     @GetMapping("/edit/{id}")
@@ -101,27 +79,4 @@ public class TUserBalanceLogController extends BaseController
         return prefix + "/edit";
     }
 
-    /**
-     * 修改保存用户充值，提现
-     */
-    @RequiresPermissions("balance:log:edit")
-    @Log(title = "用户充值，提现", businessType = BusinessType.UPDATE)
-    @PostMapping("/edit")
-    @ResponseBody
-    public AjaxResult editSave(TUserBalanceLog tUserBalanceLog)
-    {
-        return toAjax(tUserBalanceLogService.updateTUserBalanceLog(tUserBalanceLog));
-    }
-
-    /**
-     * 删除用户充值，提现
-     */
-    @RequiresPermissions("balance:log:remove")
-    @Log(title = "用户充值，提现", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
-    @ResponseBody
-    public AjaxResult remove(String ids)
-    {
-        return toAjax(tUserBalanceLogService.deleteTUserBalanceLogByIds(ids));
-    }
 }

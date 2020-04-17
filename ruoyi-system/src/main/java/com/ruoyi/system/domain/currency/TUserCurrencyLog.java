@@ -1,4 +1,4 @@
-package com.ruoyi.system.domain.balance;
+package com.ruoyi.system.domain.currency;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -6,38 +6,32 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 用户充值，提现对象 t_user_balance_log
+ * 用户书币变动记录对象 t_user_currency_log
  *
  * @author ruoyi
- * @date 2020-04-16
+ * @date 2020-04-17
  */
-public class TUserBalanceLog extends BaseEntity
+public class TUserCurrencyLog extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
     private Long id;
 
-    /** 订单金额 */
-    @Excel(name = "订单金额")
-    private Double orderFee;
+    /** 本次变动书币 */
+    @Excel(name = "本次变动书币")
+    private Long currency;
 
+    /** 本次变动类型 */
+    @Excel(name = "本次变动类型")
+    private Long currencyType;
 
+    /** 书币来源 */
+    @Excel(name = "书币来源")
+    private String otherUserId;
 
-    /** 订单号 */
-    @Excel(name = "订单号")
-    private String orderNo;
-
-    /** 订单类型 */
-    @Excel(name = "订单类型")
-    private String orderType;
-
-    /** 状态 */
-    @Excel(name = "状态")
-    private Long status;
-
-    /** 用户编号 */
-    @Excel(name = "用户编号")
+    /** 用户ID */
+    @Excel(name = "用户ID")
     private Long userId;
 
     /** 用户名称 */
@@ -53,41 +47,32 @@ public class TUserBalanceLog extends BaseEntity
     {
         return id;
     }
-    public void setOrderFee(Double orderFee)
+    public void setCurrency(Long currency)
     {
-        this.orderFee = orderFee;
+        this.currency = currency;
     }
 
-    public Double getOrderFee()
+    public Long getCurrency()
     {
-        return orderFee;
+        return currency;
     }
-    public void setOrderNo(String orderNo)
+    public void setCurrencyType(Long currencyType)
     {
-        this.orderNo = orderNo;
-    }
-
-    public String getOrderNo()
-    {
-        return orderNo;
-    }
-    public void setOrderType(String orderType)
-    {
-        this.orderType = orderType;
+        this.currencyType = currencyType;
     }
 
-    public String getOrderType()
+    public Long getCurrencyType()
     {
-        return orderType;
+        return currencyType;
     }
-    public void setStatus(Long status)
+    public void setOtherUserId(String otherUserId)
     {
-        this.status = status;
+        this.otherUserId = otherUserId;
     }
 
-    public Long getStatus()
+    public String getOtherUserId()
     {
-        return status;
+        return otherUserId;
     }
     public void setUserId(Long userId)
     {
@@ -114,10 +99,9 @@ public class TUserBalanceLog extends BaseEntity
             .append("id", getId())
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
-            .append("orderFee", getOrderFee())
-            .append("orderNo", getOrderNo())
-            .append("orderType", getOrderType())
-            .append("status", getStatus())
+            .append("currency", getCurrency())
+            .append("currencyType", getCurrencyType())
+            .append("otherUserId", getOtherUserId())
             .append("userId", getUserId())
             .append("userName", getUserName())
             .toString();
