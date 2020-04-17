@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.system.domain.TBook;
-import com.ruoyi.system.service.ITBookService;
+import com.ruoyi.system.domain.book.TBook;
+import com.ruoyi.system.service.book.ITBookService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
@@ -21,15 +21,15 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 小说Controller
- * 
+ *
  * @author ruoyi
- * @date 2020-04-12
+ * @date 2020-04-17
  */
 @Controller
-@RequestMapping("/system/book")
+@RequestMapping("/business/book")
 public class TBookController extends BaseController
 {
-    private String prefix = "system/book";
+    private String prefix = "/book";
 
     @Autowired
     private ITBookService tBookService;
@@ -38,13 +38,13 @@ public class TBookController extends BaseController
     @GetMapping()
     public String book()
     {
-        return prefix + "/book";
+        return prefix + "/list";
     }
 
     /**
      * 查询小说列表
      */
-    @RequiresPermissions("system:book:list")
+    @RequiresPermissions("business:book:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(TBook tBook)
@@ -57,7 +57,7 @@ public class TBookController extends BaseController
     /**
      * 导出小说列表
      */
-    @RequiresPermissions("system:book:export")
+    @RequiresPermissions("business:book:export")
     @Log(title = "小说", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -80,7 +80,7 @@ public class TBookController extends BaseController
     /**
      * 新增保存小说
      */
-    @RequiresPermissions("system:book:add")
+    @RequiresPermissions("business:book:add")
     @Log(title = "小说", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -103,7 +103,7 @@ public class TBookController extends BaseController
     /**
      * 修改保存小说
      */
-    @RequiresPermissions("system:book:edit")
+    @RequiresPermissions("business:book:edit")
     @Log(title = "小说", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -115,7 +115,7 @@ public class TBookController extends BaseController
     /**
      * 删除小说
      */
-    @RequiresPermissions("system:book:remove")
+    @RequiresPermissions("business:book:remove")
     @Log(title = "小说", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody

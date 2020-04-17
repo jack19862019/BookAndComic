@@ -1,29 +1,29 @@
-package com.ruoyi.system.service.impl;
+package com.ruoyi.system.service.book.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.TBookMapper;
-import com.ruoyi.system.domain.TBook;
-import com.ruoyi.system.service.ITBookService;
+import com.ruoyi.system.domain.book.TBook;
+import com.ruoyi.system.service.book.ITBookService;
 import com.ruoyi.common.core.text.Convert;
 
 /**
  * 小说Service业务层处理
- * 
+ *
  * @author ruoyi
- * @date 2020-04-12
+ * @date 2020-04-17
  */
 @Service
-public class TBookServiceImpl implements ITBookService 
+public class TBookServiceImpl implements ITBookService
 {
     @Autowired
     private TBookMapper tBookMapper;
 
     /**
      * 查询小说
-     * 
+     *
      * @param id 小说ID
      * @return 小说
      */
@@ -35,7 +35,7 @@ public class TBookServiceImpl implements ITBookService
 
     /**
      * 查询小说列表
-     * 
+     *
      * @param tBook 小说
      * @return 小说
      */
@@ -47,7 +47,7 @@ public class TBookServiceImpl implements ITBookService
 
     /**
      * 新增小说
-     * 
+     *
      * @param tBook 小说
      * @return 结果
      */
@@ -60,7 +60,7 @@ public class TBookServiceImpl implements ITBookService
 
     /**
      * 修改小说
-     * 
+     *
      * @param tBook 小说
      * @return 结果
      */
@@ -73,7 +73,7 @@ public class TBookServiceImpl implements ITBookService
 
     /**
      * 删除小说对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -85,7 +85,7 @@ public class TBookServiceImpl implements ITBookService
 
     /**
      * 删除小说信息
-     * 
+     *
      * @param id 小说ID
      * @return 结果
      */
