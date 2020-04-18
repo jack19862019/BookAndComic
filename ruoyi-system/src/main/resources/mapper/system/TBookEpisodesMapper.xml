@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TBookEpisodesMapper">
+    
+    <resultMap type="TBookEpisodes" id="TBookEpisodesResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="beforeNo"    column="before_no"    />
+        <result property="bid"    column="bid"    />
+        <result property="info"    column="info"    />
+        <result property="jiNo"    column="ji_no"    />
+        <result property="money"    column="money"    />
+        <result property="nextNo"    column="next_no"    />
+        <result property="title"    column="title"    />
+
+        <result property="content"    column="content"    />
+
+    </resultMap>
+
+    <sql id="selectTBookEpisodesVo">
+        select id, create_time, update_time, before_no, bid, info, ji_no, money, next_no, title from t_book_episodes
+    </sql>
+
+    <select id="selectTBookEpisodesList" parameterType="TBookEpisodes" resultMap="TBookEpisodesResult">
+        SELECT
+        tb.id,
+        tb.create_time,
+        tb.update_time,
+        tb.before_no,
+        tb.bid,
+        tb.info,
+        tb.ji_no,
+        tb.money,
+        tb.next_no,
+        tb.title,
+        t.content AS content
+        FROM
+        t_book_episodes tb
+        LEFT JOIN t_book_episodes_content t ON t.id = tb.ji_no
+        <where>
+            <if test="bid != null "> and tb.bid = #{bid}</if>
+        </where>
+    </select>
+    
+    <select id="selectTBookEpisodesById" parameterType="Long" resultMap="TBookEpisodesResult">
+        <include refid="selectTBookEpisodesVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTBookEpisodes" parameterType="TBookEpisodes" useGeneratedKeys="true" keyProperty="id">
+        insert into t_book_episodes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="beforeNo != null ">before_no,</if>
+            <if test="bid != null ">bid,</if>
+            <if test="info != null  and info != ''">info,</if>
+            <if test="jiNo != null ">ji_no,</if>
+            <if test="money != null ">money,</if>
+            <if test="nextNo != null ">next_no,</if>
+            <if test="title != null  and title != ''">title,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="beforeNo != null ">#{beforeNo},</if>
+            <if test="bid != null ">#{bid},</if>
+            <if test="info != null  and info != ''">#{info},</if>
+            <if test="jiNo != null ">#{jiNo},</if>
+            <if test="money != null ">#{money},</if>
+            <if test="nextNo != null ">#{nextNo},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTBookEpisodes" parameterType="TBookEpisodes">
+        update t_book_episodes
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="beforeNo != null ">before_no = #{beforeNo},</if>
+            <if test="bid != null ">bid = #{bid},</if>
+            <if test="info != null  and info != ''">info = #{info},</if>
+            <if test="jiNo != null ">ji_no = #{jiNo},</if>
+            <if test="money != null ">money = #{money},</if>
+            <if test="nextNo != null ">next_no = #{nextNo},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTBookEpisodesById" parameterType="Long">
+        delete from t_book_episodes where id = #{id}
+    </delete>
+
+    <delete id="deleteTBookEpisodesByIds" parameterType="String">
+        delete from t_book_episodes where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,15 +1,15 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.service.book.ITBookEpisodesService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.system.domain.book.TBook;
@@ -33,6 +33,8 @@ public class TBookController extends BaseController
 
     @Autowired
     private ITBookService tBookService;
+    @Autowired
+    private ITBookEpisodesService itBookEpisodesService;
 
     @RequiresPermissions("system:book:view")
     @GetMapping()
@@ -122,5 +124,17 @@ public class TBookController extends BaseController
     public AjaxResult remove(String ids)
     {
         return toAjax(tBookService.deleteTBookByIds(ids));
+    }
+
+    /*
+    返回一本小说所有章节
+     */
+    @PostMapping("/chapterList")
+    @ResponseBody
+    public TableDataInfo list(TBookEpisodes tBookEpisodes)
+    {
+        startPage();
+        List<TBookEpisodes> list =itBookEpisodesService.selectTBookEpisodesList(tBookEpisodes);
+        return getDataTable(list);
     }
 }

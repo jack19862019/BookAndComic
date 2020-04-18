@@ -24,7 +24,7 @@ public class TBook extends BaseEntity
 
     /** 分类 */
     @Excel(name = "分类")
-    private String category;
+    private Long category;
 
     /** 封面图(列表) */
     @Excel(name = "封面图(列表)")
@@ -40,7 +40,7 @@ public class TBook extends BaseEntity
 
     /** 状态 */
     @Excel(name = "状态")
-    private String status;
+    private Long status;
 
     /** 作品简介 */
     @Excel(name = "作品简介")
@@ -68,12 +68,12 @@ public class TBook extends BaseEntity
     {
         return author;
     }
-    public void setCategory(String category)
+    public void setCategory(Long category)
     {
         this.category = category;
     }
 
-    public String getCategory()
+    public Long getCategory()
     {
         return category;
     }
@@ -104,12 +104,12 @@ public class TBook extends BaseEntity
     {
         return sort;
     }
-    public void setStatus(String status)
+    public void setStatus(Long status)
     {
         this.status = status;
     }
 
-    public String getStatus()
+    public Long getStatus()
     {
         return status;
     }

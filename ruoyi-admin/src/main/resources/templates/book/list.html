@@ -76,10 +76,19 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
-            modalName: "小说",
+            // modalName: "小说",
+            // showSearch: false,
+            // showRefresh: false,
+            // showToggle: false,
+            // showColumns: false,
+            // detailView: true,
+            // onExpandRow : function(index, row, $detail) {
+            //     initChildTable(index, row, $detail);
+            // },
             columns: [{
                 checkbox: true
             },
+
                 {
                     field: 'id',
                     title: '编号',
@@ -116,21 +125,21 @@
                         }
                     }
                 },
-                {
-                    field: 'detailPic',
-                    title: '详情页图片',
-                    formatter: function(value, row, index) {
-                        if(index % 2 == 0){
-                            return $.table.imageView(row.detailPic);
-                        }else {
-                            return $.table.imageView(row.detailPic);
-                        }
-                    }
-                },
-                {
-                    field: 'sort',
-                    title: '排序权值'
-                },
+                // {
+                //     field: 'detailPic',
+                //     title: '详情页图片',
+                //     formatter: function(value, row, index) {
+                //         if(index % 2 == 0){
+                //             return $.table.imageView(row.detailPic);
+                //         }else {
+                //             return $.table.imageView(row.detailPic);
+                //         }
+                //     }
+                // },
+                // {
+                //     field: 'sort',
+                //     title: '排序权值'
+                // },
                 {
                     title: '操作',
                     align: 'center',
@@ -144,6 +153,27 @@
         };
         $.table.init(options);
     });
+
+    // initChildTable = function(index, row, $detail) {
+    //     var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');
+    //     $(childTable).bootstrapTable({
+    //         url: prefix + "/chapterList",
+    //         method: 'post',
+    //         sidePagination: "server",
+    //         contentType: "application/x-www-form-urlencoded",
+    //         queryParams : {
+    //             bid: row.id
+    //         },
+    //         columns: [{
+    //             field : 'id',
+    //             title : '章节id'
+    //         },
+    //         {
+    //             field : 'title',
+    //             title : '章节名称'
+    //          }]
+    //     });
+    // };
 </script>
 </body>
 </html>

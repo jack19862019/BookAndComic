@@ -43,7 +43,7 @@
                 <div class="col-sm-8">
                     <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
                         <input type="radio" id="showCover" name="showCover" th:value="${dict.dictValue}" th:field="*{showCover}">
-                        <label th:for="${'showCover_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        <label th:for="${dict.dictCode}" th:text="${dict.dictLabel}"></label>
                     </div>
                 </div>
             </div>

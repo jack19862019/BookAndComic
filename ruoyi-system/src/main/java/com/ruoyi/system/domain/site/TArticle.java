@@ -32,7 +32,7 @@ public class TArticle extends BaseEntity
 
     /** 封面图是否显示在正文 */
     @Excel(name = "封面图是否显示在正文")
-    private Long showCover;
+    private String showCover;
 
     /** 排序 */
     @Excel(name = "排序")
@@ -78,12 +78,12 @@ public class TArticle extends BaseEntity
     {
         return cover;
     }
-    public void setShowCover(Long showCover) 
+    public void setShowCover(String showCover)
     {
         this.showCover = showCover;
     }
 
-    public Long getShowCover() 
+    public String getShowCover()
     {
         return showCover;
     }
