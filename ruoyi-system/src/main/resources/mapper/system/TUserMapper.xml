@@ -94,7 +94,7 @@
             t.*, IFNULL(u.parent_id, 0) AS parentId,
             IFNULL((
                 SELECT
-                    trl.parent_id
+                    t.user_name
                 FROM
                     t_user_retail_level trl
                 WHERE
@@ -102,7 +102,7 @@
             ),'无') AS onFirstId,
             IFNULL((
                 SELECT
-                    trl.parent_id
+                   t.user_name
                 FROM
                     t_user_retail_level trl
                 WHERE
