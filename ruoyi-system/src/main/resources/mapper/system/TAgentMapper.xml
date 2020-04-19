@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TAgentMapper">
+    
+    <resultMap type="TAgent" id="TAgentResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="aliAccount"    column="ali_account"    />
+        <result property="aliName"    column="ali_name"    />
+        <result property="balance"    column="balance"    />
+        <result property="gqrCode"    column="gqr_code"    />
+        <result property="name"    column="name"    />
+        <result property="password"    column="password"    />
+        <result property="phone"    column="phone"    />
+        <result property="proxyNickName"    column="proxy_nick_name"    />
+        <result property="ratio"    column="ratio"    />
+        <result property="separate"    column="separate"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectTAgentVo">
+        select id, create_time, update_time, ali_account, ali_name, balance, gqr_code, name, password, phone, proxy_nick_name, ratio, separate, status from t_agent
+    </sql>
+
+    <select id="selectTAgentList" parameterType="TAgent" resultMap="TAgentResult">
+        <include refid="selectTAgentVo"/>
+        <where>  
+            <if test="proxyNickName != null  and proxyNickName != ''"> and proxy_nick_name like concat('%', #{proxyNickName}, '%')</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectTAgentById" parameterType="Long" resultMap="TAgentResult">
+        <include refid="selectTAgentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTAgent" parameterType="TAgent" useGeneratedKeys="true" keyProperty="id">
+        insert into t_agent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="aliAccount != null  and aliAccount != ''">ali_account,</if>
+            <if test="aliName != null  and aliName != ''">ali_name,</if>
+            <if test="balance != null ">balance,</if>
+            <if test="gqrCode != null  and gqrCode != ''">gqr_code,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="password != null  and password != ''">password,</if>
+            <if test="phone != null  and phone != ''">phone,</if>
+            <if test="proxyNickName != null  and proxyNickName != ''">proxy_nick_name,</if>
+            <if test="ratio != null ">ratio,</if>
+            <if test="separate != null ">separate,</if>
+            <if test="status != null ">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="aliAccount != null  and aliAccount != ''">#{aliAccount},</if>
+            <if test="aliName != null  and aliName != ''">#{aliName},</if>
+            <if test="balance != null ">#{balance},</if>
+            <if test="gqrCode != null  and gqrCode != ''">#{gqrCode},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="password != null  and password != ''">#{password},</if>
+            <if test="phone != null  and phone != ''">#{phone},</if>
+            <if test="proxyNickName != null  and proxyNickName != ''">#{proxyNickName},</if>
+            <if test="ratio != null ">#{ratio},</if>
+            <if test="separate != null ">#{separate},</if>
+            <if test="status != null ">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAgent" parameterType="TAgent">
+        update t_agent
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="aliAccount != null  and aliAccount != ''">ali_account = #{aliAccount},</if>
+            <if test="aliName != null  and aliName != ''">ali_name = #{aliName},</if>
+            <if test="balance != null ">balance = #{balance},</if>
+            <if test="gqrCode != null  and gqrCode != ''">gqr_code = #{gqrCode},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="password != null  and password != ''">password = #{password},</if>
+            <if test="phone != null  and phone != ''">phone = #{phone},</if>
+            <if test="proxyNickName != null  and proxyNickName != ''">proxy_nick_name = #{proxyNickName},</if>
+            <if test="ratio != null ">ratio = #{ratio},</if>
+            <if test="separate != null ">separate = #{separate},</if>
+            <if test="status != null ">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTAgentById" parameterType="Long">
+        delete from t_agent where id = #{id}
+    </delete>
+
+    <delete id="deleteTAgentByIds" parameterType="String">
+        delete from t_agent where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
