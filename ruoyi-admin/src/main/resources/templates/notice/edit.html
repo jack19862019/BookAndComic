@@ -26,6 +26,19 @@
     <th:block th:include="include :: footer" />
     <th:block th:include="include :: summernote-js" />
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                lang: 'zh-CN',
+                height: 500,
+                width: 470,
+                focus: true
+            });
+
+            var content = $("#content").val();
+            $('#editor').summernote('code', content);
+        });
+
+
         var prefix = ctx + "notice/config";
         $("#form-notice-edit").validate({
             focusCleanup: true
