@@ -55,6 +55,8 @@ public class TAgentServiceImpl implements ITAgentService
     public int insertTAgent(TAgent tAgent)
     {
         tAgent.setCreateTime(DateUtils.getNowDate());
+        tAgent.setBalance(0D);
+        tAgent.setStatus(0L);
         return tAgentMapper.insertTAgent(tAgent);
     }
 
