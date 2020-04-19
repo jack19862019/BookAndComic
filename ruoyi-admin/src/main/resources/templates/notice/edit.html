@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('修改公告管理')" />
+    <th:block th:include="include :: summernote-css" />
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -23,6 +24,7 @@
         </form>
     </div>
     <th:block th:include="include :: footer" />
+    <th:block th:include="include :: summernote-js" />
     <script type="text/javascript">
         var prefix = ctx + "notice/config";
         $("#form-notice-edit").validate({
