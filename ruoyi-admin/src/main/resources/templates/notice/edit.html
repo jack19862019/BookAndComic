@@ -16,7 +16,8 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label">公告内容：</label>
                 <div class="col-sm-8">
-                    <input name="content" th:field="*{content}" class="form-control" type="text">
+                    <input id="content" name="content" th:field="*{content}" type="hidden">
+                    <div id="editor" class="summernote"></div>
                 </div>
             </div>
         </form>
@@ -30,6 +31,8 @@
 
         function submitHandler() {
             if ($.validate.form()) {
+                var sHTML = $('.summernote').summernote('code');
+                $("#content").val(sHTML);
                 $.operate.save(prefix + "/edit", $('#form-notice-edit').serialize());
             }
         }

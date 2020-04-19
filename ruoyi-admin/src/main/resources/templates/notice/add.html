@@ -16,9 +16,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">公告内容：</label>
                 <div class="col-sm-8">
-                    <div class="summernote">
-
-                    </div>
+                    <input id="content" name="content" type="hidden">
+                    <div class="summernote"></div>
                 </div>
             </div>
         </form>
@@ -43,6 +42,8 @@
 
         function submitHandler() {
             if ($.validate.form()) {
+                var sHTML = $('.summernote').summernote('code');
+                $("#content").val(sHTML);
                 $.operate.save(prefix + "/add", $('#form-notice-add').serialize());
             }
         }
