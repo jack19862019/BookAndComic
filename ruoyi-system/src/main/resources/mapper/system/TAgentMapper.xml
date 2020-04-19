@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TAgentMapper">
-    
+
     <resultMap type="TAgent" id="TAgentResult">
         <result property="id"    column="id"    />
         <result property="createTime"    column="create_time"    />
@@ -27,17 +27,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTAgentList" parameterType="TAgent" resultMap="TAgentResult">
         <include refid="selectTAgentVo"/>
-        <where>  
+        <where>
             <if test="proxyNickName != null  and proxyNickName != ''"> and proxy_nick_name like concat('%', #{proxyNickName}, '%')</if>
             <if test="status != null "> and status = #{status}</if>
         </where>
     </select>
-    
+
     <select id="selectTAgentById" parameterType="Long" resultMap="TAgentResult">
         <include refid="selectTAgentVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTAgent" parameterType="TAgent" useGeneratedKeys="true" keyProperty="id">
         insert into t_agent
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -79,7 +79,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null ">update_time = #{updateTime},</if>
             <if test="aliAccount != null  and aliAccount != ''">ali_account = #{aliAccount},</if>
             <if test="aliName != null  and aliName != ''">ali_name = #{aliName},</if>
-            <if test="balance != null ">balance = #{balance},</if>
             <if test="gqrCode != null  and gqrCode != ''">gqr_code = #{gqrCode},</if>
             <if test="name != null  and name != ''">name = #{name},</if>
             <if test="password != null  and password != ''">password = #{password},</if>
@@ -97,10 +96,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTAgentByIds" parameterType="String">
-        delete from t_agent where id in 
+        delete from t_agent where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>
