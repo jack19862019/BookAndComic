@@ -39,6 +39,26 @@ public class TAgentBalanceLog extends BaseEntity
     @Excel(name = "状态")
     private Long status;
 
+    private String beginMoney;
+
+    private String endMoney;
+
+    public String getBeginMoney() {
+        return beginMoney;
+    }
+
+    public void setBeginMoney(String beginMoney) {
+        this.beginMoney = beginMoney;
+    }
+
+    public String getEndMoney() {
+        return endMoney;
+    }
+
+    public void setEndMoney(String endMoney) {
+        this.endMoney = endMoney;
+    }
+
     public void setId(Long id)
     {
         this.id = id;
