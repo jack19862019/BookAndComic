@@ -96,4 +96,9 @@ public class TAgentServiceImpl implements ITAgentService
     {
         return tAgentMapper.deleteTAgentById(id);
     }
+
+    @Override
+    public List<TAgent> selectTAgentAll() {
+        return tAgentMapper.selectTAgentAll();
+    }
 }

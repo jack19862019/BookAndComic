@@ -59,4 +59,6 @@ public interface TAgentMapper
      * @return 结果
      */
     public int deleteTAgentByIds(String[] ids);
+
+    public List<TAgent> selectTAgentAll();
 }

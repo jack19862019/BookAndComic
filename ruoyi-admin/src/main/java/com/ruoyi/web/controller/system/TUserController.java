@@ -23,15 +23,15 @@ import java.util.List;
  * @date 2020-04-15
  */
 @Controller
-@RequestMapping("/business/user")
+@RequestMapping("/business/tuser")
 public class TUserController extends BaseController
 {
-    private String prefix = "/user";
+    private String prefix = "/tuser";
 
     @Autowired
     private ITUserService tUserService;
 
-    @RequiresPermissions("business:user:view")
+    @RequiresPermissions("business:tuser:view")
     @GetMapping()
     public String user()
     {
@@ -41,7 +41,7 @@ public class TUserController extends BaseController
     /**
      * 查询用户基本信息列表
      */
-    @RequiresPermissions("business:user:list")
+    @RequiresPermissions("business:tuser:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(TUser tUser)
@@ -54,7 +54,7 @@ public class TUserController extends BaseController
     /**
      * 导出用户基本信息列表
      */
-    @RequiresPermissions("business:user:export")
+    @RequiresPermissions("business:tuser:export")
     @Log(title = "用户基本信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody

@@ -24,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="selectTAgentVo">
         select id, create_time, update_time, ali_account, ali_name, balance, gqr_code, name, password, phone, proxy_nick_name, ratio, separate, status from t_agent
     </sql>
+    <select id="selectTAgentAll" resultMap="TAgentResult">
+        <include refid="selectTAgentVo"/>
+    </select>
 
     <select id="selectTAgentList" parameterType="TAgent" resultMap="TAgentResult">
         <include refid="selectTAgentVo"/>

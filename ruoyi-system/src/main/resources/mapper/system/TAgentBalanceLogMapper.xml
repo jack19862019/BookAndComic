@@ -14,6 +14,8 @@
         <result property="userId" column="user_id"/>
         <result property="proxyId" column="proxy_id"/>
         <result property="status" column="status"/>
+
+        <result property="userName" column="userName"/>
     </resultMap>
 
     <sql id="selectTAgentBalanceLogVo">
@@ -40,6 +42,8 @@
                 and g.money between #{params.beginMoney} and #{params.endMoney}
             </if>
             <if test="orderNo != null  and orderNo != ''">and g.order_no like concat('%', #{orderNo}, '%')</if>
+            <if test="userName != null  and userName != ''">and t.user_name like concat('%', #{userName}, '%')</if>
+            <if test="proxyNickName != null  and proxyNickName != ''">and a.proxy_nick_name like concat('%', #{proxyNickName}, '%')</if>
             <if test="status != null ">and g.status = #{status}</if>
             <if test="proxyId != null ">and g.proxy_id = #{proxyId}</if>
             <if test="userId != null ">and g.user_id = #{userId}</if>
