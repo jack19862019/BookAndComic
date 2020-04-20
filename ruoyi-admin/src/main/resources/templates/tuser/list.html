@@ -47,8 +47,8 @@
 </div>
 <th:block th:include="include :: footer" />
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('system:tuser:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('system:tuser:remove')}]];
+    var editFlag = [[${@permission.hasPermi('business:tuser:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('business:tuser:remove')}]];
     var isVipDatas = [[${@dict.getType('t_is_value')}]];
     var userSourceDatas = [[${@dict.getType('t_tuser_resource')}]];
     var prefix = ctx + "business/tuser";
