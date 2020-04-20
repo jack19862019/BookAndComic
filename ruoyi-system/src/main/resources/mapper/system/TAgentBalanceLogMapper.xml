@@ -22,14 +22,14 @@
 
     <select id="selectTAgentBalanceLogList" parameterType="TAgentBalanceLog" resultType="com.ruoyi.system.params.AgentListVo">
         select g.id,
-        g.createTime,
-        g.updateTime,
-        g.money,
-        g.orderNo,
-        g.orderType,
-        g.userId,
-        g.proxyId,
-        g.status,
+        g.create_time as createTime,
+        g.update_time as updateTime,
+        g.money as money,
+        g.order_no as orderNo,
+        g.order_type as orderType,
+        g.user_id as userId,
+        g.proxy_id as proxId,
+        g.status as status,
         t.user_name as g.userName,
         a.proxy_nick_name as proxyNickName,
         a.name as name from t_agent_balance_log g
