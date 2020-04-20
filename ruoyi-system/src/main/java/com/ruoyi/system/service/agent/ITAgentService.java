@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.agent;
 
+import com.ruoyi.system.domain.SysPost;
 import com.ruoyi.system.domain.agent.TAgent;
 
 import java.util.List;
@@ -59,4 +60,9 @@ public interface ITAgentService
      * @return 结果
      */
     public int deleteTAgentById(Long id);
+
+    /**
+     * 查询代理信息
+     */
+    public List<TAgent> selectTAgentAll();
 }

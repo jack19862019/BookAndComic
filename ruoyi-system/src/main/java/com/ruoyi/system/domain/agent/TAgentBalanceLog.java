@@ -42,6 +42,30 @@ public class TAgentBalanceLog extends BaseEntity
     private String beginMoney;
 
     private String endMoney;
+    /**用户名称**/
+    private String userName;
+    /**代理昵称**/
+    private String proxyNickName;
+
+    public String getProxyNickName() {
+        return proxyNickName;
+    }
+
+    public void setProxyNickName(String proxyNickName) {
+        this.proxyNickName = proxyNickName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getBeginMoney() {
         return beginMoney;

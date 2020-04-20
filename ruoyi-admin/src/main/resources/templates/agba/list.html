@@ -22,6 +22,14 @@
                             <input type="text" name="orderNo"/>
                         </li>
                         <li>
+                            <label>用户名称：</label>
+                            <input type="text" name="userName"/>
+                        </li>
+                        <li>
+                            <label>代理昵称：</label>
+                            <input type="text" name="proxyNickName"/>
+                        </li>
+                        <li>
                             <label>状态：</label>
                             <select name="status" th:with="type=${@dict.getType('t_order_status')}">
                                 <option value="">所有</option>
