@@ -30,7 +30,7 @@
         g.user_id as userId,
         g.proxy_id as proxId,
         g.status as status,
-        t.user_name as g.userName,
+        t.user_name as userName,
         a.proxy_nick_name as proxyNickName,
         a.name as name from t_agent_balance_log g
         left join t_user t on t.id = g.user_id

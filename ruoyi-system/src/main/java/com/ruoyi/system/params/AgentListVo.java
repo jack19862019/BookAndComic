@@ -1,8 +1,14 @@
 package com.ruoyi.system.params;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class AgentListVo {
     private Long id;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     private Double money;
 
@@ -19,6 +25,14 @@ public class AgentListVo {
     private String userName;
 
     private String proxyNickName;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Long getId() {
         return id;
