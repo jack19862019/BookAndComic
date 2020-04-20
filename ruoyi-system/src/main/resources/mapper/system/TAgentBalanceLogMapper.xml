@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TAgentBalanceLogMapper">
+    
+    <resultMap type="TAgentBalanceLog" id="TAgentBalanceLogResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="money"    column="money"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="userId"    column="user_id"    />
+        <result property="proxyId"    column="proxy_id"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectTAgentBalanceLogVo">
+        select id, create_time, update_time, money, order_no, order_type, user_id, proxy_id, status from t_agent_balance_log
+    </sql>
+
+    <select id="selectTAgentBalanceLogList" parameterType="TAgentBalanceLog" resultMap="TAgentBalanceLogResult">
+        <include refid="selectTAgentBalanceLogVo"/>
+        <where>  
+            <if test="params.beginMoney != null and params.beginMoney != '' and params.endMoney != null and params.endMoney != ''"> and money between #{params.beginMoney} and #{params.endMoney}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no like concat('%', #{orderNo}, '%')</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectTAgentBalanceLogById" parameterType="Long" resultMap="TAgentBalanceLogResult">
+        <include refid="selectTAgentBalanceLogVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTAgentBalanceLog" parameterType="TAgentBalanceLog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_agent_balance_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="money != null ">money,</if>
+            <if test="orderNo != null  and orderNo != ''">order_no,</if>
+            <if test="orderType != null ">order_type,</if>
+            <if test="userId != null ">user_id,</if>
+            <if test="proxyId != null ">proxy_id,</if>
+            <if test="status != null ">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="money != null ">#{money},</if>
+            <if test="orderNo != null  and orderNo != ''">#{orderNo},</if>
+            <if test="orderType != null ">#{orderType},</if>
+            <if test="userId != null ">#{userId},</if>
+            <if test="proxyId != null ">#{proxyId},</if>
+            <if test="status != null ">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAgentBalanceLog" parameterType="TAgentBalanceLog">
+        update t_agent_balance_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="money != null ">money = #{money},</if>
+            <if test="orderNo != null  and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="orderType != null ">order_type = #{orderType},</if>
+            <if test="userId != null ">user_id = #{userId},</if>
+            <if test="proxyId != null ">proxy_id = #{proxyId},</if>
+            <if test="status != null ">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTAgentBalanceLogById" parameterType="Long">
+        delete from t_agent_balance_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTAgentBalanceLogByIds" parameterType="String">
+        delete from t_agent_balance_log where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
