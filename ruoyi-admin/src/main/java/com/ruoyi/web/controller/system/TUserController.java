@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/business/tuser")
 public class TUserController extends BaseController
 {
-    private String prefix = "/tuser";
+    private String prefix = "tuser";
 
     @Autowired
     private ITUserService tUserService;
