@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TAgentBuckleLogMapper">
+
+    <resultMap type="TAgentBuckleLog" id="TAgentBuckleLogResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="cMoney"    column="c_money"    />
+        <result property="kMoney"    column="k_money"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="proxyId"    column="proxy_id"    />
+        <result property="userId"    column="user_id"    />
+    </resultMap>
+
+    <sql id="selectTAgentBuckleLogVo">
+        select id, create_time, update_time, c_money, k_money, order_no, proxy_id, user_id from t_agent_buckle_log
+    </sql>
+
+    <select id="selectTAgentBuckleLogList" parameterType="TAgentBuckleLog" resultType="com.ruoyi.system.domain.buckle.TAgentBuckleLog">
+        SELECT
+        g.id as id,
+        g.create_time as createTime,
+        g.c_money as cMoney,
+        g.k_money as kMoney,
+        g.order_no as orderNo,
+        a.proxy_nick_name as proxyName,
+        b.user_name as userName
+        FROM
+        t_agent_buckle_log g
+        LEFT JOIN t_agent a ON g.proxy_id = a.id
+        LEFT JOIN t_user b ON g.user_id = b.id
+        <where>
+            <if test="orderNo != null  and orderNo != ''"> and order_no like concat('%', #{orderNo}, '%')</if>
+            <if test="proxyName != null "> and proxy_nick_name like concat('%', #{proxyName}, '%')</if>
+            <if test="userName != null "> and user_name like concat('%', #{userName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectTAgentBuckleLogById" parameterType="Long" resultMap="TAgentBuckleLogResult">
+        <include refid="selectTAgentBuckleLogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTAgentBuckleLog" parameterType="TAgentBuckleLog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_agent_buckle_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="cMoney != null ">c_money,</if>
+            <if test="kMoney != null ">k_money,</if>
+            <if test="orderNo != null  and orderNo != ''">order_no,</if>
+            <if test="proxyId != null ">proxy_id,</if>
+            <if test="userId != null ">user_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="cMoney != null ">#{cMoney},</if>
+            <if test="kMoney != null ">#{kMoney},</if>
+            <if test="orderNo != null  and orderNo != ''">#{orderNo},</if>
+            <if test="proxyId != null ">#{proxyId},</if>
+            <if test="userId != null ">#{userId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAgentBuckleLog" parameterType="TAgentBuckleLog">
+        update t_agent_buckle_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="cMoney != null ">c_money = #{cMoney},</if>
+            <if test="kMoney != null ">k_money = #{kMoney},</if>
+            <if test="orderNo != null  and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="proxyId != null ">proxy_id = #{proxyId},</if>
+            <if test="userId != null ">user_id = #{userId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTAgentBuckleLogById" parameterType="Long">
+        delete from t_agent_buckle_log where id = #{id}
+    </delete>
+
+    <delete id="deleteTAgentBuckleLogByIds" parameterType="String">
+        delete from t_agent_buckle_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

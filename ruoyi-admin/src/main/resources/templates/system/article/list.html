@@ -11,12 +11,12 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <label>作者：</label>
-                                <input type="text" name="author"/>
-                            </li>
-                            <li>
                                 <label>标题：</label>
                                 <input type="text" name="title"/>
+                            </li>
+                            <li>
+                                <label>内容：</label>
+                                <input type="text" name="body"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -65,12 +65,12 @@
                     checkbox: true
                 },
                 {
-                    field: 'id', 
+                    field: 'id',
                     title: '消息编号',
                     visible: false
                 },
                 {
-                    field: 'author', 
+                    field: 'author',
                     title: '作者'
                 },
                 {
@@ -78,7 +78,7 @@
                         title: '标题'
                  },
                 {
-                    field: 'body', 
+                    field: 'body',
                     title: '内容'
                 },
                     {
@@ -100,7 +100,7 @@
                         }
                     },
                 {
-                    field: 'sort', 
+                    field: 'sort',
                     title: '排序'
                 },
                 {

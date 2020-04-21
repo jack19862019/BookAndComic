@@ -1,13 +1,16 @@
 package com.ruoyi.system.service.site.impl;
 
-import java.util.List;
+import com.ruoyi.common.core.text.Convert;
+import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.site.TAdvertisingConfig;
+import com.ruoyi.system.mapper.TAdvertisingConfigMapper;
+import com.ruoyi.system.service.site.ITAdvertisingConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.system.mapper.TAdvertisingConfigMapper;
-import com.ruoyi.system.domain.site.TAdvertisingConfig;
-import com.ruoyi.system.service.site.ITAdvertisingConfigService;
-import com.ruoyi.common.core.text.Convert;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * 广告配置Service业务层处理
@@ -16,8 +19,7 @@ import com.ruoyi.common.core.text.Convert;
  * @date 2020-04-11
  */
 @Service
-public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
-{
+public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService {
     @Autowired
     private TAdvertisingConfigMapper tAdvertisingConfigMapper;
 
@@ -28,8 +30,7 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 广告配置
      */
     @Override
-    public TAdvertisingConfig selectTAdvertisingConfigById(Long id)
-    {
+    public TAdvertisingConfig selectTAdvertisingConfigById(Long id) {
         return tAdvertisingConfigMapper.selectTAdvertisingConfigById(id);
     }
 
@@ -40,8 +41,7 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 广告配置
      */
     @Override
-    public List<TAdvertisingConfig> selectTAdvertisingConfigList(TAdvertisingConfig tAdvertisingConfig)
-    {
+    public List<TAdvertisingConfig> selectTAdvertisingConfigList(TAdvertisingConfig tAdvertisingConfig) {
         return tAdvertisingConfigMapper.selectTAdvertisingConfigList(tAdvertisingConfig);
     }
 
@@ -52,8 +52,28 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 结果
      */
     @Override
-    public int insertTAdvertisingConfig(TAdvertisingConfig tAdvertisingConfig)
-    {
+    public int insertTAdvertisingConfig(TAdvertisingConfig tAdvertisingConfig) {
+        Long bid = tAdvertisingConfig.getBid();
+        if (bid==0) {
+            List<TAdvertisingConfig> tAdvertisingConfigs = tAdvertisingConfigMapper.selectTAdvertisingConfigList(new TAdvertisingConfig());
+            if (!CollectionUtils.isEmpty(tAdvertisingConfigs)) {
+                for (TAdvertisingConfig tg : tAdvertisingConfigs) {
+                    if (tg.getBid() == 0) {
+                        throw new BusinessException("已经配置小说广告");
+                    }
+                }
+            }
+        }
+        if (bid==1) {
+            List<TAdvertisingConfig> tAdvertisingConfigs = tAdvertisingConfigMapper.selectTAdvertisingConfigList(new TAdvertisingConfig());
+            if (!CollectionUtils.isEmpty(tAdvertisingConfigs)) {
+                for (TAdvertisingConfig tg : tAdvertisingConfigs) {
+                    if (tg.getBid() == 1) {
+                        throw new BusinessException("已经配置漫画广告");
+                    }
+                }
+            }
+        }
         tAdvertisingConfig.setCreateTime(DateUtils.getNowDate());
         return tAdvertisingConfigMapper.insertTAdvertisingConfig(tAdvertisingConfig);
     }
@@ -65,8 +85,7 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 结果
      */
     @Override
-    public int updateTAdvertisingConfig(TAdvertisingConfig tAdvertisingConfig)
-    {
+    public int updateTAdvertisingConfig(TAdvertisingConfig tAdvertisingConfig) {
         tAdvertisingConfig.setUpdateTime(DateUtils.getNowDate());
         return tAdvertisingConfigMapper.updateTAdvertisingConfig(tAdvertisingConfig);
     }
@@ -78,8 +97,7 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 结果
      */
     @Override
-    public int deleteTAdvertisingConfigByIds(String ids)
-    {
+    public int deleteTAdvertisingConfigByIds(String ids) {
         return tAdvertisingConfigMapper.deleteTAdvertisingConfigByIds(Convert.toStrArray(ids));
     }
 
@@ -90,8 +108,7 @@ public class TAdvertisingConfigServiceImpl implements ITAdvertisingConfigService
      * @return 结果
      */
     @Override
-    public int deleteTAdvertisingConfigById(Long id)
-    {
+    public int deleteTAdvertisingConfigById(Long id) {
         return tAdvertisingConfigMapper.deleteTAdvertisingConfigById(id);
     }
 }
