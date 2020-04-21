@@ -29,7 +29,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/business/book")
 public class TBookController extends BaseController
 {
-    private String prefix = "/book";
+    private String prefix = "book";
 
     @Autowired
     private ITBookService tBookService;
