@@ -21,7 +21,7 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
- * 充值记录Controller
+ * 代理用户充值记录Controller
  *
  * @author ruoyi
  * @date 2020-04-19
@@ -37,8 +37,9 @@ public class TAgentBalanceLogController extends BaseController
 
     @RequiresPermissions("agba:log:view")
     @GetMapping()
-    public String log()
+    public String log(String id, ModelMap mmap)
     {
+        mmap.put("agentId", id);
         return prefix + "/list";
     }
 

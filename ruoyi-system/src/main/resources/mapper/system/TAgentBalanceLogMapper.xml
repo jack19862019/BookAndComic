@@ -10,7 +10,6 @@
         <result property="updateTime" column="update_time"/>
         <result property="money" column="money"/>
         <result property="orderNo" column="order_no"/>
-        <result property="orderType" column="order_type"/>
         <result property="userId" column="user_id"/>
         <result property="proxyId" column="proxy_id"/>
         <result property="status" column="status"/>
@@ -19,7 +18,7 @@
     </resultMap>
 
     <sql id="selectTAgentBalanceLogVo">
-        select id, create_time, update_time, money, order_no, order_type, user_id, proxy_id, status from t_agent_balance_log
+        select id, create_time, update_time, money, order_no, user_id, proxy_id, status from t_agent_balance_log
     </sql>
 
     <select id="selectTAgentBalanceLogList" parameterType="TAgentBalanceLog" resultType="com.ruoyi.system.params.AgentListVo">
@@ -28,7 +27,6 @@
         g.update_time as updateTime,
         g.money as money,
         g.order_no as orderNo,
-        g.order_type as orderType,
         g.user_id as userId,
         g.proxy_id as proxId,
         g.status as status,
@@ -62,7 +60,6 @@
             <if test="updateTime != null ">update_time,</if>
             <if test="money != null ">money,</if>
             <if test="orderNo != null  and orderNo != ''">order_no,</if>
-            <if test="orderType != null ">order_type,</if>
             <if test="userId != null ">user_id,</if>
             <if test="proxyId != null ">proxy_id,</if>
             <if test="status != null ">status,</if>
@@ -86,7 +83,6 @@
             <if test="updateTime != null ">update_time = #{updateTime},</if>
             <if test="money != null ">money = #{money},</if>
             <if test="orderNo != null  and orderNo != ''">order_no = #{orderNo},</if>
-            <if test="orderType != null ">order_type = #{orderType},</if>
             <if test="userId != null ">user_id = #{userId},</if>
             <if test="proxyId != null ">proxy_id = #{proxyId},</if>
             <if test="status != null ">status = #{status},</if>

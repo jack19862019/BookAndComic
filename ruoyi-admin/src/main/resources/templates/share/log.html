@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('充值记录列表')"/>
+    <th:block th:include="include :: header('分佣记录列表')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -11,32 +11,24 @@
                 <div class="select-list">
                     <ul>
                         <li class="select-time">
-                            <label>充值金额：</label>
-                            <input type="text" class="input" id="beginMoney" placeholder="开始金额"
-                                   name="params[beginMoney]"/>
+                            <label>创建时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginCreateTime]"/>
                             <span>-</span>
-                            <input type="text" class="input" id="endMoney" placeholder="结束金额" name="params[endMoney]"/>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endCreateTime]"/>
                         </li>
                         <li>
                             <label>订单编号：</label>
                             <input type="text" name="orderNo"/>
                         </li>
                         <li>
+                            <label>代理名称：</label>
+                            <input type="text" name="proxyName"/>
+                        </li>
+                        <li>
                             <label>用户名称：</label>
                             <input type="text" name="userName"/>
-                        </li>
-                        <li>
-                            <label>代理昵称：</label>
-                            <input type="text" name="proxyNickName"/>
-                        </li>
-                            <input type="hidden" name="proxyId" id="proxyId"/>
-                        <li>
-                            <label>状态：</label>
-                            <select name="status" th:with="type=${@dict.getType('t_order_status')}">
-                                <option value="">所有</option>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                        th:value="${dict.dictValue}"></option>
-                            </select>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -50,7 +42,7 @@
         </div>
 
         <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="agba:log:export">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="share:log:export">
                 <i class="fa fa-download"></i> 导出
             </a>
         </div>
@@ -58,26 +50,21 @@
             <table id="bootstrap-table"></table>
         </div>
     </div>
-    <input type="hidden" id="agentId" th:value="${agentId}">
 </div>
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('agba:log:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('agba:log:remove')}]];
-    var statusDatas = [[${@dict.getType('t_order_status')}]];
-    var prefix = ctx + "agent/balance/log";
+    var editFlag = [[${@permission.hasPermi('share:log:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('share:log:remove')}]];
+    var prefix = ctx + "share/log";
+
     $(function () {
-        var agentId = $("#agentId").val();
-        if (agentId){
-            $("#proxyId").val(agentId);
-        }
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
-            modalName: "充值记录",
+            modalName: "分佣记录",
             columns: [{
                 checkbox: true
             },
@@ -87,27 +74,24 @@
                     visible: false
                 },
                 {
-                    field: 'proxyNickName',
-                    title: '代理昵称'
-                },
-                {
                     field: 'userName',
-                    title: '充值用户'
+                    title: '用户名称'
                 },
                 {
-                    field: 'money',
-                    title: '充值金额'
+                    field: 'proxyName',
+                    title: '代理名称'
                 },
                 {
                     field: 'orderNo',
                     title: '订单编号'
                 },
                 {
-                    field: 'status',
-                    title: '状态',
-                    formatter: function (value, row, index) {
-                        return $.table.selectDictLabel(statusDatas, value);
-                    }
+                    field: 'cMoney',
+                    title: '充值金额'
+                },
+                {
+                    field: 'fMoney',
+                    title: '分佣金额'
                 },
                 {
                     field: 'createTime',
