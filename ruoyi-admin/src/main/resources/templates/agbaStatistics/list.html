@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('充值记录列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div style="margin-top: 1%;">
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>今日充值</h3>
+                    <label th:each="top:${topUpDay}" class="check-box">
+                        <h2 class="no-margins" th:text="${top.money}" ></h2>
+                        <h3 th:text="${top.description}" ></h3>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>昨日充值</h3>
+                    <label th:each="top:${topUpYesterday}" class="check-box">
+                        <h2 class="no-margins" th:text="${top.money}" ></h2>
+                        <h3 th:text="${top.description}" ></h3>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>本月充值</h3>
+                    <label th:each="top:${topUpMonth}" class="check-box">
+                        <h2 class="no-margins" th:text="${top.money}"></h2>
+                        <h3 th:text="${top.description}" ></h3>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>累计充值</h3>
+                    <label th:each="top:${topUpTotal}" class="check-box">
+                        <h2 class="no-margins" th:text="${top.money}" ></h2>
+                        <h3 th:text="${top.description}" ></h3>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li class="select-time">
+                            <label>创建时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
+                        </li>
+                        <li>
+                            <label>订单编号：</label>
+                            <input type="text" name="orderNo"/>
+                        </li>
+                        <li>
+                            <label>用户名称：</label>
+                            <input type="text" name="userName"/>
+                        </li>
+                        <li>
+                            <label>代理昵称：</label>
+                            <input type="text" name="proxyNickName"/>
+                        </li>
+                            <input type="hidden" name="proxyId" id="proxyId"/>
+                        <li>
+                            <label>状态：</label>
+                            <select name="status" th:with="type=${@dict.getType('t_order_status')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+<!--        <div class="btn-group-sm" id="toolbar" role="group">-->
+<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="agba:log:export">-->
+<!--                <i class="fa fa-download"></i> 导出-->
+<!--            </a>-->
+<!--        </div>-->
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+    <input type="hidden" id="agentId" th:value="${agentId}">
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('agba:log:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('agba:log:remove')}]];
+    var statusDatas = [[${@dict.getType('t_order_status')}]];
+    var prefix = ctx + "statistics/agba";
+    $(function () {
+        var agentId = $("#agentId").val();
+        if (agentId){
+            $("#proxyId").val(agentId);
+        }
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "充值记录",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '编号',
+                    visible: false
+                },
+                {
+                    field: 'proxyNickName',
+                    title: '代理昵称'
+                },
+                {
+                    field: 'userName',
+                    title: '充值用户'
+                },
+                {
+                    field: 'money',
+                    title: '充值金额'
+                },
+                {
+                    field: 'orderNo',
+                    title: '订单编号'
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(statusDatas, value);
+                    }
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                },
+            ]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

@@ -52,4 +52,24 @@ public class TUserServiceImpl implements ITUserService {
         return tUserMapper.selectTUserList(tUser);
     }
 
+    @Override
+    public Integer userDay() {
+        return tUserMapper.userDay();
+    }
+
+    @Override
+    public Integer userYesterday() {
+        return tUserMapper.userYesterday();
+    }
+
+    @Override
+    public Integer userMonth() {
+        return tUserMapper.userMonth();
+    }
+
+    @Override
+    public Integer userTotal() {
+        return tUserMapper.userTotal();
+    }
+
 }

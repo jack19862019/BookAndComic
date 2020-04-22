@@ -59,4 +59,21 @@ public interface ITAgentShareLogService
      * @return 结果
      */
     public int deleteTAgentShareLogById(Long id);
+
+    /**
+     * 查询今日分成
+     */
+    public Double shareDay();
+    /**
+     * 查询昨日分成
+     */
+    public Double shareYesterday();
+    /**
+     * 查询本月分成
+     */
+    public Double shareMonth();
+    /**
+     * 查询累计分成
+     */
+    public Double shareTotal();
 }

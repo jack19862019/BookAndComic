@@ -94,4 +94,24 @@ public class TAgentShareLogServiceImpl implements ITAgentShareLogService
     {
         return tAgentShareLogMapper.deleteTAgentShareLogById(id);
     }
+
+    @Override
+    public Double shareDay() {
+        return tAgentShareLogMapper.shareDay();
+    }
+
+    @Override
+    public Double shareYesterday() {
+        return tAgentShareLogMapper.shareYesterday();
+    }
+
+    @Override
+    public Double shareMonth() {
+        return tAgentShareLogMapper.shareMonth();
+    }
+
+    @Override
+    public Double shareTotal() {
+        return tAgentShareLogMapper.shareTotal();
+    }
 }

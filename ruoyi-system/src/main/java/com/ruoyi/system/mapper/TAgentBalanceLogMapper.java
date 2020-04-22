@@ -1,5 +1,6 @@
 package com.ruoyi.system.mapper;
 
+import com.ruoyi.system.domain.agent.TAgbaParams;
 import com.ruoyi.system.domain.agent.TAgentBalanceLog;
 
 import java.util.List;
@@ -59,4 +60,21 @@ public interface TAgentBalanceLogMapper
      * @return 结果
      */
     public int deleteTAgentBalanceLogByIds(String[] ids);
+
+    /**
+     * 查询今日充值
+     */
+    public List<TAgbaParams> topUpDay();
+    /**
+     * 查询昨日充值
+     */
+    public List<TAgbaParams> topUpYesterday();
+    /**
+     * 查询本月充值
+     */
+    public List<TAgbaParams> topUpMonth();
+    /**
+     * 查询累计充值
+     */
+    public List<TAgbaParams> topUpTotal();
 }

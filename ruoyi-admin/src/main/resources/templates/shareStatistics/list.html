@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('分佣记录列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div style="margin-top: 1%;">
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>今日分成</h3>
+                    <h2 class="no-margins" th:text="${shareDay}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>昨日分成</h3>
+                    <h2 class="no-margins" th:text="${shareYesterday}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>本月分成</h3>
+                    <h2 class="no-margins" th:text="${shareMonth}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>累计分成</h3>
+                    <h2 class="no-margins" th:text="${shareTotal}" ></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li class="select-time">
+                            <label>创建时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginCreateTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endCreateTime]"/>
+                        </li>
+                        <li>
+                            <label>订单编号：</label>
+                            <input type="text" name="orderNo"/>
+                        </li>
+                        <li>
+                            <label>代理名称：</label>
+                            <input type="text" name="proxyName"/>
+                        </li>
+                        <li>
+                            <label>用户名称：</label>
+                            <input type="text" name="userName"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="proxyId" id="proxyId"/>
+                    <input type="hidden" id="agentId" th:value="${agentId}">
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="share:log:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('share:log:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('share:log:remove')}]];
+    var prefix = ctx + "statistics/share";
+
+    $(function () {
+        var agentId = $("#agentId").val();
+        if (agentId){
+            $("#proxyId").val(agentId);
+        }
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "分佣记录",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'id',
+                    title: '编号',
+                    visible: false
+                },
+                {
+                    field: 'userName',
+                    title: '用户名称'
+                },
+                {
+                    field: 'proxyName',
+                    title: '代理名称'
+                },
+                {
+                    field: 'orderNo',
+                    title: '订单编号'
+                },
+                {
+                    field: 'cMoney',
+                    title: '充值金额'
+                },
+                {
+                    field: 'fMoney',
+                    title: '分佣金额'
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                },
+            ]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

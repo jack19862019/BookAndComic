@@ -233,4 +233,17 @@
         SELECT u.user_name from t_user_retail_level t LEFT JOIN t_user u on u.id = t.user_id where t.user_id = #{id}
     </select>
 
+
+    <select id="userDay" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user WHERE TO_DAYS(create_time) = TO_DAYS(NOW())
+    </select>
+    <select id="userYesterday" resultType="java.lang.Integer">
+       SELECT COUNT(1) FROM t_user WHERE TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
+    </select>
+    <select id="userMonth" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user WHERE DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+    </select>
+    <select id="userTotal" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user
+    </select>
 </mapper>

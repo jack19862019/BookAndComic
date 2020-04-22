@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('用户基本信息列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div style="margin-top: 1%;">
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>今日新增</h3>
+                    <h2 class="no-margins" th:text="${userDay}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>昨日新增</h3>
+                    <h2 class="no-margins" th:text="${userYesterday}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>本月新增</h3>
+                    <h2 class="no-margins" th:text="${userMonth}" ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>累计新增</h3>
+                    <h2 class="no-margins" th:value="${userTotal}" th:text="${userTotal}" ></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>用户名：</label>
+                            <input type="text" name="userName"/>
+                        </li>
+                        <li class="select-time">
+                            <label>创建时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i> 重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="statistics:user:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('statistics:user:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('statistics:user:remove')}]];
+    var isVipDatas = [[${@dict.getType('t_is_value')}]];
+    var userSourceDatas = [[${@dict.getType('t_tuser_resource')}]];
+    var prefix = ctx + "statistics/user";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "用户基本信息",
+            columns: [{
+                checkbox: true
+            },
+
+                {
+                    field: 'id',
+                    title: '编号',
+                    visible: false
+                },
+                {
+                    field: 'userName',
+                    title: '用户名'
+                },
+                {
+                    field: 'userNo',
+                    title: '用户编号'
+                },
+                {
+                    field: 'aliAccount',
+                    title: '支付宝账号'
+                },
+                {
+                    field: 'aliName',
+                    title: '支付宝名称'
+                },
+                {
+                    field: 'balance',
+                    title: '余额'
+                },
+                {
+                    field: 'bookCurrency',
+                    title: '书币'
+                },
+                {
+                    field: 'isVip',
+                    title: 'vip状态',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(isVipDatas, value);
+                    }
+                },
+                {
+                    field: 'userSource',
+                    title: '用户来源',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(userSourceDatas, value);
+                    }
+                },
+                {
+                    field: 'proxyId',
+                    title: '来源代理'
+                },
+                {
+                    field: 'firstNum',
+                    title: '一级下线'
+                },
+                {
+                    field: 'secondNum',
+                    title: '二级下线'
+                },
+                {
+                    field: 'thirdNum',
+                    title: '三级下线'
+                },
+                {
+                    field: 'createTime',
+                    title: '创建时间'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>详情</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

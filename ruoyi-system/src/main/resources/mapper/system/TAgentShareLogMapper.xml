@@ -33,10 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LEFT JOIN t_agent a ON g.proxy_id = a.id
         LEFT JOIN t_user b ON g.user_id = b.id
         <where>
-            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
-            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
-            <if test="proxyName != null "> and proxy_nick_name like concat('%', #{proxyName}, '%')</if>
-            <if test="userName != null "> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and  g.create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="orderNo != null  and orderNo != ''"> and  g.order_no = #{orderNo}</if>
+            <if test="proxyName != null "> and a.proxy_nick_name like concat('%', #{proxyName}, '%')</if>
+            <if test="userName != null "> and b.user_name like concat('%', #{userName}, '%')</if>
             <if test="proxyId != null ">and g.proxy_id = #{proxyId}</if>
 
         </where>
@@ -94,4 +94,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
+
+
+    <select id="shareDay" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log WHERE TO_DAYS(create_time) = TO_DAYS(NOW())
+    </select>
+    <select id="shareYesterday" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log WHERE TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
+    </select>
+    <select id="shareMonth" resultType="java.lang.Double">
+       SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log WHERE DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+    </select>
+    <select id="shareTotal" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log
+    </select>
 </mapper>

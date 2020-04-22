@@ -43,4 +43,21 @@ public interface ITUserService
      */
     public List<TUser> selectTUserList(TUser tUser);
 
+
+    /**
+     * 查询今日新增用户
+     */
+    public Integer userDay();
+    /**
+     * 查询昨日新增用户
+     */
+    public Integer userYesterday();
+    /**
+     * 查询本月新增用户
+     */
+    public Integer userMonth();
+    /**
+     * 查询累计新增用户
+     */
+    public Integer userTotal();
 }

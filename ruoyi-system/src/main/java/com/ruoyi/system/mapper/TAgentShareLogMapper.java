@@ -59,4 +59,21 @@ public interface TAgentShareLogMapper
      * @return 结果
      */
     public int deleteTAgentShareLogByIds(String[] ids);
+
+    /**
+     * 查询今日分成
+     */
+    public Double shareDay();
+    /**
+     * 查询昨日分成
+     */
+    public Double shareYesterday();
+    /**
+     * 查询本月分成
+     */
+    public Double shareMonth();
+    /**
+     * 查询累计分成
+     */
+    public Double shareTotal();
 }

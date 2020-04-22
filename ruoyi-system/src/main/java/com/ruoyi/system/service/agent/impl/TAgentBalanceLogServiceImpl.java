@@ -2,6 +2,7 @@ package com.ruoyi.system.service.agent.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.agent.TAgbaParams;
 import com.ruoyi.system.domain.agent.TAgentBalanceLog;
 import com.ruoyi.system.service.agent.ITAgentBalanceLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +94,25 @@ public class TAgentBalanceLogServiceImpl implements ITAgentBalanceLogService
     public int deleteTAgentBalanceLogById(Long id)
     {
         return tAgentBalanceLogMapper.deleteTAgentBalanceLogById(id);
+    }
+
+    @Override
+    public List<TAgbaParams> topUpDay() {
+        return tAgentBalanceLogMapper.topUpDay();
+    }
+
+    @Override
+    public List<TAgbaParams> topUpYesterday() {
+        return tAgentBalanceLogMapper.topUpYesterday();
+    }
+
+    @Override
+    public List<TAgbaParams> topUpMonth() {
+        return tAgentBalanceLogMapper.topUpMonth();
+    }
+
+    @Override
+    public List<TAgbaParams> topUpTotal() {
+        return tAgentBalanceLogMapper.topUpTotal();
     }
 }
