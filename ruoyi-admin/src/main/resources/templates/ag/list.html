@@ -112,7 +112,7 @@
                         actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="javascript:void(0)" onclick="changeMoney(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>充值记录</a> ');
                         actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="javascript:void(0)" onclick="klMoney(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>扣量记录</a> ');
                         actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="javascript:void(0)" onclick="fcMoney(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>分成记录</a> ');
-                        actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="javascript:void(0)" onclick="changeMoney(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>提现记录</a> ');
+                        actions.push('<a class="btn btn-info btn-xs ' + listFlag + '" href="javascript:void(0)" onclick="txMoney(\'' + row.id + '\')"><i class="fa fa-list-ul"></i>提现记录</a> ');
                         /*actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         */
@@ -143,7 +143,7 @@
 
     /*用户提现记录*/
     function txMoney(id) {
-        var url = "/agent/balance/log?id=" + id;
+        var url = "/agent/withdrawal?id=" + id;
         $.modal.openTab("提现记录", url);
     }
 </script>
