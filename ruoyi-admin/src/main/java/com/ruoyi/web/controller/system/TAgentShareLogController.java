@@ -37,8 +37,9 @@ public class TAgentShareLogController extends BaseController
 
     @RequiresPermissions("share:log:view")
     @GetMapping()
-    public String log()
+    public String log(String id, ModelMap mmap)
     {
+        mmap.put("agentId", id);
         return prefix + "/log";
     }
 

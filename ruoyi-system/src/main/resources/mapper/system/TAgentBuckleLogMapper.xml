@@ -36,6 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="orderNo != null  and orderNo != ''"> and order_no like concat('%', #{orderNo}, '%')</if>
             <if test="proxyName != null "> and proxy_nick_name like concat('%', #{proxyName}, '%')</if>
             <if test="userName != null "> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="proxyId != null ">and g.proxy_id = #{proxyId}</if>
+
         </where>
     </select>
 

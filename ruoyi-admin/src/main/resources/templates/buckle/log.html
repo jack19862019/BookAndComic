@@ -15,7 +15,7 @@
                             <input type="text" name="orderNo"/>
                         </li>
                         <li>
-                            <label>代理昵称：
+                            <label>代理昵称：</label>
                                 <input type="text" name="proxyName"/>
                         </li>
                         <li>
@@ -29,6 +29,8 @@
                                     class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
+                    <input type="hidden" name="proxyId" id="proxyId"/>
+                    <input type="hidden" id="agentId" th:value="${agentId}">
                 </div>
             </form>
         </div>
@@ -43,6 +45,7 @@
         </div>
     </div>
 </div>
+
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('buckle:log:edit')}]];
@@ -50,6 +53,10 @@
     var prefix = ctx + "buckle/log";
 
     $(function () {
+        var agentId = $("#agentId").val();
+        if (agentId){
+            $("#proxyId").val(agentId);
+        }
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",

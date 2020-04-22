@@ -37,6 +37,8 @@
                                     class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
+                    <input type="hidden" name="proxyId" id="proxyId"/>
+                    <input type="hidden" id="agentId" th:value="${agentId}">
                 </div>
             </form>
         </div>
@@ -58,6 +60,10 @@
     var prefix = ctx + "share/log";
 
     $(function () {
+        var agentId = $("#agentId").val();
+        if (agentId){
+            $("#proxyId").val(agentId);
+        }
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
