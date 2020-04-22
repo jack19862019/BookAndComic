@@ -102,10 +102,7 @@
                     field: 'author',
                     title: '作者'
                 },
-                {
-                    field: 'summary',
-                    title: '作品简介'
-                },
+
                 {
                     field: 'category',
                     title: '分类',
@@ -113,6 +110,10 @@
                     formatter: function(value, row, index) {
                         return $.table.selectDictLabel(category, value);
                     }
+                },
+                {
+                    field: 'summary',
+                    title: '作品简介'
                 },
                 {
                     field: 'coverPic',

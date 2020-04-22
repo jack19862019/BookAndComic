@@ -25,14 +25,14 @@
     <select id="selectTBookList" parameterType="TBook" resultMap="TBookResult">
         <include refid="selectTBookVo"/>
         <where>
-            <if test="author != null  and author != ''"> and author = #{author}</if>
+            <if test="author != null  and author != ''"> and author like concat('%', #{author}, '%')</if>
             <if test="category != null "> and category = #{category}</if>
             <if test="coverPic != null  and coverPic != ''"> and cover_pic = #{coverPic}</if>
             <if test="detailPic != null  and detailPic != ''"> and detail_pic = #{detailPic}</if>
             <if test="sort != null "> and sort = #{sort}</if>
             <if test="status != null "> and status = #{status}</if>
             <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
-            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
         </where>
     </select>
 
