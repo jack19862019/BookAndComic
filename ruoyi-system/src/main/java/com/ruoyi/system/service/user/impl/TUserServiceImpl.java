@@ -53,23 +53,23 @@ public class TUserServiceImpl implements ITUserService {
     }
 
     @Override
-    public Integer userDay() {
-        return tUserMapper.userDay();
+    public Integer userDay(TUser tUser) {
+        return tUserMapper.userDay(tUser);
     }
 
     @Override
-    public Integer userYesterday() {
-        return tUserMapper.userYesterday();
+    public Integer userYesterday(TUser tUser) {
+        return tUserMapper.userYesterday(tUser);
     }
 
     @Override
-    public Integer userMonth() {
-        return tUserMapper.userMonth();
+    public Integer userMonth(TUser tUser) {
+        return tUserMapper.userMonth(tUser);
     }
 
     @Override
-    public Integer userTotal() {
-        return tUserMapper.userTotal();
+    public Integer userTotal(TUser tUser) {
+        return tUserMapper.userTotal(tUser);
     }
 
 }

@@ -102,25 +102,57 @@
     </delete>
 
     <select id="topUpDay" resultType="com.ruoyi.system.domain.agent.TAgbaParams">
-        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log WHERE TO_DAYS(create_time) = TO_DAYS(NOW()) AND `status`=0)
+        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+             AND TO_DAYS(create_time) = TO_DAYS(NOW()) AND `status`=0
+        </where>)
         UNION ALL
-        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log WHERE TO_DAYS(create_time) = TO_DAYS(NOW()) AND `status`=1)
+        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND TO_DAYS(create_time) = TO_DAYS(NOW()) AND `status`=1
+        </where>)
     </select>
     <select id="topUpYesterday" resultType="com.ruoyi.system.domain.agent.TAgbaParams">
-       (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log WHERE TO_DAYS(NOW()) - TO_DAYS(create_time) = 1 AND `status`=0)
+       (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND TO_DAYS(NOW()) - TO_DAYS(create_time) = 1 AND `status`=0
+        </where>)
         UNION ALL
-        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log WHERE TO_DAYS(NOW()) - TO_DAYS(create_time) = 1 AND `status`=1)
-
+        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND TO_DAYS(NOW()) - TO_DAYS(create_time) = 1 AND `status`=1
+        </where>)
     </select>
     <select id="topUpMonth" resultType="com.ruoyi.system.domain.agent.TAgbaParams">
-        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log WHERE DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') AND`status`=0)
+        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') AND `status`=0
+        </where>)
         UNION ALL
-        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log WHERE DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') AND `status`=1)
+        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') AND `status`=1
+        </where>
+        )
 
     </select>
     <select id="topUpTotal" resultType="com.ruoyi.system.domain.agent.TAgbaParams">
-        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log WHERE `status`=0)
+        (SELECT IFNULL(SUM(money),0) as money, "已支付" as description FROM t_agent_balance_log
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND `status`=0
+        </where> )
         UNION ALL
-        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log WHERE `status`=1)
+        (SELECT IFNULL(SUM(money),0) as money, "未支付" as description FROM t_agent_balance_log
+         <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND `status`=1
+        </where>)
     </select>
 </mapper>

@@ -96,22 +96,22 @@ public class TAgentShareLogServiceImpl implements ITAgentShareLogService
     }
 
     @Override
-    public Double shareDay() {
-        return tAgentShareLogMapper.shareDay();
+    public Double shareDay(TAgentShareLog tAgentShareLog) {
+        return tAgentShareLogMapper.shareDay(tAgentShareLog);
     }
 
     @Override
-    public Double shareYesterday() {
-        return tAgentShareLogMapper.shareYesterday();
+    public Double shareYesterday(TAgentShareLog tAgentShareLog) {
+        return tAgentShareLogMapper.shareYesterday(tAgentShareLog);
     }
 
     @Override
-    public Double shareMonth() {
-        return tAgentShareLogMapper.shareMonth();
+    public Double shareMonth(TAgentShareLog tAgentShareLog) {
+        return tAgentShareLogMapper.shareMonth(tAgentShareLog);
     }
 
     @Override
-    public Double shareTotal() {
-        return tAgentShareLogMapper.shareTotal();
+    public Double shareTotal(TAgentShareLog tAgentShareLog) {
+        return tAgentShareLogMapper.shareTotal(tAgentShareLog);
     }
 }

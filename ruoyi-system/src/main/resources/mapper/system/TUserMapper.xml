@@ -24,6 +24,8 @@
         <result property="firstNum"    column="firstNum"    />
         <result property="secondNum"    column="secondNum"    />
         <result property="thirdNum"    column="thirdNum"    />
+        <result property="proxyNickName"    column="proxyNickName"    />
+
     </resultMap>
 
     <sql id="selectTUserVo">
@@ -74,7 +76,15 @@
         t_user_retail_level trl
         WHERE
         trl.parent_id = t.id))
-        )as thirdNum
+        )as thirdNum,
+        (
+        SELECT
+        ta.proxy_nick_name
+        FROM
+        t_agent ta
+        WHERE
+        ta.id = t.proxy_id
+        ) AS proxyNickName
         FROM
         t_user t
         LEFT JOIN t_user_retail_level u ON t.id = u.user_id
@@ -85,6 +95,7 @@
             <if test="isVip != null "> and t.is_vip = #{isVip}</if>
             <if test="userName != null  and userName != ''"> and t.user_name like concat('%', #{userName}, '%')</if>
             <if test="id != null  and id != '0'"> and t.id = #{id}</if>
+            <if test="proxyId != null ">and t.proxy_id = #{proxyId}</if>
         </where>
         order by create_time desc
     </select>
@@ -160,6 +171,15 @@
                             )
                     )
             ) AS thirdNum
+            ,
+        (
+        SELECT
+        ta.proxy_nick_name
+        FROM
+        t_agent ta
+        WHERE
+        ta.id = t.proxy_id
+        ) AS proxyNickName
         FROM
             t_user t
         LEFT JOIN t_user_retail_level u ON t.id = u.user_id
@@ -235,15 +255,30 @@
 
 
     <select id="userDay" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM t_user WHERE TO_DAYS(create_time) = TO_DAYS(NOW())
+        SELECT COUNT(1) FROM t_user
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND TO_DAYS(create_time) = TO_DAYS(NOW())
+        </where>
     </select>
     <select id="userYesterday" resultType="java.lang.Integer">
-       SELECT COUNT(1) FROM t_user WHERE TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
+       SELECT COUNT(1) FROM t_user
+       <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+           AND TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
+       </where>
     </select>
     <select id="userMonth" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM t_user WHERE DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+        SELECT COUNT(1) FROM t_user
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+            AND DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+        </where>
     </select>
     <select id="userTotal" resultType="java.lang.Integer">
         SELECT COUNT(1) FROM t_user
+        <where>
+            <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
+        </where>
     </select>
 </mapper>

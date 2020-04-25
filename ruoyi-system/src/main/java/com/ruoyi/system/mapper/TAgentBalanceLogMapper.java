@@ -64,17 +64,17 @@ public interface TAgentBalanceLogMapper
     /**
      * 查询今日充值
      */
-    public List<TAgbaParams> topUpDay();
+    public List<TAgbaParams> topUpDay(TAgentBalanceLog tAgentBalanceLog);
     /**
      * 查询昨日充值
      */
-    public List<TAgbaParams> topUpYesterday();
+    public List<TAgbaParams> topUpYesterday(TAgentBalanceLog tAgentBalanceLog);
     /**
      * 查询本月充值
      */
-    public List<TAgbaParams> topUpMonth();
+    public List<TAgbaParams> topUpMonth(TAgentBalanceLog tAgentBalanceLog);
     /**
      * 查询累计充值
      */
-    public List<TAgbaParams> topUpTotal();
+    public List<TAgbaParams> topUpTotal(TAgentBalanceLog tAgentBalanceLog);
 }

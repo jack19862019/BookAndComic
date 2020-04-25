@@ -125,6 +125,17 @@ public class TUser extends BaseEntity
         this.thirdNum = thirdNum;
     }
 
+    /**代理昵称**/
+    private String proxyNickName;
+
+    public String getProxyNickName() {
+        return proxyNickName;
+    }
+
+    public void setProxyNickName(String proxyNickName) {
+        this.proxyNickName = proxyNickName;
+    }
+
     public void setId(Long id)
     {
         this.id = id;

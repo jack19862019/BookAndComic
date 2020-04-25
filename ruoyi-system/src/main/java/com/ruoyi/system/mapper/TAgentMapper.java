@@ -61,4 +61,14 @@ public interface TAgentMapper
     public int deleteTAgentByIds(String[] ids);
 
     public List<TAgent> selectTAgentAll();
+
+    /**
+     * 查询代理
+     *
+     * @param proxyNickName 代理昵称
+     * @return 代理
+     */
+    public TAgent selectTAgentByProxyNickName(String proxyNickName);
+
+    public int checkProxyNickNameUnique(String proxyNickName);
 }

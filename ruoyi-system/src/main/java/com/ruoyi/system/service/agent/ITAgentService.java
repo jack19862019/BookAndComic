@@ -65,4 +65,15 @@ public interface ITAgentService
      * 查询代理信息
      */
     public List<TAgent> selectTAgentAll();
+
+
+    /**
+     * 查询代理
+     *
+     * @param proxyNickName 代理昵称
+     * @return 代理
+     */
+    public TAgent selectTAgentByProxyNickName(String proxyNickName);
+
+    public int checkProxyNickNameUnique(String proxyNickName);
 }

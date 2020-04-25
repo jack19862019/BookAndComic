@@ -3,7 +3,12 @@ package com.ruoyi.web.controller.system;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ruoyi.common.constant.UserConstants;
+import com.ruoyi.framework.shiro.service.SysPasswordService;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.agent.TAgent;
+import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.system.service.agent.ITAgentService;
 import com.ruoyi.web.controller.system.resp.TAgentParams;
 import org.apache.poi.ss.formula.functions.T;
@@ -39,6 +44,10 @@ public class TAgentController extends BaseController
 
     @Autowired
     private ITAgentService tAgentService;
+    @Autowired
+    private ISysUserService userService;
+    @Autowired
+    private SysPasswordService passwordService;
 
     @RequiresPermissions("business:agent:view")
     @GetMapping()
@@ -101,6 +110,28 @@ public class TAgentController extends BaseController
     @ResponseBody
     public AjaxResult addSave(TAgent tAgent)
     {
+        if (tAgentService.checkProxyNickNameUnique(tAgent.getProxyNickName())>1)
+        {
+            return error("代理'" + tAgent.getProxyNickName() + "'已存在");
+        }
+        SysUser user =new SysUser();
+        user.setDeptId(Long.valueOf(103));
+        user.setUserName("若以");
+        user.setPhonenumber("13845754574");
+        user.setEmail("123@qq.com");
+        user.setLoginName(tAgent.getProxyNickName());
+        user.setPassword(tAgent.getPassword());
+        user.setSex("0");
+        Long[] roleIds = {Long.valueOf(2)};
+        user.setRoleIds(roleIds);
+        user.setStatus("0");
+        Long[] postIds = {Long.valueOf(3)};
+        user.setPostIds(postIds);
+
+        user.setSalt(ShiroUtils.randomSalt());
+        user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
+        user.setCreateBy(ShiroUtils.getLoginName());
+        userService.insertUser(user);
         return toAjax(tAgentService.insertTAgent(tAgent));
     }
 

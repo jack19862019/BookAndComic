@@ -97,22 +97,22 @@ public class TAgentBalanceLogServiceImpl implements ITAgentBalanceLogService
     }
 
     @Override
-    public List<TAgbaParams> topUpDay() {
-        return tAgentBalanceLogMapper.topUpDay();
+    public List<TAgbaParams> topUpDay(TAgentBalanceLog tAgentBalanceLog) {
+        return tAgentBalanceLogMapper.topUpDay(tAgentBalanceLog);
     }
 
     @Override
-    public List<TAgbaParams> topUpYesterday() {
-        return tAgentBalanceLogMapper.topUpYesterday();
+    public List<TAgbaParams> topUpYesterday(TAgentBalanceLog tAgentBalanceLog) {
+        return tAgentBalanceLogMapper.topUpYesterday(tAgentBalanceLog);
     }
 
     @Override
-    public List<TAgbaParams> topUpMonth() {
-        return tAgentBalanceLogMapper.topUpMonth();
+    public List<TAgbaParams> topUpMonth(TAgentBalanceLog tAgentBalanceLog) {
+        return tAgentBalanceLogMapper.topUpMonth(tAgentBalanceLog);
     }
 
     @Override
-    public List<TAgbaParams> topUpTotal() {
-        return tAgentBalanceLogMapper.topUpTotal();
+    public List<TAgbaParams> topUpTotal(TAgentBalanceLog tAgentBalanceLog) {
+        return tAgentBalanceLogMapper.topUpTotal(tAgentBalanceLog);
     }
 }

@@ -101,4 +101,14 @@ public class TAgentServiceImpl implements ITAgentService
     public List<TAgent> selectTAgentAll() {
         return tAgentMapper.selectTAgentAll();
     }
+
+    @Override
+    public TAgent selectTAgentByProxyNickName(String proxyNickName) {
+        return tAgentMapper.selectTAgentByProxyNickName(proxyNickName);
+    }
+
+    @Override
+    public int checkProxyNickNameUnique(String proxyNickName) {
+        return tAgentMapper.checkProxyNickNameUnique(proxyNickName);
+    }
 }

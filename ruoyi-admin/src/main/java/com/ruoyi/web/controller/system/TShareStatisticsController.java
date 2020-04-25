@@ -6,7 +6,12 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.domain.agent.TAgent;
 import com.ruoyi.system.domain.share.TAgentShareLog;
+import com.ruoyi.system.domain.user.TUser;
+import com.ruoyi.system.service.agent.ITAgentService;
 import com.ruoyi.system.service.share.ITAgentShareLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +35,26 @@ public class TShareStatisticsController extends BaseController
 
     @Autowired
     private ITAgentShareLogService tAgentShareLogService;
+    @Autowired
+    private ITAgentService tAgentService;
 
     @RequiresPermissions("statistics:share:view")
     @GetMapping()
     public String log(String id, ModelMap mmap)
     {
+        // 取身份信息
+        SysUser user = ShiroUtils.getSysUser();
+        TAgent tAgent =tAgentService.selectTAgentByProxyNickName(user.getLoginName());
+        TAgentShareLog tAgentShareLog = new TAgentShareLog();
+        if(tAgent!=null){
+            tAgentShareLog.setProxyId(tAgent.getId());
+        }
+
         mmap.put("agentId", id);
-        mmap.put("shareDay", tAgentShareLogService.shareDay());
-        mmap.put("shareYesterday", tAgentShareLogService.shareYesterday());
-        mmap.put("shareMonth", tAgentShareLogService.shareMonth());
-        mmap.put("shareTotal", tAgentShareLogService.shareTotal());
+        mmap.put("shareDay", tAgentShareLogService.shareDay(tAgentShareLog));
+        mmap.put("shareYesterday", tAgentShareLogService.shareYesterday(tAgentShareLog));
+        mmap.put("shareMonth", tAgentShareLogService.shareMonth(tAgentShareLog));
+        mmap.put("shareTotal", tAgentShareLogService.shareTotal(tAgentShareLog));
         return prefix + "/list";
     }
 
@@ -52,6 +67,12 @@ public class TShareStatisticsController extends BaseController
     public TableDataInfo list(TAgentShareLog tAgentShareLog)
     {
         startPage();
+        // 取身份信息
+        SysUser user = ShiroUtils.getSysUser();
+        TAgent tAgent =tAgentService.selectTAgentByProxyNickName(user.getLoginName());
+        if(tAgent!=null){
+            tAgentShareLog.setProxyId(tAgent.getId());
+        }
         List<TAgentShareLog> list = tAgentShareLogService.selectTAgentShareLogList(tAgentShareLog);
         return getDataTable(list);
     }

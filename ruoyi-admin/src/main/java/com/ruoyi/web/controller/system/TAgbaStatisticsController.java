@@ -2,8 +2,13 @@ package com.ruoyi.web.controller.system;
 
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.domain.agent.TAgent;
 import com.ruoyi.system.domain.agent.TAgentBalanceLog;
+import com.ruoyi.system.domain.share.TAgentShareLog;
 import com.ruoyi.system.service.agent.ITAgentBalanceLogService;
+import com.ruoyi.system.service.agent.ITAgentService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,15 +31,25 @@ public class TAgbaStatisticsController extends BaseController
 
     @Autowired
     private ITAgentBalanceLogService tAgentBalanceLogService;
+    @Autowired
+    private ITAgentService tAgentService;
 
     @RequiresPermissions("statistics:agba:view")
     @GetMapping()
     public String log( ModelMap mmap)
     {
-        mmap.put("topUpDay", tAgentBalanceLogService.topUpDay());
-        mmap.put("topUpYesterday", tAgentBalanceLogService.topUpYesterday());
-        mmap.put("topUpMonth", tAgentBalanceLogService.topUpMonth());
-        mmap.put("topUpTotal", tAgentBalanceLogService.topUpTotal());
+        // 取身份信息
+        SysUser user = ShiroUtils.getSysUser();
+        TAgent tAgent =tAgentService.selectTAgentByProxyNickName(user.getLoginName());
+        TAgentBalanceLog tAgentBalanceLog = new TAgentBalanceLog();
+        if(tAgent!=null){
+            tAgentBalanceLog.setProxyId(tAgent.getId());
+        }
+
+        mmap.put("topUpDay", tAgentBalanceLogService.topUpDay(tAgentBalanceLog));
+        mmap.put("topUpYesterday", tAgentBalanceLogService.topUpYesterday(tAgentBalanceLog));
+        mmap.put("topUpMonth", tAgentBalanceLogService.topUpMonth(tAgentBalanceLog));
+        mmap.put("topUpTotal", tAgentBalanceLogService.topUpTotal(tAgentBalanceLog));
         return prefix + "/list";
     }
 
@@ -47,6 +62,13 @@ public class TAgbaStatisticsController extends BaseController
     public TableDataInfo list(TAgentBalanceLog tAgentBalanceLog)
     {
         startPage();
+        // 取身份信息
+        SysUser user = ShiroUtils.getSysUser();
+        TAgent tAgent =tAgentService.selectTAgentByProxyNickName(user.getLoginName());
+        if(tAgent!=null){
+            tAgentBalanceLog.setProxyId(tAgent.getId());
+        }
+
         List<TAgentBalanceLog> list = tAgentBalanceLogService.selectTAgentBalanceLogList(tAgentBalanceLog);
         return getDataTable(list);
     }

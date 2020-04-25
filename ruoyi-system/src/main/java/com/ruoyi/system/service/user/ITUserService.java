@@ -47,17 +47,17 @@ public interface ITUserService
     /**
      * 查询今日新增用户
      */
-    public Integer userDay();
+    public Integer userDay(TUser tUser);
     /**
      * 查询昨日新增用户
      */
-    public Integer userYesterday();
+    public Integer userYesterday(TUser tUser);
     /**
      * 查询本月新增用户
      */
-    public Integer userMonth();
+    public Integer userMonth(TUser tUser);
     /**
      * 查询累计新增用户
      */
-    public Integer userTotal();
+    public Integer userTotal(TUser tUser);
 }

@@ -105,4 +105,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
+    <select id="selectTAgentByProxyNickName" parameterType="String" resultMap="TAgentResult">
+        <include refid="selectTAgentVo"/>
+        where proxy_nick_name = #{proxyNickName}
+    </select>
+
+    <select id="checkProxyNickNameUnique" parameterType="String" resultType="int">
+		select count(1) from t_agent where proxy_nick_name=#{proxyNickName}
+	</select>
 </mapper>

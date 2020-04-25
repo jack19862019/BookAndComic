@@ -63,17 +63,17 @@ public interface TAgentShareLogMapper
     /**
      * 查询今日分成
      */
-    public Double shareDay();
+    public Double shareDay(TAgentShareLog tAgentShareLog);
     /**
      * 查询昨日分成
      */
-    public Double shareYesterday();
+    public Double shareYesterday(TAgentShareLog tAgentShareLog);
     /**
      * 查询本月分成
      */
-    public Double shareMonth();
+    public Double shareMonth(TAgentShareLog tAgentShareLog);
     /**
      * 查询累计分成
      */
-    public Double shareTotal();
+    public Double shareTotal(TAgentShareLog tAgentShareLog);
 }
