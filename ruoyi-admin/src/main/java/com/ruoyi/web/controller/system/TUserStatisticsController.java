@@ -30,7 +30,7 @@ import java.util.List;
 @RequestMapping("/statistics/user")
 public class TUserStatisticsController extends BaseController
 {
-    private String prefix = "/userStatistics";
+    private String prefix = "userStatistics";
 
     @Autowired
     private ITUserService tUserService;

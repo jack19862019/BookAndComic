@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping("/business/center")
 public class TAgentCenterController extends BaseController
 {
-    private String prefix = "/center";
+    private String prefix = "center";
 
     @Autowired
     private ITAgentService tAgentService;
