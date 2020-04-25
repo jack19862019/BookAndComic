@@ -2,7 +2,11 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.domain.agent.TAgent;
 import com.ruoyi.system.domain.withdrawal.TAgentWithdrawalLog;
+import com.ruoyi.system.service.agent.ITAgentService;
 import com.ruoyi.system.service.withdrawal.ITAgentWithdrawalLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +38,8 @@ public class TAgentWithdrawalLogController extends BaseController
 
     @Autowired
     private ITAgentWithdrawalLogService tAgentWithdrawalLogService;
-
+    @Autowired
+    private ITAgentService tAgentService;
     @RequiresPermissions("agent:withdrawal:view")
     @GetMapping()
     public String withdrawal(String id, ModelMap mmap)
@@ -111,6 +116,13 @@ public class TAgentWithdrawalLogController extends BaseController
     @ResponseBody
     public AjaxResult editSave(TAgentWithdrawalLog tAgentWithdrawalLog)
     {
+        TAgent tAgent =tAgentService.selectTAgentById(tAgentWithdrawalLog.getProxyId());
+        if (tAgent!=null){
+            TAgent t = new TAgent();
+            t.setBalance(tAgent.getBalance()-tAgentWithdrawalLog.getMoney());
+            t.setId(tAgent.getId());
+            tAgentService.updateTAgent(t);
+        }
         return toAjax(tAgentWithdrawalLogService.updateTAgentWithdrawalLog(tAgentWithdrawalLog));
     }
 

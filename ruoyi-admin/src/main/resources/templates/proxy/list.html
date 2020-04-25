@@ -40,9 +40,12 @@
         </div>
 
         <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="agent:withdrawal:export">
-                <i class="fa fa-download"></i> 导出
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="agent:proxy:add">
+                <i class="fa fa-plus"></i> 添加
             </a>
+<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="agent:proxy:export">-->
+<!--                <i class="fa fa-download"></i> 导出-->
+<!--            </a>-->
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -54,7 +57,7 @@
     var editFlag = [[${@permission.hasPermi('agent:withdrawal:edit')}]];
     var removeFlag = [[${@permission.hasPermi('agent:withdrawal:remove')}]];
     var statusDatas = [[${@dict.getType('t_agent_tx')}]];
-    var prefix = ctx + "agent/withdrawal";
+    var prefix = ctx + "agent/proxy";
 
     $(function () {
         var agentId = $("#agentId").val();
@@ -95,43 +98,11 @@
                     formatter: function(value, row, index) {
                         return $.table.selectDictLabel(statusDatas, value);
                     }
-                },
-                {
-                    title: '操作',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="sh(\'' + row.id + '\',\'' + row.proxyId + '\',\'' + row.money + '\')"><i class="fa fa-edit"></i>审核</a> ');
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="jujue(\'' + row.id + '\')"><i class="fa fa-edit"></i>拒绝</a> ');
-                        return actions.join('');
-                    }
                 }]
         };
         $.table.init(options);
     });
 
-    /* 审核状态显示 */
-    /*function statusTools(row) {
-        if (row.status == 1) {
-            return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="start(\'' + row.id + '\')"></i> ';
-        } else {
-            return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="stop(\'' + row.id + '\')"></i> ';
-        }
-    }*/
-
-    /* 审核 */
-    function sh(id,proxyId,money) {
-        $.modal.confirm("确认要审核吗？", function() {
-            $.operate.post(prefix + "/edit", { "id": id,"proxyId":proxyId,"money":money,"status": 1 });
-        })
-    }
-
-    /* 拒绝 */
-    function jujue(id) {
-        $.modal.confirm("确认要拒绝吗？", function() {
-            $.operate.post(prefix + "/edit", { "id": id, "status": 2 });
-        })
-    }
 
 </script>
 </body>

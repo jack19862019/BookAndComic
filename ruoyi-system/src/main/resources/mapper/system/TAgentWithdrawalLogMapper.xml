@@ -25,7 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         g.money as money,
         g.order_no as orderNo,
         a.proxy_nick_name as proxyName,
-        g.status as status
+        g.status as status,
+        g.proxy_id as proxyId
         FROM
         t_agent_withdrawal_log g
         LEFT JOIN t_agent a ON g.proxy_id = a.id
