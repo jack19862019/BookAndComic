@@ -95,6 +95,7 @@ public class TAgentProxyWithdrawalLogController extends BaseController
             tAgentWithdrawalLog.setProxyId(tAgent.getId());
         }
         tAgentWithdrawalLog.setOrderNo("No"+System.currentTimeMillis());
+        tAgentWithdrawalLog.setStatus(Long.valueOf(0));
         return toAjax(tAgentWithdrawalLogService.insertTAgentWithdrawalLog(tAgentWithdrawalLog));
     }
 }
