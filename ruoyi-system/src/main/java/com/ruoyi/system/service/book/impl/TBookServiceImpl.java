@@ -96,22 +96,22 @@ public class TBookServiceImpl implements ITBookService {
         return tBookMapper.deleteTBookById(id);
     }
 
-    @Override
-    public List<TBook> selectList() {
-        return tBookMapper.selectList();
-    }
-
-    @Override
-    public void updateUrl(TBook tBook) {
-        try {
-            Document document = JsoupUtil.getDoc(tBook.getCoverPic());
-            String img = document.select("div>img").attr("abs:src");
-            tBook.setCoverPic(img);
-            tBookMapper.updateUrl(tBook);
-        } catch (Exception e) {
-            e.getMessage();
-        }
-    }
+//    @Override
+//    public List<TBook> selectList() {
+//        return tBookMapper.selectList();
+//    }
+//
+//    @Override
+//    public void updateUrl(TBook tBook) {
+//        try {
+//            Document document = JsoupUtil.getDoc(tBook.getCoverPic());
+//            String img = document.select("div>img").attr("abs:src");
+//            tBook.setCoverPic(img);
+//            tBookMapper.updateUrl(tBook);
+//        } catch (Exception e) {
+//            e.getMessage();
+//        }
+//    }
     @Autowired
     private ITBookEpisodesService itBookEpisodesService;
 

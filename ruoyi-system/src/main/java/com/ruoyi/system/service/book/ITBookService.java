@@ -61,8 +61,8 @@ public interface ITBookService
      */
     public int deleteTBookById(Long id);
 
-    public List<TBook> selectList();
-    public void updateUrl(TBook tBook);
+//    public List<TBook> selectList();
+//    public void updateUrl(TBook tBook);
 
     @Async
     void bookUpdate(TBookParams tBookParams);
