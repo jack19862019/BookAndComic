@@ -19,7 +19,7 @@
                                 <input type="text" name="companyNo"/>
                             </li>
                             <li>
-                                <label>支付名称：</label>
+                                <label>：</label>
                                 <input type="text" name="payCompanyName"/>
                             </li>
                             <li>
@@ -32,16 +32,16 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:config:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:tConfig:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:config:edit">
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:tConfig:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:config:remove">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:tConfig:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:config:export">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:tConfig:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
             </div>
@@ -52,8 +52,8 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:config:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:config:remove')}]];
+        var editFlag = [[${@permission.hasPermi('system:tConfig:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:tConfig:remove')}]];
         var prefix = ctx + "system/tConfig";
 
         $(function() {

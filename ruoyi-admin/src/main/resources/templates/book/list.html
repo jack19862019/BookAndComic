@@ -63,11 +63,14 @@
 </div>
 <th:block th:include="include :: footer" />
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('system:book:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('system:book:remove')}]];
+    var editFlag = [[${@permission.hasPermi('business:book:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('business:book:remove')}]];
     var category = [[${@dict.getType('sys_book_sort')}]];
     var status = [[${@dict.getType('sys_book_type')}]];
     var prefix = ctx + "business/book";
+    $(document).ready(function () {
+        $.operate.post(prefix + "/updateUrl");
+    });
 
     $(function() {
         var options = {

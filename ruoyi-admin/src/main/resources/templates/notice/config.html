@@ -28,13 +28,13 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:notice:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="notice:config:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:notice:edit">
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="notice:config:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:notice:remove">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="notice:config:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
 <!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:notice:export">-->
@@ -48,8 +48,8 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:notice:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:notice:remove')}]];
+        var editFlag = [[${@permission.hasPermi('notice:config:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('notice:config:remove')}]];
         var prefix = ctx + "notice/config";
 
         $(function() {

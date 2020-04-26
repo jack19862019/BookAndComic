@@ -54,8 +54,8 @@
 </div>
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('agent:withdrawal:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('agent:withdrawal:remove')}]];
+    var editFlag = [[${@permission.hasPermi('agent:proxy:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('agent:proxy:remove')}]];
     var statusDatas = [[${@dict.getType('t_agent_tx')}]];
     var prefix = ctx + "agent/proxy";
 
