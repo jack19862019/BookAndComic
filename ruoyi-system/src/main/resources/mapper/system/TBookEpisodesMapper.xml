@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="money"    column="money"    />
         <result property="nextNo"    column="next_no"    />
         <result property="title"    column="title"    />
+        <result property="sort"    column="sort"    />
 
         <result property="content"    column="content"    />
 
@@ -36,7 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         tb.money,
         tb.next_no,
         tb.title,
-        t.content AS content
+        t.content AS content,
+        tb.sort
         FROM
         t_book_episodes tb
         LEFT JOIN t_book_episodes_content t ON t.id = tb.ji_no
@@ -102,5 +104,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
+
+
+    <select id="bookSetUp" resultType="com.ruoyi.system.domain.book.TBookParams">
+        SELECT
+            tb.money,
+            tb.sort,
+            tb.bid,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    t_book_episodes t
+                WHERE
+                    t.bid = tb.bid
+            ) AS num
+        FROM
+            t_book_episodes tb
+        WHERE
+            tb.bid = #{bid}
+        AND tb.money > 0
+        ORDER BY
+            tb.sort
+        LIMIT 1
+    </select>
+
+    <select id="count" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COUNT(1) FROM t_book_episodes
+        <where>
+            <if test="bid != null "> and bid = #{bid}</if>
+        </where>
+    </select>
 </mapper>

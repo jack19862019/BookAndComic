@@ -1,4 +1,4 @@
-package com.ruoyi.system.domain.book;
+package com.ruoyi.system.domain.comic;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -6,71 +6,50 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 小说章节对象 t_book_episodes
+ * 漫画章节对象 t_comic_episodes
  * 
  * @author ruoyi
- * @date 2020-04-18
+ * @date 2020-04-26
  */
-public class TBookEpisodes extends BaseEntity
+public class TComicEpisodes extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
     private Long id;
 
-    /** 上节编号 */
-    @Excel(name = "上节编号")
+    /** 上一章 */
+    @Excel(name = "上一章")
     private Long beforeNo;
 
-    /** 小说编号 */
-    @Excel(name = "小说编号")
-    private Long bid;
+    /** 漫画编号 */
+    @Excel(name = "漫画编号")
+    private Long comicId;
 
-    /** 章节内容路径 */
-    @Excel(name = "章节内容路径")
-    private String info;
-
-    /** 章节集号 */
-    @Excel(name = "章节集号")
+    /** 章节编号 */
+    @Excel(name = "章节编号")
     private Long jiNo;
 
-    /** 阅读需要的费用 */
-    @Excel(name = "阅读需要的费用")
+    /** 金额 */
+    @Excel(name = "金额")
     private Double money;
 
-    /** 下节编号 */
-    @Excel(name = "下节编号")
+    /** 下一章 */
+    @Excel(name = "下一章")
     private Long nextNo;
 
-    /** 章节名称 */
-    @Excel(name = "章节名称")
+    /**  */
+    private String pics;
+
+    /** 标题 */
+    @Excel(name = "标题")
     private String title;
 
-    /** 章节内容 */
-    @Excel(name = "章节内容")
-    private String content;
+    /** 路径 */
+    @Excel(name = "路径")
+    private String uri;
 
-    /** 排序 */
-    @Excel(name = "排序")
-    private Integer sort;
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setId(Long id)
+    public void setId(Long id) 
     {
         this.id = id;
     }
@@ -88,23 +67,14 @@ public class TBookEpisodes extends BaseEntity
     {
         return beforeNo;
     }
-    public void setBid(Long bid) 
+    public void setComicId(Long comicId) 
     {
-        this.bid = bid;
+        this.comicId = comicId;
     }
 
-    public Long getBid() 
+    public Long getComicId() 
     {
-        return bid;
-    }
-    public void setInfo(String info) 
-    {
-        this.info = info;
-    }
-
-    public String getInfo() 
-    {
-        return info;
+        return comicId;
     }
     public void setJiNo(Long jiNo) 
     {
@@ -133,6 +103,15 @@ public class TBookEpisodes extends BaseEntity
     {
         return nextNo;
     }
+    public void setPics(String pics) 
+    {
+        this.pics = pics;
+    }
+
+    public String getPics() 
+    {
+        return pics;
+    }
     public void setTitle(String title) 
     {
         this.title = title;
@@ -142,6 +121,15 @@ public class TBookEpisodes extends BaseEntity
     {
         return title;
     }
+    public void setUri(String uri) 
+    {
+        this.uri = uri;
+    }
+
+    public String getUri() 
+    {
+        return uri;
+    }
 
     @Override
     public String toString() {
@@ -150,12 +138,13 @@ public class TBookEpisodes extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .append("beforeNo", getBeforeNo())
-            .append("bid", getBid())
-            .append("info", getInfo())
+            .append("comicId", getComicId())
             .append("jiNo", getJiNo())
             .append("money", getMoney())
             .append("nextNo", getNextNo())
+            .append("pics", getPics())
             .append("title", getTitle())
+            .append("uri", getUri())
             .toString();
     }
 }

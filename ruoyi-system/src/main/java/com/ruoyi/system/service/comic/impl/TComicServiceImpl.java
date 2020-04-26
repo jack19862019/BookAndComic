@@ -2,7 +2,11 @@ package com.ruoyi.system.service.comic.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.comic.ComicParams;
 import com.ruoyi.system.domain.comic.TComic;
+import com.ruoyi.system.domain.comic.TComicEpisodes;
+import com.ruoyi.system.service.book.ITBookEpisodesService;
+import com.ruoyi.system.service.comic.ITComicEpisodesService;
 import com.ruoyi.system.service.comic.ITComicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,5 +97,27 @@ public class TComicServiceImpl implements ITComicService
     public int deleteTComicById(Long id)
     {
         return tComicMapper.deleteTComicById(id);
+    }
+    @Autowired
+    private ITComicEpisodesService itComicEpisodesService;
+    @Override
+    public void comicUpdate(ComicParams comicParams) {
+        try {
+            TComicEpisodes tComicEpisodes =new TComicEpisodes();
+            tComicEpisodes.setComicId(comicParams.getComicId());
+
+            List<TComicEpisodes> list = itComicEpisodesService.selectTComicEpisodesList(tComicEpisodes);
+            for (int i = 0; i < list.size(); i++) {
+                if(i>=comicParams.getJiNo()){
+                    tComicEpisodes.setMoney(comicParams.getMoney());
+                }else{
+                    tComicEpisodes.setMoney(0.00);
+                }
+                tComicEpisodes.setId(list.get(i).getId());
+                itComicEpisodesService.updateTComicEpisodes(tComicEpisodes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

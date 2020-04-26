@@ -1,6 +1,9 @@
 package com.ruoyi.system.service.comic;
 
+import com.ruoyi.system.domain.book.TBookParams;
+import com.ruoyi.system.domain.comic.ComicParams;
 import com.ruoyi.system.domain.comic.TComic;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -59,4 +62,7 @@ public interface ITComicService
      * @return 结果
      */
     public int deleteTComicById(Long id);
+
+    @Async
+    void comicUpdate(ComicParams comicParams);
 }

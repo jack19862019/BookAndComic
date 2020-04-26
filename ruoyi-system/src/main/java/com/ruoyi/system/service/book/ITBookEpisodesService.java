@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.book;
 
 import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -59,4 +61,8 @@ public interface ITBookEpisodesService
      * @return 结果
      */
     public int deleteTBookEpisodesById(Long id);
+
+    public TBookParams bookSetUp(Long bid);
+
+    public Long count(@Param("bid") Long bid);
 }

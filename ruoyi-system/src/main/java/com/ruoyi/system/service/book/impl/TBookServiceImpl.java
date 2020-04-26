@@ -1,13 +1,20 @@
 package com.ruoyi.system.service.book.impl;
 
-import java.util.List;
+import com.ruoyi.common.core.text.Convert;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.system.domain.book.TBook;
+import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
+import com.ruoyi.system.mapper.TBookMapper;
+import com.ruoyi.system.service.book.ITBookEpisodesService;
+import com.ruoyi.system.service.book.ITBookService;
+import com.ruoyi.system.utils.JsoupUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.system.mapper.TBookMapper;
-import com.ruoyi.system.domain.book.TBook;
-import com.ruoyi.system.service.book.ITBookService;
-import com.ruoyi.common.core.text.Convert;
+
+import java.util.List;
 
 /**
  * 小说Service业务层处理
@@ -16,8 +23,8 @@ import com.ruoyi.common.core.text.Convert;
  * @date 2020-04-17
  */
 @Service
-public class TBookServiceImpl implements ITBookService
-{
+@Slf4j
+public class TBookServiceImpl implements ITBookService {
     @Autowired
     private TBookMapper tBookMapper;
 
@@ -28,8 +35,7 @@ public class TBookServiceImpl implements ITBookService
      * @return 小说
      */
     @Override
-    public TBook selectTBookById(Long id)
-    {
+    public TBook selectTBookById(Long id) {
         return tBookMapper.selectTBookById(id);
     }
 
@@ -40,8 +46,7 @@ public class TBookServiceImpl implements ITBookService
      * @return 小说
      */
     @Override
-    public List<TBook> selectTBookList(TBook tBook)
-    {
+    public List<TBook> selectTBookList(TBook tBook) {
         return tBookMapper.selectTBookList(tBook);
     }
 
@@ -52,8 +57,7 @@ public class TBookServiceImpl implements ITBookService
      * @return 结果
      */
     @Override
-    public int insertTBook(TBook tBook)
-    {
+    public int insertTBook(TBook tBook) {
         tBook.setCreateTime(DateUtils.getNowDate());
         return tBookMapper.insertTBook(tBook);
     }
@@ -65,8 +69,7 @@ public class TBookServiceImpl implements ITBookService
      * @return 结果
      */
     @Override
-    public int updateTBook(TBook tBook)
-    {
+    public int updateTBook(TBook tBook) {
         tBook.setUpdateTime(DateUtils.getNowDate());
         return tBookMapper.updateTBook(tBook);
     }
@@ -78,8 +81,7 @@ public class TBookServiceImpl implements ITBookService
      * @return 结果
      */
     @Override
-    public int deleteTBookByIds(String ids)
-    {
+    public int deleteTBookByIds(String ids) {
         return tBookMapper.deleteTBookByIds(Convert.toStrArray(ids));
     }
 
@@ -90,8 +92,49 @@ public class TBookServiceImpl implements ITBookService
      * @return 结果
      */
     @Override
-    public int deleteTBookById(Long id)
-    {
+    public int deleteTBookById(Long id) {
         return tBookMapper.deleteTBookById(id);
+    }
+
+    @Override
+    public List<TBook> selectList() {
+        return tBookMapper.selectList();
+    }
+
+    @Override
+    public void updateUrl(TBook tBook) {
+        try {
+            Document document = JsoupUtil.getDoc(tBook.getCoverPic());
+            String img = document.select("div>img").attr("abs:src");
+            tBook.setCoverPic(img);
+            tBookMapper.updateUrl(tBook);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+    @Autowired
+    private ITBookEpisodesService itBookEpisodesService;
+
+
+    @Override
+    public void bookUpdate(TBookParams tBookParams) {
+        log.info("子线程=========================================");
+        try {
+            TBookEpisodes tBookEpisodes = new TBookEpisodes();
+            tBookEpisodes.setBid(tBookParams.getBid());
+            List<TBookEpisodes> list = itBookEpisodesService.selectTBookEpisodesList(tBookEpisodes);
+            for (int i = 0; i < list.size(); i++) {
+                if ((i + 1) >= tBookParams.getSort()) {
+                    tBookEpisodes.setMoney(tBookParams.getMoney());
+                } else {
+                    tBookEpisodes.setMoney(0.00);
+                }
+                tBookEpisodes.setId(list.get(i).getId());
+                itBookEpisodesService.updateTBookEpisodes(tBookEpisodes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

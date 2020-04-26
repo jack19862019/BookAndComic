@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TComicEpisodesMapper">
+    
+    <resultMap type="TComicEpisodes" id="TComicEpisodesResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="beforeNo"    column="before_no"    />
+        <result property="comicId"    column="comic_id"    />
+        <result property="jiNo"    column="ji_no"    />
+        <result property="money"    column="money"    />
+        <result property="nextNo"    column="next_no"    />
+        <result property="pics"    column="pics"    />
+        <result property="title"    column="title"    />
+        <result property="uri"    column="uri"    />
+    </resultMap>
+
+    <sql id="selectTComicEpisodesVo">
+        select id, create_time, update_time, before_no, comic_id, ji_no, money, next_no, pics, title, uri from t_comic_episodes
+    </sql>
+
+    <select id="selectTComicEpisodesList" parameterType="TComicEpisodes" resultMap="TComicEpisodesResult">
+        <include refid="selectTComicEpisodesVo"/>
+        <where>  
+            <if test="beforeNo != null "> and before_no = #{beforeNo}</if>
+            <if test="comicId != null "> and comic_id = #{comicId}</if>
+            <if test="jiNo != null "> and ji_no = #{jiNo}</if>
+            <if test="money != null "> and money = #{money}</if>
+            <if test="nextNo != null "> and next_no = #{nextNo}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="uri != null  and uri != ''"> and uri = #{uri}</if>
+        </where>
+    </select>
+    
+    <select id="selectTComicEpisodesById" parameterType="Long" resultMap="TComicEpisodesResult">
+        <include refid="selectTComicEpisodesVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTComicEpisodes" parameterType="TComicEpisodes" useGeneratedKeys="true" keyProperty="id">
+        insert into t_comic_episodes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="beforeNo != null ">before_no,</if>
+            <if test="comicId != null ">comic_id,</if>
+            <if test="jiNo != null ">ji_no,</if>
+            <if test="money != null ">money,</if>
+            <if test="nextNo != null ">next_no,</if>
+            <if test="pics != null  and pics != ''">pics,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="uri != null  and uri != ''">uri,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="beforeNo != null ">#{beforeNo},</if>
+            <if test="comicId != null ">#{comicId},</if>
+            <if test="jiNo != null ">#{jiNo},</if>
+            <if test="money != null ">#{money},</if>
+            <if test="nextNo != null ">#{nextNo},</if>
+            <if test="pics != null  and pics != ''">#{pics},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="uri != null  and uri != ''">#{uri},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTComicEpisodes" parameterType="TComicEpisodes">
+        update t_comic_episodes
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="beforeNo != null ">before_no = #{beforeNo},</if>
+            <if test="comicId != null ">comic_id = #{comicId},</if>
+            <if test="jiNo != null ">ji_no = #{jiNo},</if>
+            <if test="money != null ">money = #{money},</if>
+            <if test="nextNo != null ">next_no = #{nextNo},</if>
+            <if test="pics != null  and pics != ''">pics = #{pics},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="uri != null  and uri != ''">uri = #{uri},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTComicEpisodesById" parameterType="Long">
+        delete from t_comic_episodes where id = #{id}
+    </delete>
+
+    <delete id="deleteTComicEpisodesByIds" parameterType="String">
+        delete from t_comic_episodes where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="comicSetUp" resultType="com.ruoyi.system.domain.comic.ComicParams">
+        SELECT
+            tc.money as money,
+            (tc.ji_no-1) as jiNo,
+            tc.comic_id as comicId,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    t_comic_episodes t
+                WHERE
+                    t.comic_id = tc.comic_id
+            ) AS num
+        FROM
+            t_comic_episodes tc
+        WHERE
+            tc.comic_id = #{comicId}
+        AND tc.money > 0
+        ORDER BY
+            tc.ji_no
+        LIMIT 1
+    </select>
+
+    <select id="count" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COUNT(1) FROM t_comic_episodes
+        <where>
+            <if test="comicId != null "> and comic_id = #{comicId}</if>
+        </where>
+    </select>
+</mapper>

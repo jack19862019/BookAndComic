@@ -58,4 +58,7 @@ public interface TBookMapper
      * @return 结果
      */
     public int deleteTBookByIds(String[] ids);
+
+    public List<TBook> selectList();
+    public void updateUrl(TBook tBook);
 }

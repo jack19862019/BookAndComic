@@ -1,6 +1,9 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -59,4 +62,8 @@ public interface TBookEpisodesMapper
      * @return 结果
      */
     public int deleteTBookEpisodesByIds(String[] ids);
+
+    public TBookParams bookSetUp(Long bid);
+
+    public Long count(@Param("bid") Long bid);
 }

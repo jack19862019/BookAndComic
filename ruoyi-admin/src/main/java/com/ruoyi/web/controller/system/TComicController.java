@@ -2,7 +2,12 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
+import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
+import com.ruoyi.system.domain.comic.ComicParams;
 import com.ruoyi.system.domain.comic.TComic;
+import com.ruoyi.system.domain.comic.TComicEpisodes;
+import com.ruoyi.system.service.comic.ITComicEpisodesService;
 import com.ruoyi.system.service.comic.ITComicService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +35,12 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/system/comic")
 public class TComicController extends BaseController
 {
-    private String prefix = "comic";
+    private String prefix = "/comic";
 
     @Autowired
     private ITComicService tComicService;
-
+    @Autowired
+    private ITComicEpisodesService itComicEpisodesService;
     @RequiresPermissions("system:comic:view")
     @GetMapping()
     public String comic()
@@ -123,5 +129,42 @@ public class TComicController extends BaseController
     public AjaxResult remove(String ids)
     {
         return toAjax(tComicService.deleteTComicByIds(ids));
+    }
+
+    /**
+     * 进入漫画收费设置
+     */
+    @RequiresPermissions("system:comic:setUp")
+    @Log(title = "漫画收费设置", businessType = BusinessType.UPDATE)
+    @GetMapping("/setUp/{id}")
+    public String setUp(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ComicParams comic = itComicEpisodesService.comicSetUp(id);
+        if(comic==null){
+            ComicParams c = new ComicParams();
+            c.setComicId(id);
+            c.setMoney(0.00);
+            c.setJiNo(0);
+            Long num = itComicEpisodesService.count(id);
+            c.setNum(num);
+            mmap.put("comic", c);
+        }else{
+            mmap.put("comic", comic);
+        }
+        return prefix + "/setUp";
+
+    }
+
+    /**
+     * 新增保存小说
+     */
+    @RequiresPermissions("system:comic:setUp")
+    @Log(title = "漫画收费设置", businessType = BusinessType.INSERT)
+    @PostMapping("/setUp")
+    @ResponseBody
+    public AjaxResult updateTComic(ComicParams comicParams)
+    {
+        tComicService.comicUpdate(comicParams);
+        return toAjax(1);
     }
 }

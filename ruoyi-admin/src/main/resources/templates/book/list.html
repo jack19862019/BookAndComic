@@ -65,12 +65,13 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('business:book:edit')}]];
     var removeFlag = [[${@permission.hasPermi('business:book:remove')}]];
+    var setUp = [[${@permission.hasPermi('business:book:setUp')}]];
     var category = [[${@dict.getType('sys_book_sort')}]];
     var status = [[${@dict.getType('sys_book_type')}]];
     var prefix = ctx + "business/book";
-    $(document).ready(function () {
-        $.operate.post(prefix + "/updateUrl");
-    });
+    // $(document).ready(function () {
+    //     $.operate.post(prefix + "/updateUrl");
+    // });
 
     $(function() {
         var options = {
@@ -116,7 +117,8 @@
                 },
                 {
                     field: 'summary',
-                    title: '作品简介'
+                    title: '作品简介',
+                    width: '60%'
                 },
                 {
                     field: 'coverPic',
@@ -150,6 +152,7 @@
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push("<a class='btn btn-default btn-xs " + setUp + "' href='javascript:void(0)' onclick='openSetUp(" + row.id + ")'><i class='fa fa-key'></i>小说收费设置</a> ");
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
@@ -157,6 +160,11 @@
         };
         $.table.init(options);
     });
+
+    function openSetUp(id) {
+        var url = prefix + '/setUp/' + id;
+        $.modal.open("小说收费设置", url, '800', '300');
+    }
 
     // initChildTable = function(index, row, $detail) {
     //     var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');

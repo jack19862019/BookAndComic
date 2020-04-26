@@ -3,6 +3,7 @@ package com.ruoyi.system.service.book.impl;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
 import com.ruoyi.system.service.book.ITBookEpisodesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -93,5 +94,15 @@ public class TBookEpisodesServiceImpl implements ITBookEpisodesService
     public int deleteTBookEpisodesById(Long id)
     {
         return tBookEpisodesMapper.deleteTBookEpisodesById(id);
+    }
+
+    @Override
+    public TBookParams bookSetUp(Long bid) {
+        return tBookEpisodesMapper.bookSetUp(bid);
+    }
+
+    @Override
+    public Long count(Long bid) {
+        return tBookEpisodesMapper.count(bid);
     }
 }

@@ -3,11 +3,12 @@ package com.ruoyi.web.controller.system;
 import java.util.List;
 
 import com.ruoyi.system.domain.book.TBookEpisodes;
+import com.ruoyi.system.domain.book.TBookParams;
 import com.ruoyi.system.service.book.ITBookEpisodesService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
@@ -18,6 +19,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+
 
 /**
  * 小说Controller
@@ -33,10 +35,11 @@ public class TBookController extends BaseController
 
     @Autowired
     private ITBookService tBookService;
+
     @Autowired
     private ITBookEpisodesService itBookEpisodesService;
 
-    @RequiresPermissions("system:book:view")
+    @RequiresPermissions("business:book:view")
     @GetMapping()
     public String book()
     {
@@ -137,4 +140,55 @@ public class TBookController extends BaseController
         List<TBookEpisodes> list =itBookEpisodesService.selectTBookEpisodesList(tBookEpisodes);
         return getDataTable(list);
     }
+
+    /*
+    返回一本小说所有章节
+     */
+    @PostMapping("/updateUrl")
+    @ResponseBody
+    public void updateUrl()
+    {
+        List<TBook> list = tBookService.selectList();
+        for (int i=0; i<list.size(); i++){
+            tBookService.updateUrl(list.get(i));
+        }
+    }
+
+
+    /**
+     * 进入小说收费设置
+     */
+    @RequiresPermissions("business:book:setUp")
+    @Log(title = "小说收费设置", businessType = BusinessType.UPDATE)
+    @GetMapping("/setUp/{id}")
+    public String setUp(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        TBookParams tBook = itBookEpisodesService.bookSetUp(id);
+        if(tBook==null){
+            TBookParams t =new TBookParams();
+            t.setBid(id);
+            t.setMoney(0.00);
+            t.setSort(0);
+            Long num = itBookEpisodesService.count(id);
+            t.setNum(num);
+            mmap.put("tBook", t);
+        }else{
+            mmap.put("tBook", tBook);
+        }
+        return prefix + "/setUp";
+    }
+
+    /**
+     * 新增保存小说
+     */
+    @RequiresPermissions("business:book:setUp")
+    @Log(title = "小说收费设置", businessType = BusinessType.INSERT)
+    @PostMapping("/setUp")
+    @ResponseBody
+    public AjaxResult updateTBook(TBookParams tBookParams)
+    {
+        tBookService.bookUpdate(tBookParams);
+        return toAjax(1);
+    }
+
 }

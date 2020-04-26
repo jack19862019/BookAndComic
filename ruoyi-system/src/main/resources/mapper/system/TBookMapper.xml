@@ -97,4 +97,15 @@
         </foreach>
     </delete>
 
+
+    <select id="selectList" parameterType="TBook" resultMap="TBookResult">
+        select id, cover_pic from t_book where sort = 88
+    </select>
+    <update id="updateUrl" parameterType="TBook">
+        update t_book
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="coverPic != null  and coverPic != ''">cover_pic = #{coverPic},</if>
+        </trim>
+        where id = #{id}
+    </update>
 </mapper>
