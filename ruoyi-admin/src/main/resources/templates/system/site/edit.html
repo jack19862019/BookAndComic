@@ -58,10 +58,6 @@
                 <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
                     <img th:src="*{platformQrCode}">
                 </div>
-                <div>
-                    <span class="btn btn-white btn-file"><span class="fileinput-new">选择图片</span><span class="fileinput-exists">更改</span><input type="file"></span>
-                    <a href="#" class="btn btn-white fileinput-exists" data-dismiss="fileinput">清除</a>
-                </div>
             </div>
         </div>
     </form>
@@ -83,8 +79,7 @@
             "signToGive":$("#signToGive").val(),
             "customerQq":$("#customerQq").val(),
             "customerWx":$("#customerWx").val(),
-            "proportion":$("#proportion").val(),
-            "platformQrCode":$(".thumbnail").find("img").attr("src")
+            "proportion":$("#proportion").val()
         }
         if ($.validate.form()) {
             $.operate.save(prefix + "/edit", data);
