@@ -54,6 +54,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:tConfig:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:tConfig:remove')}]];
+        var statusDatas = [[${@dict.getType('sys_common_enable')}]];
         var prefix = ctx + "system/tConfig";
 
         $(function() {
@@ -89,7 +90,7 @@
                     title: '启用状态',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        return statusTools(row);
+                        return $.table.selectDictLabel(statusDatas, value);
                     }
                 },
                 {
