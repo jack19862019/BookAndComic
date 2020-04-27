@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.web.controller.system.util.QrCodeUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,6 +74,8 @@ public class TWebSiteController extends BaseController
     @ResponseBody
     public AjaxResult addSave(TWebSite tWebSite)
     {
+        String binary = QrCodeUtils.creatRrCode("http://47.56.19.236/books/#/pages/register/register?type=0", 200,200);
+        tWebSite.setPlatformQrCode("data:image/jpeg;base64,"+binary);
         return toAjax(tWebSiteService.insertTWebSite(tWebSite));
     }
 
@@ -95,6 +99,8 @@ public class TWebSiteController extends BaseController
     @ResponseBody
     public AjaxResult editSave(TWebSite tWebSite)
     {
+//        String binary = QrCodeUtils.creatRrCode("http://47.56.19.236/books/#/pages/register/register?type=0", 200,200);
+//        tWebSite.setPlatformQrCode("data:image/jpeg;base64,"+binary);
         return toAjax(tWebSiteService.updateTWebSite(tWebSite));
     }
 

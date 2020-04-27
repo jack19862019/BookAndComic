@@ -83,7 +83,14 @@
                 },
                 {
                     field: 'gqrCode',
-                    title: '推广二维码'
+                    title: '推广二维码',
+                    formatter: function(value, row, index) {
+                        if(index % 2 == 0){
+                            return $.table.imageView(row.gqrCode);
+                        }else {
+                            return $.table.imageView(row.gqrCode);
+                        }
+                    }
                 },
                 {
                     field: 'separate',

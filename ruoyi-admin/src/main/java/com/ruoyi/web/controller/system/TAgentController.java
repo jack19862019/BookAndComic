@@ -11,6 +11,7 @@ import com.ruoyi.system.domain.agent.TAgent;
 import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.system.service.agent.ITAgentService;
 import com.ruoyi.web.controller.system.resp.TAgentParams;
+import com.ruoyi.web.controller.system.util.QrCodeUtils;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.BeanUtils;
@@ -132,7 +133,10 @@ public class TAgentController extends BaseController
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(ShiroUtils.getLoginName());
         userService.insertUser(user);
-        return toAjax(tAgentService.insertTAgent(tAgent));
+        tAgentService.insertTAgent(tAgent);
+        String binary = QrCodeUtils.creatRrCode("http://47.56.19.236/books/#/pages/register/register?type=1&id="+tAgent.getId(), 200,200);
+        tAgent.setGqrCode("data:image/jpeg;base64,"+binary);
+        return toAjax(tAgentService.updateTAgent(tAgent));
     }
 
     /**
@@ -155,6 +159,8 @@ public class TAgentController extends BaseController
     @ResponseBody
     public AjaxResult editSave(TAgent tAgent)
     {
+//        String binary = QrCodeUtils.creatRrCode("http://47.56.19.236/books/#/pages/register/register?type=1&id="+tAgent.getId(), 200,200);
+//        tAgent.setGqrCode("data:image/jpeg;base64,"+binary);
         return toAjax(tAgentService.updateTAgent(tAgent));
     }
 
