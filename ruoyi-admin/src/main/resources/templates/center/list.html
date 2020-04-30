@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('修改代理')" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
 </head>
 <body class="white-bg">
 <div class="row">
@@ -58,21 +59,24 @@
                             <input name="phone" th:field="*{phone}" class="form-control" type="text">
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label">推广二维码：</label>
-                        <div class="col-sm-8">
-                            <input name="gqrCode" th:field="*{gqrCode}" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">审核状态：</label>
-                        <div class="col-sm-8">
-                            <div class="radio-box" th:each="dict : ${@dict.getType('sys_common_status')}">
-                                <input type="radio" th:id="${'status_' + dict.dictCode}" name="status" th:value="${dict.dictValue}" th:field="*{status}">
-                                <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                        <div class="col-sm-8" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 200px;">
+                                <img th:src="*{gqrCode}">
                             </div>
                         </div>
                     </div>
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-3 control-label">审核状态：</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <div class="radio-box" th:each="dict : ${@dict.getType('sys_common_status')}">-->
+<!--                                <input type="radio" th:id="${'status_' + dict.dictCode}" name="status" th:value="${dict.dictValue}" th:field="*{status}">-->
+<!--                                <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </form>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
@@ -85,6 +89,7 @@
     </div>
 </div>
 <th:block th:include="include :: footer" />
+<th:block th:include="include :: jasny-bootstrap-js" />
 <script type="text/javascript">
     var prefix = ctx + "business/center";
     $("#form-agent-edit").validate({
