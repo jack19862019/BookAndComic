@@ -50,7 +50,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:article:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:article:remove')}]];
-        var isOpenDatas = [[${@dict.getType('sys_normal_disable')}]];
+        var isOpenDatas = [[${@dict.getType('sys_common_enable')}]];
         var prefix = ctx + "system/article";
 
         $(function() {
@@ -92,13 +92,13 @@
                             }
                         }
                     },
-                    {
-                        field: 'showCover',
-                        title: '封面图是否显示在正文',
-                        formatter: function(value, row, index) {
-                            return $.table.selectDictLabel(isOpenDatas, value);
-                        }
-                    },
+                    // {
+                    //     field: 'showCover',
+                    //     title: '封面图是否显示在正文',
+                    //     formatter: function(value, row, index) {
+                    //         return $.table.selectDictLabel(isOpenDatas, value);
+                    //     }
+                    // },
                 {
                     field: 'sort',
                     title: '排序'

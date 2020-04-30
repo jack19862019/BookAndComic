@@ -35,7 +35,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/system/comic")
 public class TComicController extends BaseController
 {
-    private String prefix = "/comic";
+    private String prefix = "comic";
 
     @Autowired
     private ITComicService tComicService;

@@ -32,15 +32,15 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">是否开启：</label>
-                <div class="col-sm-8">
-                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
-                        <input type="radio" id="isOpen" name="isOpen" th:value="${dict.dictValue}" th:checked="${dict.default}">
-                        <label th:for="${'isOpen_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label">是否开启：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_common_enable')}">-->
+<!--                        <input type="radio" id="isOpen" name="isOpen" th:value="${dict.dictValue}" th:checked="${dict.default}">-->
+<!--                        <label th:for="${'isOpen_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="form-group">    
                 <label class="col-sm-3 control-label">展示章节：</label>
                 <div class="col-sm-8">

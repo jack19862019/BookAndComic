@@ -141,18 +141,18 @@ public class TBookController extends BaseController
         return getDataTable(list);
     }
 
-    /*
-    返回一本小说所有章节
-     */
-    @PostMapping("/updateUrl")
-    @ResponseBody
-    public void updateUrl()
-    {
-        List<TBook> list = tBookService.selectList();
-        for (int i=0; i<list.size(); i++){
-            tBookService.updateUrl(list.get(i));
-        }
-    }
+//    /*
+//    返回一本小说所有章节
+//     */
+//    @PostMapping("/updateUrl")
+//    @ResponseBody
+//    public void updateUrl()
+//    {
+//        List<TBook> list = tBookService.selectList();
+//        for (int i=0; i<list.size(); i++){
+//            tBookService.updateUrl(list.get(i));
+//        }
+//    }
 
 
     /**

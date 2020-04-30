@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('修改代理')" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -57,8 +58,10 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">推广二维码：</label>
-                <div class="col-sm-8">
-                    <input name="gqrCode" th:field="*{gqrCode}" class="form-control" type="text">
+                <div class="col-sm-8" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 200px;">
+                        <img th:src="*{gqrCode}">
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -73,6 +76,7 @@
         </form>
     </div>
     <th:block th:include="include :: footer" />
+    <th:block th:include="include :: jasny-bootstrap-js" />
     <script type="text/javascript">
         var prefix = ctx + "business/agent";
         $("#form-agent-edit").validate({

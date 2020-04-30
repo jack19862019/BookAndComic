@@ -8,9 +8,6 @@ import com.ruoyi.system.domain.book.TBookParams;
 import com.ruoyi.system.mapper.TBookMapper;
 import com.ruoyi.system.service.book.ITBookEpisodesService;
 import com.ruoyi.system.service.book.ITBookService;
-import com.ruoyi.system.utils.JsoupUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +20,6 @@ import java.util.List;
  * @date 2020-04-17
  */
 @Service
-@Slf4j
 public class TBookServiceImpl implements ITBookService {
     @Autowired
     private TBookMapper tBookMapper;
@@ -118,7 +114,6 @@ public class TBookServiceImpl implements ITBookService {
 
     @Override
     public void bookUpdate(TBookParams tBookParams) {
-        log.info("子线程=========================================");
         try {
             TBookEpisodes tBookEpisodes = new TBookEpisodes();
             tBookEpisodes.setBid(tBookParams.getBid());
