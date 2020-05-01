@@ -20,11 +20,11 @@ public class TRechargeConfig extends BaseEntity
 
     /** 获得赠送币 */
     @Excel(name = "获得赠送币")
-    private Long givingNum;
+    private int givingNum;
 
     /** 充值金额 */
     @Excel(name = "充值金额")
-    private Long rechargeNum;
+    private int rechargeNum;
 
     public void setId(Long id)
     {
@@ -35,23 +35,21 @@ public class TRechargeConfig extends BaseEntity
     {
         return id;
     }
-    public void setGivingNum(Long givingNum)
-    {
+
+    public int getGivingNum() {
+        return givingNum;
+    }
+
+    public void setGivingNum(int givingNum) {
         this.givingNum = givingNum;
     }
 
-    public Long getGivingNum()
-    {
-        return givingNum;
-    }
-    public void setRechargeNum(Long rechargeNum)
-    {
-        this.rechargeNum = rechargeNum;
+    public int getRechargeNum() {
+        return rechargeNum;
     }
 
-    public Long getRechargeNum()
-    {
-        return rechargeNum;
+    public void setRechargeNum(int rechargeNum) {
+        this.rechargeNum = rechargeNum;
     }
 
     @Override

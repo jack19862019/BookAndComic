@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.site.TRechargeConfig;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 充值赠送配置Mapper接口
@@ -58,4 +59,12 @@ public interface TRechargeConfigMapper
      * @return 结果
      */
     public int deleteTRechargeConfigByIds(String[] ids);
+
+    /**
+     * 检查充值金额是否重复
+     *
+     * @param rechargeNum 充值金额
+     * @return 结果
+     */
+    public Integer checkRechargeNumUnique(@Param("rechargeNum") int rechargeNum);
 }

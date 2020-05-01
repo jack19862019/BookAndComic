@@ -18,10 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTRechargeConfigList" parameterType="TRechargeConfig" resultMap="TRechargeConfigResult">
         <include refid="selectTRechargeConfigVo"/>
-        <where>  
-            <if test="givingNum != null "> and giving_num = #{givingNum}</if>
-            <if test="rechargeNum != null "> and recharge_num = #{rechargeNum}</if>
-        </where>
+<!--        <where>  -->
+<!--            <if test="givingNum != null "> and giving_num = #{givingNum}</if>-->
+<!--            <if test="rechargeNum != null "> and recharge_num = #{rechargeNum}</if>-->
+<!--        </where>-->
     </select>
     
     <select id="selectTRechargeConfigById" parameterType="Long" resultMap="TRechargeConfigResult">
@@ -66,5 +66,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
+
+    <select id="checkRechargeNumUnique" resultType="java.lang.Integer">
+        select count(1) from t_recharge_config
+        <where>
+            <if test="rechargeNum != null "> recharge_num = #{rechargeNum}</if>
+        </where>
+    </select>
+
 </mapper>

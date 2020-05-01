@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.site.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,10 @@ public class TRechargeConfigServiceImpl implements ITRechargeConfigService
     @Override
     public int insertTRechargeConfig(TRechargeConfig tRechargeConfig)
     {
+        if (tRechargeConfigMapper.checkRechargeNumUnique(tRechargeConfig.getRechargeNum())>0){
+            throw new BusinessException("充值金额已经存在！");
+        }
+
         tRechargeConfig.setCreateTime(DateUtils.getNowDate());
         return tRechargeConfigMapper.insertTRechargeConfig(tRechargeConfig);
     }
