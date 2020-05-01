@@ -28,10 +28,10 @@ public class TAgentParams {
     private String proxyNickName;
 
     /** 扣除比例 */
-    private Long ratio;
+    private Float ratio;
 
     /** 返佣比例 */
-    private String separate;
+    private Float separate;
 
     /** 审核状态 */
     private Long status;
@@ -81,21 +81,21 @@ public class TAgentParams {
     {
         return proxyNickName;
     }
-    public void setRatio(Long ratio)
+    public void setRatio(Float ratio)
     {
         this.ratio = ratio;
     }
 
-    public Long getRatio()
+    public Float getRatio()
     {
         return ratio;
     }
 
-    public String getSeparate() {
+    public Float getSeparate() {
         return separate;
     }
 
-    public void setSeparate(String separate) {
+    public void setSeparate(Float separate) {
         this.separate = separate;
     }
 

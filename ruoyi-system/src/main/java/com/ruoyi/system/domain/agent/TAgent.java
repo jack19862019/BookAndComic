@@ -46,11 +46,11 @@ public class TAgent extends BaseEntity
     private String proxyNickName;
 
     /** 扣除比例 */
-    private Long ratio;
+    private Float ratio;
 
     /** 返佣比例 */
     @Excel(name = "返佣比例")
-    private Long separate;
+    private Float separate;
 
     /** 审核状态 */
     @Excel(name = "审核状态")
@@ -137,21 +137,21 @@ public class TAgent extends BaseEntity
     {
         return proxyNickName;
     }
-    public void setRatio(Long ratio)
+    public void setRatio(Float ratio)
     {
         this.ratio = ratio;
     }
 
-    public Long getRatio()
+    public Float getRatio()
     {
         return ratio;
     }
-    public void setSeparate(Long separate)
+    public void setSeparate(Float separate)
     {
         this.separate = separate;
     }
 
-    public Long getSeparate()
+    public Float getSeparate()
     {
         return separate;
     }

@@ -72,7 +72,8 @@ public class TAgentController extends BaseController
             for (TAgent agent : list){
                 TAgentParams params = new TAgentParams();
                 BeanUtils.copyProperties(agent, params);
-                params.setSeparate(agent.getSeparate()+"%");
+                params.setSeparate(agent.getSeparate());
+                params.setRatio(agent.getRatio());
                 listParams.add(params);
             }
         }

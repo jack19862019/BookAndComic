@@ -28,7 +28,7 @@ public class TRetailStore extends BaseEntity
 
     /** 一级分销比例 */
     @Excel(name = "一级分销比例")
-    private Long levelOneScale;
+    private Float levelOneScale;
 
     /** 三级分销名称 */
     @Excel(name = "三级分销名称")
@@ -36,7 +36,7 @@ public class TRetailStore extends BaseEntity
 
     /** 三级分销比例 */
     @Excel(name = "三级分销比例")
-    private Long levelThreeScale;
+    private Float levelThreeScale;
 
     /** 二级分销名称 */
     @Excel(name = "二级分销名称")
@@ -44,7 +44,7 @@ public class TRetailStore extends BaseEntity
 
     /** 二级分销比例 */
     @Excel(name = "二级分销比例")
-    private Long levelTwoScale;
+    private Float levelTwoScale;
 
     /** 分销名称 */
     @Excel(name = "分销名称")
@@ -77,12 +77,12 @@ public class TRetailStore extends BaseEntity
     {
         return levelOne;
     }
-    public void setLevelOneScale(Long levelOneScale)
+    public void setLevelOneScale(Float levelOneScale)
     {
         this.levelOneScale = levelOneScale;
     }
 
-    public Long getLevelOneScale()
+    public Float getLevelOneScale()
     {
         return levelOneScale;
     }
@@ -95,12 +95,12 @@ public class TRetailStore extends BaseEntity
     {
         return levelThree;
     }
-    public void setLevelThreeScale(Long levelThreeScale)
+    public void setLevelThreeScale(Float levelThreeScale)
     {
         this.levelThreeScale = levelThreeScale;
     }
 
-    public Long getLevelThreeScale()
+    public Float getLevelThreeScale()
     {
         return levelThreeScale;
     }
@@ -113,12 +113,12 @@ public class TRetailStore extends BaseEntity
     {
         return levelTwo;
     }
-    public void setLevelTwoScale(Long levelTwoScale)
+    public void setLevelTwoScale(Float levelTwoScale)
     {
         this.levelTwoScale = levelTwoScale;
     }
 
-    public Long getLevelTwoScale()
+    public Float getLevelTwoScale()
     {
         return levelTwoScale;
     }
