@@ -114,8 +114,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE
             tc.comic_id = #{comicId}
         AND tc.money > 0
-        ORDER BY
-            tc.ji_no
         LIMIT 1
     </select>
 

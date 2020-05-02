@@ -16,6 +16,10 @@
                             <span>-</span>
                             <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
                         </li>
+                        <li>
+                            <label>用户名称：</label>
+                            <input type="text" name="userName"/>
+                        </li>
                         <li class="select-time">
                             <label>订单金额：</label>
                             <input type="text" class="input" id="beginOrderFee" placeholder="开始金额" name="params[beginOrderFee]"/>
@@ -33,17 +37,13 @@
                                 <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                             </select>
                         </li>
-                        <li>
-                            <label>状态：</label>
-                            <select name="status" th:with="type=${@dict.getType('t_withdrawal_status')}">
-                                <option value="">所有</option>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
-                            </select>
-                        </li>
-                        <li>
-                            <label>用户名称：</label>
-                            <input type="text" name="userName"/>
-                        </li>
+<!--                        <li>-->
+<!--                            <label>状态：</label>-->
+<!--                            <select name="status" th:with="type=${@dict.getType('t_withdrawal_status')}">-->
+<!--                                <option value="">所有</option>-->
+<!--                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>-->
+<!--                            </select>-->
+<!--                        </li>-->
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i> 搜索</a>
                             <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i> 重置</a>
@@ -110,13 +110,13 @@
                         return $.table.selectDictLabel(orderTypeDatas, value);
                     }
                 },
-                {
-                    field: 'status',
-                    title: '状态',
-                    formatter: function(value, row, index) {
-                        return $.table.selectDictLabel(statusDatas, value);
-                    }
-                },
+                // {
+                //     field: 'status',
+                //     title: '状态',
+                //     formatter: function(value, row, index) {
+                //         return $.table.selectDictLabel(statusDatas, value);
+                //     }
+                // },
                 {
                     field: 'createTime',
                     title: '创建时间'

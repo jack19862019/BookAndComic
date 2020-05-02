@@ -32,6 +32,10 @@ public class TAgentCenterController extends BaseController
 
     @Autowired
     private ITAgentService tAgentService;
+    @Autowired
+    private SysPasswordService passwordService;
+    @Autowired
+    private ISysUserService userService;
 
     @RequiresPermissions("business:center:view")
     @GetMapping()
@@ -54,6 +58,10 @@ public class TAgentCenterController extends BaseController
     @ResponseBody
     public AjaxResult editSave(TAgent tAgent)
     {
+        SysUser user = userService.selectUserByLoginName(tAgent.getProxyNickName());
+        user.setSalt(ShiroUtils.randomSalt());
+        user.setPassword(passwordService.encryptPassword(tAgent.getProxyNickName(), tAgent.getPassword(), user.getSalt()));
+        userService.resetUserPwd(user);
         return toAjax(tAgentService.updateTAgent(tAgent));
     }
 }
