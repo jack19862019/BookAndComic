@@ -21,7 +21,7 @@
         select id, create_time, update_time, money, order_no, user_id, proxy_id, status from t_agent_balance_log
     </sql>
 
-    <select id="selectTAgentBalanceLogList" parameterType="TAgentBalanceLog" resultType="com.ruoyi.system.params.AgentListVo">
+    <select id="selectTAgentBalanceLogList" parameterType="TAgentBalanceLog" resultType="com.ruoyi.system.domain.agent.TAgentBalanceLog">
         select g.id,
         g.create_time as createTime,
         g.update_time as updateTime,

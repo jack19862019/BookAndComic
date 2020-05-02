@@ -70,6 +70,11 @@ public class TAgbaStatisticsController extends BaseController
         }
 
         List<TAgentBalanceLog> list = tAgentBalanceLogService.selectTAgentBalanceLogList(tAgentBalanceLog);
+        for (int i = 0; i < list.size(); i++) {
+            TAgentBalanceLog log = list.get(i);
+            double ceil = Math.ceil(list.get(i).getMoney() * (1 - tAgent.getRatio()));
+            log.setMoney(ceil);
+        }
         return getDataTable(list);
     }
 
