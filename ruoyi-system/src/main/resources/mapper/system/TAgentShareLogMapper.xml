@@ -97,28 +97,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="shareDay" resultType="java.lang.Double">
-        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log
+        SELECT IFNULL(SUM(f_money),0) as money FROM t_agent_share_log
         <where>
             <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
              AND TO_DAYS(create_time) = TO_DAYS(NOW())
         </where>
     </select>
     <select id="shareYesterday" resultType="java.lang.Double">
-        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log
+        SELECT IFNULL(SUM(f_money),0) as money FROM t_agent_share_log
         <where>
             <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
             AND TO_DAYS(NOW()) - TO_DAYS(create_time) = 1
         </where>
     </select>
     <select id="shareMonth" resultType="java.lang.Double">
-       SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log
+       SELECT IFNULL(SUM(f_money),0) as money FROM t_agent_share_log
         <where>
             <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
             AND  DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
         </where>
     </select>
     <select id="shareTotal" resultType="java.lang.Double">
-        SELECT IFNULL(SUM(c_money),0) as money FROM t_agent_share_log
+        SELECT IFNULL(SUM(f_money),0) as money FROM t_agent_share_log
         <where>
             <if test="proxyId != null "> and proxy_id = #{proxyId}</if>
         </where>

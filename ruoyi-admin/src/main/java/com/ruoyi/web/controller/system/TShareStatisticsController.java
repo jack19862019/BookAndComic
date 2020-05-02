@@ -74,6 +74,9 @@ public class TShareStatisticsController extends BaseController
             tAgentShareLog.setProxyId(tAgent.getId());
         }
         List<TAgentShareLog> list = tAgentShareLogService.selectTAgentShareLogList(tAgentShareLog);
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setcMoney(Math.ceil(list.get(i).getcMoney()*(1-tAgent.getSeparate())));
+        }
         return getDataTable(list);
     }
 
