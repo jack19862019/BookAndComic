@@ -4,6 +4,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.domain.agent.TAgbaParams;
 import com.ruoyi.system.domain.agent.TAgent;
 import com.ruoyi.system.domain.agent.TAgentBalanceLog;
 import com.ruoyi.system.domain.share.TAgentShareLog;
@@ -45,11 +46,30 @@ public class TAgbaStatisticsController extends BaseController
         if(tAgent!=null){
             tAgentBalanceLog.setProxyId(tAgent.getId());
         }
-
-        mmap.put("topUpDay", tAgentBalanceLogService.topUpDay(tAgentBalanceLog));
-        mmap.put("topUpYesterday", tAgentBalanceLogService.topUpYesterday(tAgentBalanceLog));
-        mmap.put("topUpMonth", tAgentBalanceLogService.topUpMonth(tAgentBalanceLog));
-        mmap.put("topUpTotal", tAgentBalanceLogService.topUpTotal(tAgentBalanceLog));
+        List<TAgbaParams> topUpDay = tAgentBalanceLogService.topUpDay(tAgentBalanceLog);
+        for (int i = 0; i < topUpDay.size(); i++) {
+            double ceil = Math.ceil(topUpDay.get(i).getMoney() * (1 - tAgent.getRatio()));
+           topUpDay.get(i).setMoney(ceil);
+        }
+        List<TAgbaParams> topUpYesterday = tAgentBalanceLogService.topUpYesterday(tAgentBalanceLog);
+        for (int i = 0; i < topUpYesterday.size(); i++) {
+            double ceil = Math.ceil(topUpYesterday.get(i).getMoney() * (1 - tAgent.getRatio()));
+            topUpYesterday.get(i).setMoney(ceil);
+        }
+        List<TAgbaParams> topUpMonth =  tAgentBalanceLogService.topUpMonth(tAgentBalanceLog);
+        for (int i = 0; i < topUpMonth.size(); i++) {
+            double ceil = Math.ceil(topUpMonth.get(i).getMoney() * (1 - tAgent.getRatio()));
+            topUpMonth.get(i).setMoney(ceil);
+        }
+        List<TAgbaParams> topUpTotal= tAgentBalanceLogService.topUpTotal(tAgentBalanceLog);
+        for (int i = 0; i < topUpTotal.size(); i++) {
+            double ceil = Math.ceil(topUpTotal.get(i).getMoney() * (1 - tAgent.getRatio()));
+            topUpTotal.get(i).setMoney(ceil);
+        }
+        mmap.put("topUpDay", topUpDay);
+        mmap.put("topUpYesterday", topUpYesterday);
+        mmap.put("topUpMonth", topUpMonth);
+        mmap.put("topUpTotal", topUpTotal);
         return prefix + "/list";
     }
 
